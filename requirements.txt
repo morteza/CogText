@@ -1,0 +1,6 @@
+rdflib
+# owlready2
+pandas
+dask[dataframe]
+
+metapub
