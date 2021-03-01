@@ -1,0 +1,3850 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/morteza/ontologies/2019/11/executive-functions-ontology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/morteza/ontologies/2019/11/executive-functions-ontology">
+    <Prefix name="" IRI="http://www.semanticweb.org/morteza/ontologies/2019/11/executive-functions-ontology"/>
+    <Prefix name="efo" IRI="http://www.semanticweb.org/morteza/ontologies/2019/11/executive-functions#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="cogat" IRI="http://www.cognitiveatlas.org/ontology/cogat.owl#"/>
+    <Prefix name="cogpo" IRI="http://www.cogpo.org/ontologies/CogPOver2010.owl#"/>
+    <Import>http://protege.stanford.edu/plugins/owl/dc/protege-dc.owl</Import>
+    <Declaration>
+        <Class IRI="#ANT"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AX-CPT"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Accuracy"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AdaptiveNback"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AdvancedProgressiveMatrices"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AnalogyMakingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AnglingRisk"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AnimalShifting"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AntiSaccadeTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ArithmaticSpanTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ArrowTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AttentionalBlinkTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AttentionalNetworkTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AuditoryAttention"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AutomatedOperationSpanTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BIS11"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BISBAS"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BackwardSpanTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BackwardsColorRecallTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BackwardsDigitSpan"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BalanceBeamTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BalloonAnalougeRiskTakingTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BearAlligatorTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BehaverseTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BehavioralControl"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BehavioralMeasure"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BehavioralRegulation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BelvalCardSortingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BelvalMatricesTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BickelTitrator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BlockDesignSubtest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BlockSpan"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BoxCrossingDualTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Brain"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BriefSelfControl"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CCT"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CCTCold"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CCTHot"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CRT"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CascadeOfControlModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CategoryFluency"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CategorySwitchTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CellType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CentralExecutive"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ChoiceRT"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ChoiceReactionTimeTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CognitiveFlexibility"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CognitiveFlexibilityTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CognitiveProcess"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CognitiveTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CogntiveControl"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ColorShapeTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ColoredProgressiveMatrices"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ComplexSpan"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ContextProcessing"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ContingencyNamingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ContiniousPerformanceTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ControlledAttentionTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CoreExecutiveFunction"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CorsiBlockSpan"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CountingRecall"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CountingSpanTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Creativity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CuedUnpredictableSwitchTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#D2TargetDetection"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DOSPERTEB"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DOSPERTRP"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DOSPERTRT"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DPX"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DeductiveReasoning"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DegradedVigilance"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DelayChoice"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DelayDiscountingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DelayedAlternationTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Dickman"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Dietary"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DigitGoNoGo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DigitShiftingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DigitSpanTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DimensionSwitchingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DimensionalChangeCardSort"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DirectedForgetting"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Discounting"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Dragon"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DualTaskCoordination"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ERQ"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Eating"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EffectivePerformance"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EmotionalControl"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EmotionalRegulation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EnkaviTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ExecutiveControl"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ExecutiveFunctionsModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ExpressiveAttentionTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FTP"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FeedbackLearning"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FigureGoNoGo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FiveFacetMindfulness"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FlankerTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FlexibilityTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FlexibleItemSelectionTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Fluency"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FluidIntelligence"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ForwardsDigitSpan"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Generativity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GiftDelay"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GiftWrap"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GoNoGo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GrassSnow"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GritScale"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Gyrus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HaylingTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HeadToesKneesShouldersTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Hemisphere"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HierarchicalRule"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HigherOrderExecutiveFunction"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HoltLaury"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#I7"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#IncompatibilityTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InformationSampling"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Inhibition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InhibitoryControl"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Initiation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InterferenceControl"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#IowaGamblingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#KeepTrack"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#KeepTrackTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Kirby"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#KnockAndTap"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LCAT"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LetterFluency"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LetterMemoryTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LetterMonitoring"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LetterNumberSequencing"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LexicalFluencyTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LezakConceptualModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ListeningRecallTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Lobe"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LocalGlobal"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LocalGlobalTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LogicalReasoning"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LuriaHandGame"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MAAS"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MONITORTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MPQControl"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MajorityFunctionTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MatrixMonitoringTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Measure"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MentalCountersTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MillerCohenModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Mindfulness"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MisterXTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MiyakeFriedmanModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ModifiedCardSortTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MonkeyLadderTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MoreLessOddEvenTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MotivationalDrive"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MotorSSS"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MultipleObjectTracking"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MultipleObjectTrackingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NBack"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NebraskaBarnyard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NervousSystem"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NineBoxes"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NumberLetterTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ObjectSubstitutionTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ObservableMeasure"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OddOneOutTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OdditySwitchingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OperatingSpan"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OrderedClickTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Organization"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PRP"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PatternComparisonTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PencilTappingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PickThePictureGame"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PictorialUpdatingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PictureSymbolTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PlusMinusTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PolygonsTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ProbSelection"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ProblemSolving"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ProblemSolvingModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PsychomotorVigilanceTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PurposiveAction"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Questionnaire"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RandomLetterGenerationTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RandomNumberGenerationTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Ravens"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RecentProbes"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RegexTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RelationalReasoning"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ResponseConflict"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ResponseInhibition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ReversalLearning"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ReverseCategorization"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RevisedAttentionalNetworkTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RewardProcessing"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RunningSpan"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SASModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SOC"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SRCompatibilityTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#STOPTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SelfControl"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SelfControlSchedule"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SelfRegulation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SelfRegulatoryModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SemanticFluencyTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SensationSeeking"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SensitivityIndex"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SentenceCompletionTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SentenceRepetition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sequencing"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SerialReactionTimeTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SerialSubtractionOfSevens"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ShapeMatching"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ShapeSchool"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Shift"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Shifting"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Simon"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SimonSays"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SimonTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SimpleRT"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SimpleReactionTimeTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SnackDelay"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SomethingsTheSameGame"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SortingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpanTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpatialConflictArrows"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpatialSpan"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpinThePots"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StandardProgressiveMatrices"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StimSSS"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StimulusResponseMappingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StopSignal"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StopSignalTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StrategicRetrieval"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Stroop"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Switching"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TIPI"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TargetHitTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskSwitching"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TempTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TestOfVariablesOfAttention"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TheoriesOfWillpower"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TimePerspective"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TissueType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TokenSearchTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TopDownInhibitoryControlModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TowerOfHanoi"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TowerOfLondon"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ToySort"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TrailMakingTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TwoStep"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#UPPSP"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Updating"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#UsefulFieldOfViewTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VerbalFluencyTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VerbalProcessing"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VerbalSpanTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VisualMatrixSpanTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VisuospatialProcessing"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VisuospatialSpanTask"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Volition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#WisconsinCardSortTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#WorkingMemory"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#WorkingMemoryModel"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="cogat:measured_by"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#measures"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#behaversePrefix"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#behaverseShortName"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#EmotionalControl"/>
+        <Class IRI="#EmotionalRegulation"/>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Inhibition"/>
+        <Class IRI="#InhibitoryControl"/>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#ANT"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AX-CPT"/>
+        <Class IRI="#ContiniousPerformanceTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AX-CPT"/>
+        <Class IRI="#RegexTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Accuracy"/>
+        <Class IRI="#BehavioralMeasure"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AdaptiveNback"/>
+        <Class IRI="#NBack"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AdvancedProgressiveMatrices"/>
+        <Class IRI="#Ravens"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AnalogyMakingTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AnglingRisk"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AnimalShifting"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AntiSaccadeTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ArithmaticSpanTask"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ArrowTask"/>
+        <Class IRI="#TempTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AttentionalBlinkTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AttentionalNetworkTest"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AuditoryAttention"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AutomatedOperationSpanTask"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BIS11"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BISBAS"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BackwardSpanTask"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BackwardsColorRecallTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BackwardsDigitSpan"/>
+        <Class IRI="#DigitSpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BalanceBeamTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BalloonAnalougeRiskTakingTest"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BearAlligatorTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BehavioralControl"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BehavioralMeasure"/>
+        <Class IRI="#ObservableMeasure"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BehavioralRegulation"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BelvalCardSortingTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BelvalCardSortingTask"/>
+        <Class IRI="#WisconsinCardSortTest"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BelvalMatricesTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BickelTitrator"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BlockDesignSubtest"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BlockSpan"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BoxCrossingDualTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Brain"/>
+        <Class IRI="#NervousSystem"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BriefSelfControl"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CCT"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CCTCold"/>
+        <Class IRI="#CCT"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CCTHot"/>
+        <Class IRI="#CCT"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CRT"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CascadeOfControlModel"/>
+        <Class IRI="#ExecutiveFunctionsModel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CategoryFluency"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CategorySwitchTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CellType"/>
+        <Class IRI="#NervousSystem"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CentralExecutive"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ChoiceRT"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ChoiceReactionTimeTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CognitiveFlexibility"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CognitiveFlexibility"/>
+        <Class IRI="#CoreExecutiveFunction"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CognitiveFlexibilityTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CogntiveControl"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ColorShapeTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ColoredProgressiveMatrices"/>
+        <Class IRI="#Ravens"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ComplexSpan"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ContextProcessing"/>
+        <Class IRI="#CogntiveControl"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ContingencyNamingTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ContiniousPerformanceTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ControlledAttentionTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CoreExecutiveFunction"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CorsiBlockSpan"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CountingRecall"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CountingSpanTask"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Creativity"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CuedUnpredictableSwitchTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#D2TargetDetection"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DOSPERTEB"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DOSPERTRP"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DOSPERTRT"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DPX"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeductiveReasoning"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DegradedVigilance"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DelayChoice"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DelayDiscountingTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DelayedAlternationTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Dickman"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Dietary"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DigitGoNoGo"/>
+        <Class IRI="#GoNoGo"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DigitShiftingTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DigitSpanTask"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DimensionSwitchingTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DimensionalChangeCardSort"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DirectedForgetting"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Discounting"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Dragon"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DualTaskCoordination"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ERQ"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Eating"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#EffectivePerformance"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#EmotionalControl"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#EmotionalRegulation"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ExecutiveControl"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ExpressiveAttentionTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FTP"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FeedbackLearning"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FigureGoNoGo"/>
+        <Class IRI="#GoNoGo"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FiveFacetMindfulness"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FlankerTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FlexibilityTest"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FlexibleItemSelectionTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Fluency"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FluidIntelligence"/>
+        <Class IRI="#HigherOrderExecutiveFunction"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ForwardsDigitSpan"/>
+        <Class IRI="#DigitSpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Generativity"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GiftDelay"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GiftWrap"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GoNoGo"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GrassSnow"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GritScale"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Gyrus"/>
+        <Class IRI="#NervousSystem"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HaylingTest"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HeadToesKneesShouldersTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Hemisphere"/>
+        <Class IRI="#NervousSystem"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HierarchicalRule"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HigherOrderExecutiveFunction"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HoltLaury"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#I7"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#IncompatibilityTest"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#InformationSampling"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Inhibition"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Inhibition"/>
+        <Class IRI="#CoreExecutiveFunction"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#InhibitoryControl"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Initiation"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#InterferenceControl"/>
+        <Class IRI="#Inhibition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#IowaGamblingTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#KeepTrack"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#KeepTrackTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Kirby"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#KnockAndTap"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LCAT"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LetterFluency"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LetterMemoryTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LetterMonitoring"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LetterNumberSequencing"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LexicalFluencyTest"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LezakConceptualModel"/>
+        <Class IRI="#ExecutiveFunctionsModel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ListeningRecallTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Lobe"/>
+        <Class IRI="#NervousSystem"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LocalGlobal"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LocalGlobalTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LogicalReasoning"/>
+        <Class IRI="#HigherOrderExecutiveFunction"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LuriaHandGame"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MAAS"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MONITORTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MPQControl"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MajorityFunctionTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MatrixMonitoringTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MentalCountersTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MillerCohenModel"/>
+        <Class IRI="#ExecutiveFunctionsModel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Mindfulness"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MisterXTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MiyakeFriedmanModel"/>
+        <Class IRI="#ExecutiveFunctionsModel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ModifiedCardSortTest"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MonkeyLadderTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MoreLessOddEvenTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MotivationalDrive"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MotorSSS"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MultipleObjectTracking"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MultipleObjectTrackingTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NBack"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NBack"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NebraskaBarnyard"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NineBoxes"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NumberLetterTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ObjectSubstitutionTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ObservableMeasure"/>
+        <Class IRI="#Measure"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OddOneOutTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OddOneOutTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OdditySwitchingTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OperatingSpan"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OrderedClickTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Organization"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PRP"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PatternComparisonTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PencilTappingTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PickThePictureGame"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PictorialUpdatingTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PictureSymbolTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PlusMinusTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PolygonsTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ProbSelection"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ProblemSolving"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ProblemSolvingModel"/>
+        <Class IRI="#ExecutiveFunctionsModel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PsychomotorVigilanceTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PurposiveAction"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RandomLetterGenerationTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RandomNumberGenerationTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Ravens"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RecentProbes"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RegexTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RelationalReasoning"/>
+        <Class IRI="#HigherOrderExecutiveFunction"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ResponseConflict"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ResponseInhibition"/>
+        <Class IRI="#Inhibition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ReversalLearning"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ReverseCategorization"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RevisedAttentionalNetworkTest"/>
+        <Class IRI="#AttentionalNetworkTest"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RewardProcessing"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RunningSpan"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SASModel"/>
+        <Class IRI="#ExecutiveFunctionsModel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SOC"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SRCompatibilityTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#STOPTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SelfControl"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SelfControlSchedule"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SelfRegulation"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SelfRegulatoryModel"/>
+        <Class IRI="#ExecutiveFunctionsModel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SemanticFluencyTest"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SensationSeeking"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SensitivityIndex"/>
+        <Class IRI="#BehavioralMeasure"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SentenceCompletionTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SentenceRepetition"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Sequencing"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SerialReactionTimeTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SerialSubtractionOfSevens"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ShapeMatching"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ShapeSchool"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Shift"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Shifting"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Simon"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SimonSays"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SimonTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SimpleRT"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SimpleReactionTimeTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SnackDelay"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SomethingsTheSameGame"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SortingTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpanTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpatialConflictArrows"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpatialSpan"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpinThePots"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StandardProgressiveMatrices"/>
+        <Class IRI="#Ravens"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StimSSS"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StimulusResponseMappingTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StopSignal"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StopSignalTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StrategicRetrieval"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Stroop"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Switching"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TIPI"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TargetHitTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TaskSwitching"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TestOfVariablesOfAttention"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TheoriesOfWillpower"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TimePerspective"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TissueType"/>
+        <Class IRI="#NervousSystem"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TokenSearchTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TopDownInhibitoryControlModel"/>
+        <Class IRI="#ExecutiveFunctionsModel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TowerOfHanoi"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TowerOfLondon"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ToySort"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TrailMakingTask"/>
+        <Class IRI="#GoNoGo"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TwoStep"/>
+        <Class IRI="#EnkaviTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#UPPSP"/>
+        <Class IRI="#Questionnaire"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Updating"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#UsefulFieldOfViewTask"/>
+        <Class IRI="#BehaverseTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VerbalFluencyTask"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VerbalProcessing"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VerbalSpanTask"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VisualMatrixSpanTask"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VisuospatialProcessing"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VisuospatialSpanTask"/>
+        <Class IRI="#SpanTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Volition"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#WisconsinCardSortTest"/>
+        <Class IRI="#CognitiveTask"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#WorkingMemory"/>
+        <Class IRI="#CognitiveProcess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#WorkingMemory"/>
+        <Class IRI="#CoreExecutiveFunction"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#WorkingMemoryModel"/>
+        <Class IRI="#ExecutiveFunctionsModel"/>
+    </SubClassOf>
+    <InverseObjectProperties>
+        <ObjectProperty abbreviatedIRI="cogat:measured_by"/>
+        <ObjectProperty IRI="#measures"/>
+    </InverseObjectProperties>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#measures"/>
+        <Class IRI="#CognitiveTask"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#measures"/>
+        <Class IRI="#CognitiveProcess"/>
+    </ObjectPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ANT</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AX-CPT</IRI>
+        <Literal>AX-CPT</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#AdaptiveNback</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AdaptiveNback</IRI>
+        <Literal>Adaptive N-back</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#AnalogyMakingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AnalogyMakingTask</IRI>
+        <Literal>Analogy Making</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#AnglingRisk</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#AnimalShifting</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AnimalShifting</IRI>
+        <Literal>Animal Shifting</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#AntiSaccadeTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AntiSaccadeTask</IRI>
+        <Literal>Anti Saccade</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ArithmaticSpanTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ArithmaticSpanTask</IRI>
+        <Literal>Arithmatic Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AttentionalBlinkTask</IRI>
+        <Literal>Attentional Blink</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#AttentionalNetworkTest</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AttentionalNetworkTest</IRI>
+        <Literal>ANT</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AttentionalNetworkTest</IRI>
+        <Literal>Attention Network Test</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AttentionalNetworkTest</IRI>
+        <Literal>Attentional Network Test</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#AuditoryAttention</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AuditoryAttention</IRI>
+        <Literal>Auditory Attention</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#AutomatedOperationSpanTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AutomatedOperationSpanTask</IRI>
+        <Literal>Automated Operation Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BackwardSpanTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BackwardSpanTask</IRI>
+        <Literal>Backward Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BackwardsColorRecallTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BackwardsColorRecallTask</IRI>
+        <Literal>Backward Color Recall</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BackwardsDigitSpan</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BalanceBeamTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BalanceBeamTask</IRI>
+        <Literal>Balance Beam</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BalloonAnalougeRiskTakingTest</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BalloonAnalougeRiskTakingTest</IRI>
+        <Literal>BART</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BalloonAnalougeRiskTakingTest</IRI>
+        <Literal>Balloon Analouge Risk Taking</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BearAlligatorTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BearAlligatorTask</IRI>
+        <Literal>Bear Alligator</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#BehaverseTask</IRI>
+        <Literal>temp</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BehavioralControl</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BehavioralControl</IRI>
+        <Literal>Behavioral Control</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BehavioralRegulation</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BehavioralRegulation</IRI>
+        <Literal>Behavioral Regulation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BelvalCardSortingTask</IRI>
+        <Literal>BCS</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BelvalCardSortingTask</IRI>
+        <Literal>Belval Card Sorting</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#behaversePrefix"/>
+        <IRI>#BelvalMatricesTask</IRI>
+        <Literal>BCS</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BickelTitrator</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BlockDesignSubtest</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BlockDesignSubtest</IRI>
+        <Literal>Block Design Subtest</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BlockSpan</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BlockSpan</IRI>
+        <Literal>Block Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#BoxCrossingDualTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#BoxCrossingDualTask</IRI>
+        <Literal>Box Crossing Dual</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CCTCold</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CCTHot</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CRT</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CategoryFluency</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CategoryFluency</IRI>
+        <Literal>Category Fluency</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CategorySwitchTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CategorySwitchTask</IRI>
+        <Literal>Category Switch</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CellType</IRI>
+        <Literal>http://www.thttp://www.talairach.org/labels.html</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#CellType</IRI>
+        <Literal>Talairach Deamon Label</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CentralExecutive</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CentralExecutive</IRI>
+        <Literal>Central Executive</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ChoiceRT</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CognitiveFlexibility</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CognitiveFlexibility</IRI>
+        <Literal>diamond2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CognitiveFlexibility</IRI>
+        <Literal>Cognitive Flexibility</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CognitiveFlexibilityTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CognitiveFlexibilityTask</IRI>
+        <Literal>Cognitive Flexibility</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CognitiveProcess</IRI>
+        <Literal>Unobservable cognitive process or generally speaking a latent construct</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/description"/>
+        <IRI>#CogntiveControl</IRI>
+        <Literal>Cognitive control enables optimal biasing of attention, perception, and actions in the service of mental or behavioral goals (@Mäki-Marttunen2019)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CogntiveControl</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#CogntiveControl</IRI>
+        <Literal>Reward induces more proactive processing in the AX-CPT task, whereas context load induces reactive processing (Mäki-Marttunen2019)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CogntiveControl</IRI>
+        <Literal>Cognitive Control</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ColorShapeTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ColorShapeTask</IRI>
+        <Literal>Color Shape</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ComplexSpan</IRI>
+        <Literal>Complex Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/description"/>
+        <IRI>#ContextProcessing</IRI>
+        <Literal>the active maintenance of updated information regarding the relations between stimuli and response (@polizzoto2018)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#ContextProcessing</IRI>
+        <Literal>context processing is a core aspect of cognitive control (polizzotto2018)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ContingencyNamingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ContingencyNamingTask</IRI>
+        <Literal>Contingency Naming</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ContiniousPerformanceTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ContiniousPerformanceTask</IRI>
+        <Literal>CPT</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ContiniousPerformanceTask</IRI>
+        <Literal>Continious Performance Task</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ControlledAttentionTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ControlledAttentionTask</IRI>
+        <Literal>Controlled Attention</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CoreExecutiveFunction</IRI>
+        <Literal>diamond2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CorsiBlockSpan</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CorsiBlockSpan</IRI>
+        <Literal>Corsi Block Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CountingRecall</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CountingRecall</IRI>
+        <Literal>Counting Recall</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CountingSpanTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CountingSpanTask</IRI>
+        <Literal>Counting Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Creativity</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Creativity</IRI>
+        <Literal>Creativity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#CuedUnpredictableSwitchTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CuedUnpredictableSwitchTask</IRI>
+        <Literal>Cued Unpredictable Switch</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#D2TargetDetection</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#D2TargetDetection</IRI>
+        <Literal>D2 Target Detection</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DeductiveReasoning</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DeductiveReasoning</IRI>
+        <Literal>Deductive Reasoning</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DegradedVigilance</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DegradedVigilance</IRI>
+        <Literal>Degraded Vigilance</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DelayChoice</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DelayChoice</IRI>
+        <Literal>Delay Choice</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DelayDiscountingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DelayDiscountingTask</IRI>
+        <Literal>Delay Discounting Task</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DelayedAlternationTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DelayedAlternationTask</IRI>
+        <Literal>Delayed Alternation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Dietary</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DigitGoNoGo</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DigitShiftingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DigitShiftingTask</IRI>
+        <Literal>Digit Shifting</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DigitSpanTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DigitSpanTask</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DigitSpanTask</IRI>
+        <Literal>Digit Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DimensionSwitchingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DimensionSwitchingTask</IRI>
+        <Literal>Dimension Switching</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DimensionalChangeCardSort</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DimensionalChangeCardSort</IRI>
+        <Literal>DCCS</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DimensionalChangeCardSort</IRI>
+        <Literal>Dimensional Change Card Sort</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DirectedForgetting</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Discounting</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Dragon</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Dragon</IRI>
+        <Literal>Dragon</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#DualTaskCoordination</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DualTaskCoordination</IRI>
+        <Literal>Dual Task Coordination</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#EffectivePerformance</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#EffectivePerformance</IRI>
+        <Literal>Effective Performance</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#EmotionalControl</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#EmotionalControl</IRI>
+        <Literal>Emotional Control</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#EmotionalRegulation</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#EmotionalRegulation</IRI>
+        <Literal>Emotional Regulation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ExecutiveControl</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ExecutiveControl</IRI>
+        <Literal>Executive Control</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ExpressiveAttentionTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ExpressiveAttentionTask</IRI>
+        <Literal>Expressive Attention</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#FeedbackLearning</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#FeedbackLearning</IRI>
+        <Literal>Feedback Learning</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#FigureGoNoGo</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#FlankerTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#FlankerTask</IRI>
+        <Literal>Flanker</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#FlexibilityTest</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#FlexibilityTest</IRI>
+        <Literal>Flexibility</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#FlexibleItemSelectionTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#FlexibleItemSelectionTask</IRI>
+        <Literal>Flexible Item Selection</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Fluency</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Fluency</IRI>
+        <Literal>Fluency</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#FluidIntelligence</IRI>
+        <Literal>diamond2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#FluidIntelligence</IRI>
+        <Literal>Fluid Intelligence</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ForwardsDigitSpan</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Generativity</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Generativity</IRI>
+        <Literal>Generativity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#GiftDelay</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#GiftDelay</IRI>
+        <Literal>Gift Delay</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#GiftWrap</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#GiftWrap</IRI>
+        <Literal>Gift Wrap</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#GoNoGo</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#GoNoGo</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#GoNoGo</IRI>
+        <Literal>Go/NoGo</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#GrassSnow</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#GrassSnow</IRI>
+        <Literal>Grass Snow</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#HaylingTest</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#HaylingTest</IRI>
+        <Literal>Hayling Test</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#HeadToesKneesShouldersTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#HeadToesKneesShouldersTask</IRI>
+        <Literal>Head-Toes-Knees-Shoulders</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#HigherOrderExecutiveFunction</IRI>
+        <Literal>diamond2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#IncompatibilityTest</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#IncompatibilityTest</IRI>
+        <Literal>Incompatibility Test</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Inhibition</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Inhibition</IRI>
+        <Literal>diamond2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Inhibition</IRI>
+        <Literal>Inhibition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#InhibitoryControl</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#InhibitoryControl</IRI>
+        <Literal>Inhibition Control</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Initiation</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Initiation</IRI>
+        <Literal>Initiation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#InterferenceControl</IRI>
+        <Literal>diamond2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#InterferenceControl</IRI>
+        <Literal>Inference Control</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#IowaGamblingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#IowaGamblingTask</IRI>
+        <Literal>IGT</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#IowaGamblingTask</IRI>
+        <Literal>Iowa Gambling Task</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#KeepTrack</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#KeepTrackTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#KeepTrackTask</IRI>
+        <Literal>Keep Track</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#KnockAndTap</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#KnockAndTap</IRI>
+        <Literal>Knock and Tap</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#LetterFluency</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#LetterFluency</IRI>
+        <Literal>Letter Fluency</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#LetterMemoryTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#LetterMemoryTask</IRI>
+        <Literal>Letter Memory</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#LetterMonitoring</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#LetterMonitoring</IRI>
+        <Literal>Letter Monitoring</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#LetterNumberSequencing</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#LetterNumberSequencing</IRI>
+        <Literal>LNS</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#LetterNumberSequencing</IRI>
+        <Literal>Letter Number Sequencing</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#LexicalFluencyTest</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#LexicalFluencyTest</IRI>
+        <Literal>Lexical Fluency</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ListeningRecallTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ListeningRecallTask</IRI>
+        <Literal>Listening Recall</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#LocalGlobalTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#LocalGlobalTask</IRI>
+        <Literal>Local Global</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#LogicalReasoning</IRI>
+        <Literal>diamond2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#LogicalReasoning</IRI>
+        <Literal>Logical Reasoning</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#LuriaHandGame</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#LuriaHandGame</IRI>
+        <Literal>Luria Hand Game</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#MONITORTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MONITORTask</IRI>
+        <Literal>MONITOR</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MajorityFunctionTask</IRI>
+        <Literal>MFT</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MajorityFunctionTask</IRI>
+        <Literal>Majority Function</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#MatrixMonitoringTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MatrixMonitoringTask</IRI>
+        <Literal>Matrix Monitoring</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#MentalCountersTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MentalCountersTask</IRI>
+        <Literal>Mental Counters</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Mindfulness</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Mindfulness</IRI>
+        <Literal>Mindfulness</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#MisterXTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MisterXTask</IRI>
+        <Literal>Mister X</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ModifiedCardSortTest</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ModifiedCardSortTest</IRI>
+        <Literal>MCST</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ModifiedCardSortTest</IRI>
+        <Literal>Modified Card Sorting Test</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MonkeyLadderTask</IRI>
+        <Literal>Monkey Ladder</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#MoreLessOddEvenTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MoreLessOddEvenTask</IRI>
+        <Literal>More Less Odd Even</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#MotivationalDrive</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MotivationalDrive</IRI>
+        <Literal>Motivational Drive</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MultipleObjectTracking</IRI>
+        <Literal>MOT</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MultipleObjectTracking</IRI>
+        <Literal>Multiple Object Tracking</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#behaversePrefix"/>
+        <IRI>#MultipleObjectTrackingTask</IRI>
+        <Literal>MOT</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#NBack</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#NBack</IRI>
+        <Literal>N-back</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#NebraskaBarnyard</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#NebraskaBarnyard</IRI>
+        <Literal>Nebraska Barnyard</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#NineBoxes</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#NineBoxes</IRI>
+        <Literal>Nine Boxes</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#NumberLetterTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#NumberLetterTask</IRI>
+        <Literal>Number Letter</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ObjectSubstitutionTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ObjectSubstitutionTask</IRI>
+        <Literal>Object Substitution</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#OddOneOutTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#OddOneOutTask</IRI>
+        <Literal>OOO</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#OddOneOutTask</IRI>
+        <Literal>Odd One Out</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#OdditySwitchingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#OdditySwitchingTask</IRI>
+        <Literal>Oddity Switching</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#OperatingSpan</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#OperatingSpan</IRI>
+        <Literal>OSpan</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#behaverseShortName"/>
+        <IRI>#OrderedClickTask</IRI>
+        <Literal>OC</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#OrderedClickTask</IRI>
+        <Literal>Ordered Click</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Organization</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Organization</IRI>
+        <Literal>Organization</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#behaversePrefix"/>
+        <IRI>#PatternComparisonTask</IRI>
+        <Literal>PC</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#PencilTappingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#PencilTappingTask</IRI>
+        <Literal>Pencil Tapping</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#PickThePictureGame</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#PickThePictureGame</IRI>
+        <Literal>Pick the Picture</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#PictorialUpdatingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#PictorialUpdatingTask</IRI>
+        <Literal>Pictorial Updating</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#PictureSymbolTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#PictureSymbolTask</IRI>
+        <Literal>Picture Symbol</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#PlusMinusTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#PlusMinusTask</IRI>
+        <Literal>Plus Minus Task</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#PolygonsTask</IRI>
+        <Literal>Polygons</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ProblemSolving</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ProblemSolving</IRI>
+        <Literal>Problem Solving</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#PsychomotorVigilanceTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#PsychomotorVigilanceTask</IRI>
+        <Literal>Pychomotor Vigilance</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#PurposiveAction</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#PurposiveAction</IRI>
+        <Literal>Responsive Action</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#RandomLetterGenerationTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RandomLetterGenerationTask</IRI>
+        <Literal>Random Letter Generation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#RandomNumberGenerationTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RandomNumberGenerationTask</IRI>
+        <Literal>Random Number Generation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Ravens</IRI>
+        <Literal>RPM</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Ravens</IRI>
+        <Literal>Raven&apos;s Progressive Matrices</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Ravens</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Ravens</IRI>
+        <Literal>Raven&apos;s Matrices</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RegexTask</IRI>
+        <Literal>RE</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RegexTask</IRI>
+        <Literal>RegEx</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#RelationalReasoning</IRI>
+        <Literal>diamond2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RelationalReasoning</IRI>
+        <Literal>Relational Reasoning</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ResponseConflict</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ResponseConflict</IRI>
+        <Literal>Response Conflict</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ResponseInhibition</IRI>
+        <Literal>diamond2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ResponseInhibition</IRI>
+        <Literal>Response Inhibition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ReversalLearning</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ReversalLearning</IRI>
+        <Literal>Reversal Learning</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ReverseCategorization</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ReverseCategorization</IRI>
+        <Literal>Reverse Categorization</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#RevisedAttentionalNetworkTest</IRI>
+        <Literal>mackie2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RevisedAttentionalNetworkTest</IRI>
+        <Literal>ANT-R</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RevisedAttentionalNetworkTest</IRI>
+        <Literal>Revised Attention Network Test</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#RewardProcessing</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RewardProcessing</IRI>
+        <Literal>Reward Processing</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#RunningSpan</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RunningSpan</IRI>
+        <Literal>Running Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SASModel</IRI>
+        <Literal>SAS</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SASModel</IRI>
+        <Literal>Supervisory Attentional System</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SRCompatibilityTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SRCompatibilityTask</IRI>
+        <Literal>SR Compatibility</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#STOPTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#STOPTask</IRI>
+        <Literal>STOP</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SelfControl</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SelfControl</IRI>
+        <Literal>Self Control</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SelfControlSchedule</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SelfControlSchedule</IRI>
+        <Literal>Self Control Schedule</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SemanticFluencyTest</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SemanticFluencyTest</IRI>
+        <Literal>Semantic Fluency</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SensitivityIndex</IRI>
+        <Literal>d&apos;</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SentenceCompletionTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SentenceCompletionTask</IRI>
+        <Literal>Sentence Completion</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SentenceRepetition</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SentenceRepetition</IRI>
+        <Literal>Sentence Repetition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Sequencing</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Sequencing</IRI>
+        <Literal>Sequencing</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SerialSubtractionOfSevens</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SerialSubtractionOfSevens</IRI>
+        <Literal>Serial Substraction of Sevens</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ShapeSchool</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ShapeSchool</IRI>
+        <Literal>Shape School</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Shifting</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Shifting</IRI>
+        <Literal>Shifting</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SimonSays</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SimonSays</IRI>
+        <Literal>Simon Says</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SimonTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SimonTask</IRI>
+        <Literal>Simon</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SimpleReactionTimeTask</IRI>
+        <Literal>eisenberg2018</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SimpleReactionTimeTask</IRI>
+        <Literal>Simple Reaction Time</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SnackDelay</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SnackDelay</IRI>
+        <Literal>Snack Delay</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SomethingsTheSameGame</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SomethingsTheSameGame</IRI>
+        <Literal>Somethings the Same Game</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SortingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SortingTask</IRI>
+        <Literal>Sorting</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SpanTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SpatialConflictArrows</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SpatialConflictArrows</IRI>
+        <Literal>Spatial Conflict Arrows</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SpatialSpan</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SpatialSpan</IRI>
+        <Literal>Spatial Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#SpinThePots</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SpinThePots</IRI>
+        <Literal>Spin the Pots</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#behaverseShortName"/>
+        <IRI>#StimulusResponseMappingTask</IRI>
+        <Literal>SRM</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#StimulusResponseMappingTask</IRI>
+        <Literal>Stimulus Response Mapping</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#StopSignalTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#StopSignalTask</IRI>
+        <Literal>Stop Signal</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#StrategicRetrieval</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#StrategicRetrieval</IRI>
+        <Literal>Strategic Retrieval</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Stroop</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Stroop</IRI>
+        <Literal>enkavi2019</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Stroop</IRI>
+        <Literal>Stroop</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Switching</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Switching</IRI>
+        <Literal>Switching</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Switching</IRI>
+        <Literal>Task Switching</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TargetHitTask</IRI>
+        <Literal>Target Hit</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TestOfVariablesOfAttention</IRI>
+        <Literal>TOVA</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TestOfVariablesOfAttention</IRI>
+        <Literal>Test of Variables of Attention</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#behaversePrefix"/>
+        <IRI>#TokenSearchTask</IRI>
+        <Literal>TS</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TokenSearchTask</IRI>
+        <Literal>Token Search</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#TowerOfHanoi</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TowerOfHanoi</IRI>
+        <Literal>Tower of Hanoi</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#TowerOfLondon</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TowerOfLondon</IRI>
+        <Literal>Tower of London</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#ToySort</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ToySort</IRI>
+        <Literal>Toy Sort</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#TrailMakingTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TrailMakingTask</IRI>
+        <Literal>TMT</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TrailMakingTask</IRI>
+        <Literal>Trail Making Task</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Updating</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Updating</IRI>
+        <Literal>Updating</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#UsefulFieldOfViewTask</IRI>
+        <Literal>UFOV</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#UsefulFieldOfViewTask</IRI>
+        <Literal>Useful Field of View</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#VerbalFluencyTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VerbalFluencyTask</IRI>
+        <Literal>Verbal Fluency</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#VerbalProcessing</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VerbalProcessing</IRI>
+        <Literal>Verbal Processing</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#VerbalSpanTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VerbalSpanTask</IRI>
+        <Literal>Verbal Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#VisualMatrixSpanTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VisualMatrixSpanTask</IRI>
+        <Literal>Visual Matrix Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#VisuospatialProcessing</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VisuospatialProcessing</IRI>
+        <Literal>Visuospatial Processing</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#VisuospatialSpanTask</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VisuospatialSpanTask</IRI>
+        <Literal>Visuospatial Span</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#Volition</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Volition</IRI>
+        <Literal>Volition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#WisconsinCardSortTest</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#WisconsinCardSortTest</IRI>
+        <Literal>WCST</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#WisconsinCardSortTest</IRI>
+        <Literal>Wisconsin Card Sort</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#WorkingMemory</IRI>
+        <Literal>baggetta2016</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <IRI>#WorkingMemory</IRI>
+        <Literal>diamond2013</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#WorkingMemory</IRI>
+        <Literal>Working Memory</Literal>
+    </AnnotationAssertion>
+    <SubAnnotationPropertyOf>
+        <AnnotationProperty IRI="#behaversePrefix"/>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+    </SubAnnotationPropertyOf>
+    <SubAnnotationPropertyOf>
+        <AnnotationProperty IRI="#behaverseShortName"/>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+    </SubAnnotationPropertyOf>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
