@@ -1,6 +1,11 @@
 rdflib
-# owlready2
+owlready2
 pandas
-dask[dataframe]
+# dask[dataframe]
 
-metapub
+# metapub       # used in EFO to access Pubmed
+# pybliometrics # to access Scopus
+# metaknowledge
+# scholarly     # to search google scholar
+# easy-entrez
+# https://github.com/FedeClaudi/refy
