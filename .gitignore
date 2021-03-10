@@ -1,0 +1,8 @@
+.env
+
+# Protege junks
+catalog-v001.xml
+
+data/cache/
+
+__pycache__
