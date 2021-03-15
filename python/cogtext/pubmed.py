@@ -4,28 +4,41 @@ import xmltodict
 from pathlib import Path
 
 
-NLM_BASE_URL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils'
+NCBI_EUTILS_BASE_URL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils'
 
 
-def search_and_store(term, output_file, db='pubmed', api_key=os.environ['NCBI_API_KEY']):
+def search_and_store(term, output_file, db='pubmed', api_key=os.environ['NCBI_API_KEY'], suffix=[]):
   """Search for a term and store abstracts in a file
 
   Args:
-      term (str): search query to look for in titles and abstracts.
-      output_file (Path): File path to store results.
-      db (str, optional): NCBI database to search ('pubmed' or  'pmc'). Defaults to 'pubmed'.
-      api_key (string, optional): NCBI api key. Defaults to `os.environ['NCBI_API_KEY']`.
+    term (str): search query to look for in titles and abstracts.
+    output_file (Path): File path to store results.
+    db (str, optional): NCBI database to search ('pubmed' or  'pmc'). Defaults to 'pubmed'.
+    api_key (string, optional): NCBI api key. Defaults to `os.environ['NCBI_API_KEY']`.
+    suffix (list, optional): add optional suffix to the query, e.g., 'task', test', or 'survey'. Defaults to `[]`.
 
   Returns:
-      Does not return anything. Abstracts will be stored in the `output_file`.
+    Does not return anything. Abstracts will be stored in the `output_file`.
   """
 
   # step 1: create query and search
 
-  search_query = f'({term}[TIAB])'
-  url = f'{NLM_BASE_URL}/esearch.fcgi'
+  search_queries = []
+
+  if len(suffix) == 0:
+    search_queries.append(f'("{term}"[TIAB])')
+
+  for sfx in suffix:
+      search_queries.append(f'("{term} {sfx}"[TIAB])')
+
+  # build final search query
+  search_query = ' OR '.join(search_queries)  # .replace(' ', '+')
+
+  print(f'{term}: query={search_query}')
+
+  url = f'{NCBI_EUTILS_BASE_URL}/esearch.fcgi'
   params = {
-      'term': search_query.replace(' ', '+'),
+      'term': search_query,
       'usehistory': 'y',
       'db': db,
       'retmax': 0,
@@ -40,7 +53,7 @@ def search_and_store(term, output_file, db='pubmed', api_key=os.environ['NCBI_AP
   print(f'{term}: succesfully stored {results_count} search hits on NCBI history server. Now retriving them...')
 
   # step 2: fetch abstracts
-  url = f'{NLM_BASE_URL}/efetch.fcgi'
+  url = f'{NCBI_EUTILS_BASE_URL}/efetch.fcgi'
   params = {
       'db': db,
       'api_key': api_key,
