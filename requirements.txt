@@ -9,3 +9,6 @@ pandas
 # scholarly     # to search google scholar
 # easy-entrez
 # https://github.com/FedeClaudi/refy
+
+gensim
+nltk
