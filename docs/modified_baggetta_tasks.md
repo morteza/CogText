@@ -115,14 +115,17 @@
 - Contingency Naming test
 - *Counting Recall
 - Counting Span
+- Cued Unpredictable Switch (WARNING: use words and not a single phrase)
+- D2 target detection (WARNING: use words and not a single pharse)
+- Degraded Vigilance test (WARNING: use words and not a single pharse)
+- Psychomotor Vigilance Test
+- delay choice task
 
 
 ## TODO
 
-Cued Unpredictable Switch task
-D2 target detection
-Degraded Vigilance
-Delay Choice
+
+
 Delay Discounting task
 Digit-Shifting task
 Dimension-switching task
