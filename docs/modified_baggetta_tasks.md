@@ -1,3 +1,15 @@
+Why?
+
+- PubMed returns either too much search hits, very few and unrelated hits, or even no hits for some of the task names.
+- One name can be used differently in the literature (e.g., use of task/test as suffix).
+- For some reasons, PubMed returns hit for "term task" but not "term"
+
+
+Questions
+
+- does this process  bias the results?
+
+
 # Modified cognitive test phrases (based on Baggetta)
 
 
@@ -120,42 +132,39 @@
 - Degraded Vigilance test (WARNING: use words and not a single pharse)
 - Psychomotor Vigilance Test
 - delay choice task
+- Delay Discounting task
+- Delay Discounting test
+- ~~Digit-Shifting task~~
+- Dimension-switching
+- *Expressive Attention task
+- Flexibility Test -> hits do not really show the test, but tests that are related to cognitive flexibility
+- Gift Delay
+- Gift Wrap
+- Grass/Snow
+- *Incompatibility test
+- Knock-tap
+- letter fluency -> ("Letter Fluency"[TIAB]) AND (task OR test OR tasks or tests [TIAB])
+- Letter Monitoring
+- *Matrix Monitoring task
+- *Mental Counters task
+- ~~MONITOR~~
+- ~~More-less/Odd-Even task~~
+- *Nebraska Barnyard
+- Nine Box maze
+- Object Substitution masking
+-  Oddity Switch
+- Psychomotor Vigilance
+- Reversal Learning task
+- reversal learning test
+- Self Control Schedule
+- Semantic Fluency -> use ("Semantic Fluency"[TIAB]) AND (test OR task[TIAB])
+- Sentence Completion -> use ("Sentence Completion"[TIAB]) AND (task OR test OR paradigm[TIAB])
+- Sentence Repetition -> use ("Sentence Repetition"[TIAB]) AND (task OR test OR paradigm[TIAB])
+- Simon says -> use ("simon says"[TIAB]) AND (task OR test OR paradigm[TIAB])
+- snack delay -> use ("snack delay"[TIAB]) AND (task OR test OR paradigm OR tasks OR test OR paradigms[TIAB])
+- S-R compatibility -> use ("S-R compatibility"[TIAB]) AND (task OR test OR paradigm OR tasks OR test OR paradigms[TIAB])
+- ~~Serial Subtraction of Sevens~~
+- ~~STOP~~ -> returns 
+- *Toy Sort
+- matrix span
 
-
-## TODO
-
-
-
-Delay Discounting task
-Digit-Shifting task
-Dimension-switching task
-Expressive Attention task
-Flexibility Test
-Gift Delay
-Gift Wrap
-Grass/Snow
-Incompatibility test
-Knock and tap
-Letter Fluency
-Letter Monitoring
-Matrix Monitoring task
-Mental Counters task
-MONITOR
-More-less/Odd-Even task
-Nebraska Barnyard
-Nine Boxes
-Object Substitution task
-Oddity Switching task
-PVT - Psychomotor Vigilance task
-Reversal Learning
-SCS - Self Control Schedule
-Semantic Fluency test
-Sentence Completion task
-Sentence Repetition
-Simon Says
-Snack Delay
-S-R compatibility task
-SSS - Serial Subtraction of Sevens
-STOP
-Toy Sort
-Visual-matrix Span task
