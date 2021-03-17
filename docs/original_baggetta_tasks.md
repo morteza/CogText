@@ -1,4 +1,4 @@
-- Stroop
+  Stroop
 - Digit-Span task (backwards, forwards)
 - Go/No-Go (Digit, Figure)
 - TMT - Trail Making Task
