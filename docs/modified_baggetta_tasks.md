@@ -29,6 +29,7 @@ Questions
 - arithmetic span task
 - visuospatial span task
 - Continuous Performance task
+- AX-CPT
 - CPT task
 - CPT test
 - Plus-Minus task
@@ -130,11 +131,11 @@ Questions
 - Cued Unpredictable Switch (WARNING: use words and not a single phrase)
 - D2 target detection (WARNING: use words and not a single pharse)
 - Degraded Vigilance test (WARNING: use words and not a single pharse)
-- Psychomotor Vigilance Test
+- Psychomotor Vigilance
 - delay choice task
 - Delay Discounting task
 - Delay Discounting test
-- ~~Digit-Shifting task~~
+- *Digit-Shifting task
 - Dimension-switching
 - *Expressive Attention task
 - Flexibility Test -> hits do not really show the test, but tests that are related to cognitive flexibility
@@ -147,13 +148,12 @@ Questions
 - Letter Monitoring
 - *Matrix Monitoring task
 - *Mental Counters task
-- ~~MONITOR~~
-- ~~More-less/Odd-Even task~~
+- *MONITOR
+- *More-less/Odd-Even task
 - *Nebraska Barnyard
 - Nine Box maze
 - Object Substitution masking
--  Oddity Switch
-- Psychomotor Vigilance
+- Oddity Switch
 - Reversal Learning task
 - reversal learning test
 - Self Control Schedule
@@ -163,8 +163,7 @@ Questions
 - Simon says -> use ("simon says"[TIAB]) AND (task OR test OR paradigm[TIAB])
 - snack delay -> use ("snack delay"[TIAB]) AND (task OR test OR paradigm OR tasks OR test OR paradigms[TIAB])
 - S-R compatibility -> use ("S-R compatibility"[TIAB]) AND (task OR test OR paradigm OR tasks OR test OR paradigms[TIAB])
-- ~~Serial Subtraction of Sevens~~
-- ~~STOP~~ -> returns 
+- *Serial Subtraction of Sevens
+- *STOP -> returns a lot
 - *Toy Sort
 - matrix span
-
