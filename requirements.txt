@@ -18,3 +18,7 @@ pyldavis  # visualize topic models
 # spacy-streamlit
 scikit-learn  # for LDA and other topic modeling techniques
 wordcloud
+
+networkx
+bokeh
+pyvis
