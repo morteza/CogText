@@ -3,6 +3,6 @@
 # Protege junks
 catalog-v001.xml
 
-data/cache/
+.cache/
 
 __pycache__
