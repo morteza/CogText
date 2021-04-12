@@ -1,0 +1,84 @@
+---
+title: "Task-timecourse"
+author: "Pedro"
+date: "4/6/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(tidyverse)
+
+# list all task files:
+pubmed_dir <- '../data/pubmed/'
+task_names <- dir(pubmed_dir, pattern = "*.csv")
+task_names <- str_remove_all(task_names, ".csv")
+
+
+D <- tibble()
+
+for (task in task_names){
+  print(paste0("--- task: ", task))
+  filename = paste0(pubmed_dir, task, '.csv')
+  # D <- read_csv('../data/pubmed/Stroop.csv')
+  TMP <- read.csv(filename) 
+  
+  # check if data is complete
+  # 'title' %in% names(TMP)
+  if ('year' %in% names(TMP)){
+    
+    TMP <- TMP %>% 
+      # S <- D %>% 
+      filter(!is.na(year), year < 2021) %>% 
+      select(pmid, year) %>% 
+      distinct() %>% 
+      group_by(year) %>% 
+      summarise(n = n()) %>% 
+      ungroup() %>% 
+      mutate(task = task)
+    
+    D <- rbind(D, TMP)
+    
+  } else {
+    print(paste0("--- missing year info: ", task))
+    
+  }
+}
+
+# Delayed Alteration Task: missing year info
+
+```
+
+```{r} 
+# head(D)
+
+D <- D %>% filter(task != "MONITOR", task != "STOP")
+
+ggplot(D, aes(year, n, color = task)) + 
+  geom_line() +
+  theme(legend.position="none") +
+  labs(title = "Frequency of tasks", 
+       subtitle = "", 
+       caption = paste0("Pubmed data: N=", nrow(D)))
+
+# add labels at the end of each line
+
+
+
+```
+
+
+
+
+```{r}
+D %>% 
+  filter(year == 2020) %>% 
+  arrange(desc(n))
+
+
+```
