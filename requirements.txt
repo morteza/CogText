@@ -1,6 +1,7 @@
 rdflib
 owlready2
 pandas
+xmltodict
 # dask[dataframe]
 
 # metapub       # used in EFO to access Pubmed
