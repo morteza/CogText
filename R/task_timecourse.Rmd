@@ -1,84 +1,170 @@
 ---
 title: "Task-timecourse"
 author: "Pedro"
-date: "4/6/2021"
-output: html_document
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+    numbered_sections: true
+    theme: cerulean
+    code_folding: hide
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../outputs/R_notebook/") })
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, 
+                      fig.path = "../outputs/R_notebook/")
 ```
 
 
 
-```{r}
+```{r load_packages}
 library(tidyverse)
+library(plotly)
+```
 
+
+
+```{r load_data} 
 # list all task files:
-pubmed_dir <- '../data/pubmed/'
+pubmed_dir <- '../data/pubmed/tests/'
 task_names <- dir(pubmed_dir, pattern = "*.csv")
 task_names <- str_remove_all(task_names, ".csv")
 
 
 D <- tibble()
-
 for (task in task_names){
-  print(paste0("--- task: ", task))
+  # print(paste0("--- task: ", task))
   filename = paste0(pubmed_dir, task, '.csv')
-  # D <- read_csv('../data/pubmed/Stroop.csv')
-  TMP <- read.csv(filename) 
+  TMP <- read.csv(filename) %>% mutate(year = as.numeric(year))
   
-  # check if data is complete
-  # 'title' %in% names(TMP)
+  # TODO: check if data is complete (e.g., 'title' %in% names(TMP))
   if ('year' %in% names(TMP)){
-    
     TMP <- TMP %>% 
-      # S <- D %>% 
-      filter(!is.na(year), year < 2021) %>% 
+      filter(!is.na(year), year < 2021) %>% # filtering out 2021 because year is incomplete
       select(pmid, year) %>% 
       distinct() %>% 
-      group_by(year) %>% 
-      summarise(n = n()) %>% 
+      group_by(year) %>%
+      summarise(n = n(), .groups = "drop") %>% 
       ungroup() %>% 
       mutate(task = task)
     
     D <- rbind(D, TMP)
-    
   } else {
     print(paste0("--- missing year info: ", task))
-    
   }
 }
 
-# Delayed Alteration Task: missing year info
+rm(list = c("TMP"))
 
 ```
 
-```{r} 
-# head(D)
 
-D <- D %>% filter(task != "MONITOR", task != "STOP")
+```{r preprocessing}
 
-ggplot(D, aes(year, n, color = task)) + 
+D <- D %>% 
+  filter(task != "MONITOR", task != "STOP", year > 1500) %>% 
+  group_by(task) %>% 
+  arrange(task, year) %>% 
+  mutate(N = cumsum(n)) %>% 
+  ungroup()
+
+# TODO: fill in empty years with 0 so all tasks have the same year range.
+
+```
+
+
+```{r table_cumulative_counts}
+D %>% 
+  filter(year == 2020) %>% 
+  arrange(desc(N)) %>% 
+  select(task, N) %>% 
+  mutate(percentage = round(N/sum(N)*100, 1))
+
+
+```
+
+
+
+```{r plot_yearly_counts} 
+
+p <- ggplot(D, aes(year, n, color = task)) + 
   geom_line() +
   theme(legend.position="none") +
   labs(title = "Frequency of tasks", 
        subtitle = "", 
        caption = paste0("Pubmed data: N=", nrow(D)))
 
-# add labels at the end of each line
+p2 <- p + geom_label(data = filter(D, year == 2020), aes(x=2022, y=n, label=task), hjust=0, nudge_x = 0.05) +
+  coord_cartesian(xlim = c(1940, 2030))
+p2
 
 
+```
+
+
+```{r plot_yearly_counts_i} 
+ggplotly(p)
+```
+
+
+
+
+```{r plot_yearly_counts_cum} 
+p <- ggplot(D, aes(year, N, color = task)) + 
+  geom_line() +
+  theme(legend.position="none") +
+  labs(title = "Frequency of tasks", 
+       subtitle = "", 
+       caption = paste0("Pubmed data: N=", nrow(D)))
+
+  
+p2 <- p + geom_label(data = filter(D, year == 2020), aes(x=2022, y=N, label=task), hjust=0, nudge_x = 0.05) +
+  coord_cartesian(xlim = c(1940, 2030))
+p2
+
+```
+
+
+```{r plot_yearly_counts_cum_i} 
+ggplotly(p)
 
 ```
 
 
 
 
-```{r}
-D %>% 
-  filter(year == 2020) %>% 
-  arrange(desc(n))
+```{r task_first_year_cum_count}
+# Is task use frequency determined by how old a task is?
+# plot total number of papers in 2021 as a function of year of first occurrence for each task.
+
+First <- D %>% group_by(task) %>% top_n(-1) %>% arrange(year) %>% ungroup() %>% select(year, task) %>% rename(first_year = year)
+Last <-  D %>% group_by(task) %>% top_n(1) %>% ungroup() %>% arrange(year) %>% select(task, N)
+DD <- First %>% left_join(Last)
+
+```
 
 
+```{r plot_task_first_year_cum_count}
+pp <- ggplot(DD, aes(first_year, N, label = task, color = task, size = N)) + geom_point()
+ggplotly(pp)
+
+# it doesn't look like older tasks are necessarily more used; 
+# no recent task has been widely used. are new tasks less used than expected given rate on older task?
+# what is the rate of new task production?
+```
+
+
+
+
+```{r plot_new_tasks_rate}
+ggplot(First, aes(first_year)) + 
+  geom_density() +
+  geom_rug(alpha = 0.5)
+# what is the rate of new task production?
+# taking into account the increasing rate of publications, this decrease in task development is further emphasized.
+# i.e., new task per thousand papers.
 ```
