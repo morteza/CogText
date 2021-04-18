@@ -14,6 +14,7 @@ matcher = PhraseMatcher(nlp.vocab, attr='LOWER')
 
 cognitive_tests = ['digit span', 'stroop', 'n-back']
 patterns = [nlp.make_doc(text) for text in cognitive_tests]
+matcher.add('CognitiveTest', patterns)
 
 corpus = [
     'we used Stroop, n-back, and Digit span tasks to measure executive functions skill.',
@@ -25,6 +26,5 @@ docs = nlp.pipe(corpus)
 # %%
 
 for doc in docs:
-    matcher.add('CognitiveTest', patterns)
     matches = matcher(doc)
     print(matches)
