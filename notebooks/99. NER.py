@@ -18,15 +18,30 @@ cognitive_tests = ['digit span', 'stroop', 'n-back']
 patterns = [nlp.make_doc(text) for text in cognitive_tests]
 matcher.add('CognitiveTest', patterns)
 
-corpus = [
+texts = [
     'we used Stroop, n-back, and Digit span tasks to measure executive functions skill.',
     'but we only used TMT and Stroop for cognitive control measurements',
 ]
 
-docs = nlp.pipe(corpus)
+docs = nlp.pipe(texts)
 
 # %%
 
 for doc in docs:
     matches = matcher(doc)
     print(matches)
+
+
+# %% user BERT to tokenize
+from transformers import BertTokenizer
+
+texts = [
+    'we used Stroop, n-back, and Digit span tasks to measure executive functions skill.',
+    'but we only used TMT and Stroop for cognitive control measurements',
+]
+
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+
+tokenizer.tokenize(texts[0])
+
+# Conclusion: BERT based tokenizer not really fit here in this project yet.
