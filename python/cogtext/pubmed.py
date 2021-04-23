@@ -40,7 +40,7 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ['
   search_response = xmltodict.parse(response.text)
   results_count = int(search_response['eSearchResult']['Count'])
 
-  print(f'[PubMed] Succesfully stored {results_count} hits on NCBI history server.')
+  print(f'[PubMed] Successfully stored {results_count} hits on NCBI history server.')
 
   # step 2: fetch abstracts
   url = f'{NCBI_EUTILS_BASE_URL}/efetch.fcgi'
@@ -70,7 +70,7 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ['
 
     retstart += retmax
 
-  print(f'[PubMed] Succesfully stored hits in {output_file}.')
+  print(f'[PubMed] Successfully stored hits in {output_file}.')
 
 
 def cleanup_abstract(abstract_text):
