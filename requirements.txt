@@ -20,6 +20,8 @@ pyldavis  # visualize topic models
 scikit-learn  # for LDA and other topic modeling techniques
 wordcloud
 
+python-Levenshtein  # sued by gensim
+
 networkx
 bokeh
 pyvis
