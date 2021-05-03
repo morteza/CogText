@@ -44,10 +44,12 @@ N_TOPIC_WORDS = 10  # number of words per topic (for printing and plotting purpo
 
 
 def preprocess(texts: list[str], corpus_name: str):
-  """Opiniated preprocessing pipeline.
+  """Opinionated preprocessing pipeline.
 
   Note: run the following command first to download SpaCy corpus:
-    > python -m spacy download en_core_web_sm
+        ```bash
+        python -m spacy download en_core_web_sm
+        ```
 
 
   Args:
@@ -61,6 +63,7 @@ def preprocess(texts: list[str], corpus_name: str):
   # docs = \
   #   texts['abstract'].progress_apply(lambda abstract: gensim.parsing.preprocess_string(abstract)).to_list()
 
+  print('Training NLP model...')
   nlp = spacy.load('en_core_web_sm')
 
   # additional stop words
@@ -71,21 +74,25 @@ def preprocess(texts: list[str], corpus_name: str):
 
   # flake8: noqa: W503
   def _clean(doc):
-    words = []
+    cleaned = []
     for w in doc:
       if (not w.is_punct
           and not w.is_stop
           and not w.like_num
           and not w.is_space):
-        words.append(w.lemma_)
-    return words
+        cleaned.append(w.lemma_)
+    return cleaned
 
-  docs = [_clean(d) for d in nlp.pipe(texts)]
+  docs = tqdm([_clean(d) for d in nlp.pipe(texts)], desc='Preprocessing')
 
-  bigram_phrases = gensim.models.Phrases(docs, connector_words=ENGLISH_CONNECTOR_WORDS)
-  trigram_phrases = gensim.models.Phrases(bigram_phrases[docs], connector_words=ENGLISH_CONNECTOR_WORDS)
+  # bigram
+  ngram_phrases = gensim.models.Phrases(docs, connector_words=ENGLISH_CONNECTOR_WORDS)
 
-  ngram = gensim.models.phrases.Phraser(trigram_phrases)
+  # there are cases that a test or construct contains 4 terms; a heuristic is to count spaces in the corpus_name
+  for n in range(max(1, 2 + corpus_name.count(' '))):
+    ngram_phrases = gensim.models.Phrases(ngram_phrases[docs], connector_words=ENGLISH_CONNECTOR_WORDS)
+
+  ngram = gensim.models.phrases.Phraser(ngram_phrases)
   docs = list(ngram[docs])
   # DEBUG filter ngram stop words: docs = [[w for w in doc if w not in my_stop_words] for doc in docs]
 
