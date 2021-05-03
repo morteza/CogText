@@ -44,4 +44,4 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=Tru
 
 tokenizer.tokenize(texts[0])
 
-# Conclusion: BERT based tokenizer not really fit here in this project yet.
+# Conclusion: BERT-based tokenizer not really fit here in this project yet.
