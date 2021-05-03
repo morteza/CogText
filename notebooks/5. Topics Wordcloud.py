@@ -78,6 +78,7 @@ def preprocess(texts: list[str], corpus_name: str):
     for w in doc:
       if (not w.is_punct
           and not w.is_stop
+          and not w.lemma_ in my_stop_words
           and not w.like_num
           and not w.is_space):
         cleaned.append(w.lemma_)
@@ -184,7 +185,7 @@ def save_topic_wordclouds(topics: pd.DataFrame,
 
 
 # load and iterate corpora
-corpora = Path('data/pubmed').glob('**/*.csv')
+corpora = Path('data/pubmed').glob('**/*Arithm*.csv')
 
 for fname in corpora:
   corpus_name = re.findall('.*/pubmed/(.*)\\.csv', str(fname))[0]
