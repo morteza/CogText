@@ -61,7 +61,7 @@ def preprocess(texts: list[str], corpus_name: str):
   # docs = \
   #   texts['abstract'].progress_apply(lambda abstract: gensim.parsing.preprocess_string(abstract)).to_list()
 
-  print('Training the NLP model...')
+  print('Preprocessing...')
 
   # additional stop words
   for stop_word in MY_STOP_WORDS:
@@ -76,11 +76,11 @@ def preprocess(texts: list[str], corpus_name: str):
           and not token.is_stop
           and not token.like_num
           and not token.is_space
-          and not token.lemma_ in MY_STOP_WORDS):
+          and not token.lemma_.lower().strip() in MY_STOP_WORDS):
         cleaned.append(token.lemma_.lower().strip())
     return cleaned
 
-  docs = tqdm([_clean(doc) for doc in nlp.pipe(texts)], desc='Preprocessing')
+  docs = tqdm([_clean(doc) for doc in nlp.pipe(texts)], desc='Cleaning docs')
 
   # bigram
   ngram_phrases = gensim.models.Phrases(docs, connector_words=ENGLISH_CONNECTOR_WORDS)
@@ -88,8 +88,6 @@ def preprocess(texts: list[str], corpus_name: str):
   # there are cases that a test or construct contains 4 terms; a heuristic is to count spaces in the corpus_name
   for n in range(max(1, 2 + corpus_name.count(' '))):
     ngram_phrases = gensim.models.Phrases(ngram_phrases[docs], connector_words=ENGLISH_CONNECTOR_WORDS)
-
-  print(ngram_phrases)
 
   ngram = gensim.models.phrases.Phraser(ngram_phrases)
   docs = list(ngram[docs])
