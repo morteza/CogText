@@ -8,8 +8,8 @@ Note: The fastest coherency scoring is `u_mass`, however, the default is `c_v`. 
 
 
 TODO:
-  - [ ] remove common terms (e.g., task, test).
-  - [ ] apply bigram/trigram models to concat commonly co-occurred terms.
+  - [x] remove common terms (e.g., task, test).
+  - [x] apply bigram/trigram models to concat commonly co-occurred terms.
   - [ ] improve plot readabilities (x-label, y-label, description)
   - [ ] Some results are suspicious.
         (e.g., in tests_Reverse Categorization, some topics contain only zero coefficients).
@@ -94,13 +94,16 @@ def preprocess(texts: list[str], corpus_name: str):
   # DEBUG filter ngram stop words: docs = [[w for w in doc if w not in my_stop_words] for doc in docs]
 
   words = gensim.corpora.Dictionary(docs)
-  words.filter_extremes(no_below=(2 if len(texts) > 1 else 1),  # one doc is sufficient if corpus contains one doc.
-                        no_above=.8)
+
+  # Note: filtering extreme terms does not work if corpus contains only one doc.
+  if len(texts) > 1:
+    words.filter_extremes(no_below=2, no_above=.8)
 
   # remove stop word phrases (i.e., filters ngrams) and single-chars
   del_ids = [id for id,w in words.items() if w in MY_STOP_WORDS or len(w) == 1]
   words.filter_tokens(bad_ids=del_ids)
 
+  print(len(texts))
   return docs, words
 
 
