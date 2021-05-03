@@ -41,16 +41,14 @@ sns.set('notebook')
 N_TOPICS_MIN = 10
 N_TOPICS_MAX = 30
 N_TOPIC_WORDS = 10  # number of words per topic (for printing and plotting purposes)
+MY_STOP_WORDS = ['study', 'task', 'test', 'wcst']
+
+# Note: run this to download the SpaCy model: `python -m spacy download en_core_web_sm`
+nlp = spacy.load('en_core_web_sm')
 
 
 def preprocess(texts: list[str], corpus_name: str):
   """Opinionated preprocessing pipeline.
-
-  Note: run the following command first to download SpaCy corpus:
-        ```bash
-        python -m spacy download en_core_web_sm
-        ```
-
 
   Args:
       texts (list[str]): list of texts, each item is one text document.
@@ -63,28 +61,26 @@ def preprocess(texts: list[str], corpus_name: str):
   # docs = \
   #   texts['abstract'].progress_apply(lambda abstract: gensim.parsing.preprocess_string(abstract)).to_list()
 
-  print('Training NLP model...')
-  nlp = spacy.load('en_core_web_sm')
+  print('Training the NLP model...')
 
   # additional stop words
-  my_stop_words = ['study', 'task', 'test']
-  for stop_word in my_stop_words:
+  for stop_word in MY_STOP_WORDS:
     lexeme = nlp.vocab[stop_word]
     lexeme.is_stop = True
 
   # flake8: noqa: W503
   def _clean(doc):
     cleaned = []
-    for w in doc:
-      if (not w.is_punct
-          and not w.is_stop
-          and not w.lemma_ in my_stop_words
-          and not w.like_num
-          and not w.is_space):
-        cleaned.append(w.lemma_)
+    for token in doc:
+      if (not token.is_punct
+          and not token.is_stop
+          and not token.like_num
+          and not token.is_space
+          and not token.lemma_ in MY_STOP_WORDS):
+        cleaned.append(token.lemma_.lower().strip())
     return cleaned
 
-  docs = tqdm([_clean(d) for d in nlp.pipe(texts)], desc='Preprocessing')
+  docs = tqdm([_clean(doc) for doc in nlp.pipe(texts)], desc='Preprocessing')
 
   # bigram
   ngram_phrases = gensim.models.Phrases(docs, connector_words=ENGLISH_CONNECTOR_WORDS)
@@ -93,12 +89,15 @@ def preprocess(texts: list[str], corpus_name: str):
   for n in range(max(1, 2 + corpus_name.count(' '))):
     ngram_phrases = gensim.models.Phrases(ngram_phrases[docs], connector_words=ENGLISH_CONNECTOR_WORDS)
 
+  print(ngram_phrases)
+
   ngram = gensim.models.phrases.Phraser(ngram_phrases)
   docs = list(ngram[docs])
   # DEBUG filter ngram stop words: docs = [[w for w in doc if w not in my_stop_words] for doc in docs]
 
   words = gensim.corpora.Dictionary(docs)
-  words.filter_extremes(no_below=2, no_above=.9)
+  words.filter_extremes(no_below=(2 if len(texts) > 1 else 1),  # one doc is sufficient if corpus contains one doc.
+                        no_above=.8)
 
   return docs, words
 
@@ -185,7 +184,7 @@ def save_topic_wordclouds(topics: pd.DataFrame,
 
 
 # load and iterate corpora
-corpora = Path('data/pubmed').glob('**/*Arithm*.csv')
+corpora = Path('data/pubmed').glob('**/*.csv')
 
 for fname in corpora:
   corpus_name = re.findall('.*/pubmed/(.*)\\.csv', str(fname))[0]
