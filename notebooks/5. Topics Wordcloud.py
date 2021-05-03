@@ -5,6 +5,21 @@ Note: All accesses to files assume current working directory is the project root
 
 Note: The fastest coherency scoring is `u_mass`, however, the default is `c_v`. I'm using `u_mass` here to
       speed things up on local machines.
+
+
+TODO:
+  - [ ] remove common terms (e.g., task, test).
+  - [ ] apply bigram/trigram models to concat commonly co-occurred terms.
+  - [ ] improve plot readabilities (x-label, y-label, description)
+  - [ ] Some results are suspicious.
+        (e.g., in tests_Reverse Categorization, some topics contain only zero coefficients).
+  - [ ] Use c_v coherency instead of u_mass (it will be slower to fit).
+  - [ ] allow a more exhaustive number of topics (min 1 and max 1000 topics?). Currently it's limited to 10 to 30 topics.
+        Takes time to fit the model. Maybe I can run that on HPC?
+  - [ ] cleaner file naming (remove tests/constructs prefix if there is not conflict).
+  - [ ] Show progress bar for the corpora iterator.
+  - [ ] model fitting progress bars should be a child of the main loop progress bar.
+  - [ ] Ignore "MONITOR" and "STOP" tasks to speed things up.
 """
 
 # %%
@@ -72,28 +87,46 @@ def get_topics(texts: pd.DataFrame, corpus_name: str):
   topics_df.sort_values('topic_score').reset_index(inplace=True)
   topics_df['topic_index'] = topics_df.index + 1
   topics_df = topics_df.explode('term')
-  topics_df['term_score'] = topics_df['term'].apply(lambda x: x[0])
+  topics_df['term_coef'] = topics_df['term'].apply(lambda x: x[0])
   topics_df['term'] = topics_df['term'].apply(lambda x: x[1])
   topics_df.attrs['corpus_name'] = corpus_name
 
   return topics_df
 
 
-def plot_and_save_wordcloud(topics: pd.DataFrame,
-                            corpus_name: str,
-                            savefig_fname: Path = None):
+def save_topic_barplots(topics: pd.DataFrame,
+                        corpus_name: str,
+                        savefig_fname: Path = None):
+  
+  """Generate a png plot in that topics are sorted by coherency score.
+
+  Note: Each subplot shows a topic, in each terms are ordered by their
+        contribution to the topic, i.e., coefficients. X axis shows
+        coefficients and Y axis shows terms.
+  """
+  
   if savefig_fname is None:
     # default path
-    savefig_fname = Path('outputs/topics_wordcloud') / (corpus_name.replace('/', '_') + '.histogram.png')
+    savefig_fname = Path('outputs/topic_barplots') / (corpus_name.replace('/', '_') + '.png')
 
   grid = sns.FacetGrid(topics,
-                       col='topic_index', hue='topic_index', palette='deep', col_wrap=4, sharex=False, sharey=False,
+                       col='topic_index', hue='topic_index', palette='deep', col_wrap=4,
+                       sharex='term_coef', sharey=False,
                        col_order=range(1, topics['topic_index'].nunique() + 1, 1))
-  grid.map_dataframe(sns.barplot, x='term_score', y='term', orient='h', dodge=False)
+  grid.map_dataframe(sns.barplot, x='term_coef', y='term', orient='h', dodge=False)
   plt.suptitle(f'{corpus_name} topics', weight='bold', x=.2)
   plt.tight_layout()
   # plt.show()
   plt.savefig(savefig_fname)
+  # to reuse the same plt and prevent memory leak warning
+  plt.clf()
+  plt.close('all')
+
+
+def save_topic_wordclouds(topics: pd.DataFrame,
+                          corpus_name: str,
+                          savefig_fname: Path = None):
+  raise NotImplementedError()
 
 
 # load and iterate corpora
@@ -109,8 +142,7 @@ for fname in corpora:
 
   topics = get_topics(df, corpus_name=corpus_name)
 
-  plt.figure()
-  plot_and_save_wordcloud(topics, corpus_name=corpus_name)
-  plt.close()   # to save memory and avoid memory leak warning
+  save_topic_barplots(topics, corpus_name=corpus_name)
+  # save_topic_wordclouds(topics, corpus_name=corpus_name)
 
 print('Done!')
