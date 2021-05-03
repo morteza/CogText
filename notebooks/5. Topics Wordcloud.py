@@ -30,6 +30,8 @@ import re
 import pandas as pd
 from tqdm import tqdm
 import gensim
+from gensim.models.phrases import ENGLISH_CONNECTOR_WORDS
+import spacy
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -41,16 +43,62 @@ N_TOPICS_MAX = 30
 N_TOPIC_WORDS = 10  # number of words per topic (for printing and plotting purposes)
 
 
+def preprocess(texts: list[str], corpus_name: str):
+  """Opiniated preprocessing pipeline.
+
+  Note: run the following command first to download SpaCy corpus:
+    > python -m spacy download en_core_web_sm
+
+
+  Args:
+      texts (list[str]): list of texts, each item is one text document.
+      corpus_name (str): Name of the corpus
+
+  Returns:
+      (list[list[str]], Dictionary): preprocessed documents, and gensim word2id dictionary
+  """
+  # DEBUG standard preprocessing pipeline
+  # docs = \
+  #   texts['abstract'].progress_apply(lambda abstract: gensim.parsing.preprocess_string(abstract)).to_list()
+
+  nlp = spacy.load('en_core_web_sm')
+
+  # additional stop words
+  my_stop_words = ['study', 'task', 'test']
+  for stop_word in my_stop_words:
+    lexeme = nlp.vocab[stop_word]
+    lexeme.is_stop = True
+
+  # flake8: noqa: W503
+  def _clean(doc):
+    words = []
+    for w in doc:
+      if (not w.is_punct
+          and not w.is_stop
+          and not w.like_num
+          and not w.is_space):
+        words.append(w.lemma_)
+    return words
+
+  docs = [_clean(d) for d in nlp.pipe(texts)]
+
+  bigram_phrases = gensim.models.Phrases(docs, connector_words=ENGLISH_CONNECTOR_WORDS)
+  trigram_phrases = gensim.models.Phrases(bigram_phrases[docs], connector_words=ENGLISH_CONNECTOR_WORDS)
+
+  ngram = gensim.models.phrases.Phraser(trigram_phrases)
+  docs = list(ngram[docs])
+  # DEBUG filter ngram stop words: docs = [[w for w in doc if w not in my_stop_words] for doc in docs]
+
+  words = gensim.corpora.Dictionary(docs)
+  words.filter_extremes(no_below=2, no_above=.9)
+
+  return docs, words
+
+
 def get_topics(texts: pd.DataFrame, corpus_name: str):
 
   texts['abstract'].fillna(texts['title'], inplace=True)
-
-  tqdm.pandas(desc='Preprocessing')
-  texts['preprocessed_abstract'] = \
-      texts['abstract'].progress_apply(lambda abstract: gensim.parsing.preprocess_string(abstract))
-
-  docs = texts['preprocessed_abstract'].to_list()
-  words = gensim.corpora.Dictionary(docs)
+  docs, words = preprocess(texts['abstract'].to_list(), corpus_name)
   corpus = [words.doc2bow(doc) for doc in docs]
 
   model_scores = {}
@@ -97,14 +145,13 @@ def get_topics(texts: pd.DataFrame, corpus_name: str):
 def save_topic_barplots(topics: pd.DataFrame,
                         corpus_name: str,
                         savefig_fname: Path = None):
-  
   """Generate a png plot in that topics are sorted by coherency score.
 
   Note: Each subplot shows a topic, in each terms are ordered by their
         contribution to the topic, i.e., coefficients. X axis shows
         coefficients and Y axis shows terms.
   """
-  
+
   if savefig_fname is None:
     # default path
     savefig_fname = Path('outputs/topic_barplots') / (corpus_name.replace('/', '_') + '.png')
