@@ -76,8 +76,7 @@ def preprocess(texts: list[str], corpus_name: str):
           and token.is_alpha
           and not token.is_stop
           and not token.like_num
-          and not token.is_space
-          and not token.lemma_.lower().strip() in MY_STOP_WORDS):
+          and not token.is_space):
         cleaned.append(token.lemma_.lower().strip())
     return cleaned
 
@@ -98,8 +97,8 @@ def preprocess(texts: list[str], corpus_name: str):
   words.filter_extremes(no_below=(2 if len(texts) > 1 else 1),  # one doc is sufficient if corpus contains one doc.
                         no_above=.8)
 
-  # remove stop word phrases (i.e., filters ngrams)
-  del_ids = [id for id,w in words.items() if w in MY_STOP_WORDS]
+  # remove stop word phrases (i.e., filters ngrams) and single-chars
+  del_ids = [id for id,w in words.items() if w in MY_STOP_WORDS or len(w) == 1]
   words.filter_tokens(bad_ids=del_ids)
 
   return docs, words
