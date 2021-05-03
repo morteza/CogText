@@ -73,6 +73,7 @@ def preprocess(texts: list[str], corpus_name: str):
     cleaned = []
     for token in doc:
       if (not token.is_punct
+          and token.is_alpha
           and not token.is_stop
           and not token.like_num
           and not token.is_space
@@ -86,7 +87,7 @@ def preprocess(texts: list[str], corpus_name: str):
   ngram_phrases = gensim.models.Phrases(docs, connector_words=ENGLISH_CONNECTOR_WORDS)
 
   # there are cases that a test or construct contains 4 terms; a heuristic is to count spaces in the corpus_name
-  for n in range(max(1, 2 + corpus_name.count(' '))):
+  for _ in range(max(1, 2 + corpus_name.count(' '))):
     ngram_phrases = gensim.models.Phrases(ngram_phrases[docs], connector_words=ENGLISH_CONNECTOR_WORDS)
 
   ngram = gensim.models.phrases.Phraser(ngram_phrases)
@@ -96,6 +97,10 @@ def preprocess(texts: list[str], corpus_name: str):
   words = gensim.corpora.Dictionary(docs)
   words.filter_extremes(no_below=(2 if len(texts) > 1 else 1),  # one doc is sufficient if corpus contains one doc.
                         no_above=.8)
+
+  # remove stop word phrases (i.e., filters ngrams)
+  del_ids = [id for id,w in words.items() if w in MY_STOP_WORDS]
+  words.filter_tokens(bad_ids=del_ids)
 
   return docs, words
 
