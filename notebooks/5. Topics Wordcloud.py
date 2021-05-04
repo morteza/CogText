@@ -38,10 +38,10 @@ import seaborn as sns
 sns.set('notebook')
 
 # constraints and constants
-N_TOPICS_MIN = 10
-N_TOPICS_MAX = 30
+N_TOPICS_MIN = 1
+N_TOPICS_MAX = 100
 N_TOPIC_WORDS = 10  # number of words per topic (for printing and plotting purposes)
-MY_STOP_WORDS = ['study', 'task', 'test', 'wcst']
+MY_STOP_WORDS = ['study', 'task', 'test']
 
 # Note: run this to download the SpaCy model: `python -m spacy download en_core_web_sm`
 nlp = spacy.load('en_core_web_sm')
@@ -103,7 +103,6 @@ def preprocess(texts: list[str], corpus_name: str):
   del_ids = [id for id,w in words.items() if w in MY_STOP_WORDS or len(w) == 1]
   words.filter_tokens(bad_ids=del_ids)
 
-  print(len(texts))
   return docs, words
 
 
