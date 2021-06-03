@@ -25,3 +25,7 @@ python-Levenshtein  # sued by gensim
 networkx
 bokeh
 pyvis
+
+
+bertopic  # BERT topic modeling
+pigeon-jupyter  # annotation
