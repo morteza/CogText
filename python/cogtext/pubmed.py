@@ -2,8 +2,9 @@ import os
 import requests
 import xmltodict
 from pathlib import Path
-from collections import OrderedDict 
+from collections import OrderedDict
 from datetime import date
+from xml.etree import ElementTree
 
 
 NCBI_EUTILS_BASE_URL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils'
@@ -24,7 +25,7 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ['
 
   # step 1: create query and search
 
-  print(f'[PubMed] {query}')
+  print(f'[PubMed] query: {query}')
 
   url = f'{NCBI_EUTILS_BASE_URL}/esearch.fcgi'
   params = {
@@ -40,7 +41,11 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ['
   search_response = xmltodict.parse(response.text)
   results_count = int(search_response['eSearchResult']['Count'])
 
-  print(f'[PubMed] Successfully stored {results_count} hits on NCBI history server.')
+  if results_count == 0:
+    print('[PubMed] no article found.')
+    return
+
+  print(f'[PubMed] stored {results_count} hits on NCBI history server.')
 
   # step 2: fetch abstracts
   url = f'{NCBI_EUTILS_BASE_URL}/efetch.fcgi'
@@ -56,21 +61,31 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ['
   retstart = 0
   retmax = 10000
 
+  # step 3: store abstracts
+  output_xml = None
+
   while retstart < results_count:
     params['retstart'] = retstart
     response = requests.post(url, params)
-
-    # step 3: store abstracts
-    output_file.parent.mkdir(parents=True, exist_ok=True)
-
-    output_chunk_file = Path(output_file.as_posix().replace('.xml', f'.{retstart}.xml' if retstart > 0 else '.xml'))
-
-    with open(output_chunk_file, 'w') as f:
-      f.write(response.text)
-
     retstart += retmax
 
-  print(f'[PubMed] Successfully stored hits in {output_file}.')
+    # get rid of invalid line terminator
+    response_text = response.text.replace('\u2029', ' ')
+
+    # combine XMLs
+    response_xml = ElementTree.fromstring(response_text)
+
+    if output_xml is None:
+      output_xml = response_xml
+    else:
+      print('[PubMed] merging multiple responses...')
+      output_xml.extend(response_xml.findall('PubmedArticle'))
+
+  output_file.parent.mkdir(parents=True, exist_ok=True)
+  with open(output_file, 'w') as f:
+    ElementTree.ElementTree(output_xml).write(f, encoding='unicode')
+
+  print(f'[PubMed] stored hits in {output_file}.')
 
 
 def cleanup_abstract(abstract_text):
@@ -82,13 +97,3 @@ def cleanup_abstract(abstract_text):
     elif isinstance(abstract_text, OrderedDict):
         return select_content(abstract_text)
     return abstract_text    # when the abstract is string
-
-
-def merge_and_store_xml(output_fname: Path, *args):
-  from xml.etree import ElementTree
-
-  xml_data = ElementTree.parse(args[0]).getroot()
-  data = [ElementTree.parse(f).getroot() for f in args[1:]]
-  [xml_data.extend(d) for d in data]
-  with open('~/combined.xml', 'w'):
-    ElementTree(xml_data).write('', 'utf-8')
