@@ -35,6 +35,6 @@ for test_file in tqdm(test_files):
 
 freqs_df = pd.DataFrame(
     freqs,
-    columns=['test', 'construct', 'test_frequency', 'construct_frequency', 'joint_frequency'])
+    columns=['test', 'construct', 'test_corpus_size', 'construct_corpus_size', 'shared_corpus_size'])
 
-freqs_df.sort_values('joint_frequency', ascending=False).to_csv('data/pubmed/test_construct_frequency_matrix.csv', index=False)
+freqs_df.sort_values('count', ascending=False).to_csv('data/pubmed/test_construct_count_matrix.csv', index=False)
