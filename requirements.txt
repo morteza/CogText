@@ -30,3 +30,5 @@ pyvis
 bertopic  # BERT topic modeling
 pigeon-jupyter  # annotation
 pigeonXT-jupyter  # improved annotation
+
+sympy  # symbolic math and matrix ranks
