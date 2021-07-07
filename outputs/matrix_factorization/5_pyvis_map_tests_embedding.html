@@ -1,0 +1,176 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>map</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000px;
+            height: 1000px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+        #loadingBar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 1000px;
+            height: 1000px;
+            background-color:rgba(200,200,200,0.8);
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            opacity:1;
+        }
+
+        #bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:20px;
+            height:20px;
+            margin:auto auto auto auto;
+            border-radius:11px;
+            border:2px solid rgba(30,30,30,0.05);
+            background: rgb(0, 173, 246); /* Old browsers */
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+        }
+
+        #border {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:500px;
+            height:23px;
+            margin:auto auto auto auto;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+            border-radius:10px;
+        }
+
+        #text {
+            position:absolute;
+            top:8px;
+            left:530px;
+            width:30px;
+            height:50px;
+            margin:auto auto auto auto;
+            font-size:22px;
+            color: #000000;
+        }
+
+        div.outerBorder {
+            position:relative;
+            top:400px;
+            width:600px;
+            height:44px;
+            margin:auto auto auto auto;
+            border:8px solid rgba(0,0,0,0.1);
+            background: rgb(252,252,252); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+            border-radius:72px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+<div id="loadingBar">
+    <div class="outerBorder">
+        <div id="text">0%</div>
+        <div id="border">
+            <div id="bar"></div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": 0, "label": "ANT (Attention Network Test)", "shape": "dot", "size": 10}, {"id": 1, "label": "AOSpan (Automated Operation Span Task)", "shape": "dot", "size": 10}, {"id": 2, "label": "Analogy Making Task", "shape": "dot", "size": 10}, {"id": 3, "label": "Anti-Saccade Task", "shape": "dot", "size": 10}, {"id": 4, "label": "Auditory Attention Task", "shape": "dot", "size": 10}, {"id": 5, "label": "Automated Operation Span", "shape": "dot", "size": 10}, {"id": 6, "label": "BART (Balloon Analouge Risk Taking)", "shape": "dot", "size": 10}, {"id": 7, "label": "Backward Span", "shape": "dot", "size": 10}, {"id": 8, "label": "Backward Span Task", "shape": "dot", "size": 10}, {"id": 9, "label": "Balance Beam Task", "shape": "dot", "size": 10}, {"id": 10, "label": "BearDragon", "shape": "dot", "size": 10}, {"id": 11, "label": "Block Design Subtest", "shape": "dot", "size": 10}, {"id": 12, "label": "Block Span", "shape": "dot", "size": 10}, {"id": 13, "label": "Box Crossing Dual Task", "shape": "dot", "size": 10}, {"id": 14, "label": "Boxes Task", "shape": "dot", "size": 10}, {"id": 15, "label": "CCT (Columbia Card Task)", "shape": "dot", "size": 10}, {"id": 16, "label": "CNT (Contingency Naming Task)", "shape": "dot", "size": 10}, {"id": 17, "label": "CPT (Continious Performance Task)", "shape": "dot", "size": 10}, {"id": 18, "label": "CRT (Cognitive Reflection Test)", "shape": "dot", "size": 10}, {"id": 19, "label": "Category Fluency Task", "shape": "dot", "size": 10}, {"id": 20, "label": "Category Switch Task", "shape": "dot", "size": 10}, {"id": 21, "label": "Cognitive Flexibility Task", "shape": "dot", "size": 10}, {"id": 22, "label": "Color Shape Task", "shape": "dot", "size": 10}, {"id": 23, "label": "Contingency Naming", "shape": "dot", "size": 10}, {"id": 24, "label": "Corsi-block Test", "shape": "dot", "size": 10}, {"id": 25, "label": "Counting Span Task", "shape": "dot", "size": 10}, {"id": 26, "label": "Cued Unpredictable Switch Task", "shape": "dot", "size": 10}, {"id": 27, "label": "D2 Target Detection", "shape": "dot", "size": 10}, {"id": 28, "label": "DCCS (Dimentional Change Card Sort)", "shape": "dot", "size": 10}, {"id": 29, "label": "Degraded Vigilance Task", "shape": "dot", "size": 10}, {"id": 30, "label": "Delay Choice Task", "shape": "dot", "size": 10}, {"id": 31, "label": "Delayed Discounting Task", "shape": "dot", "size": 10}, {"id": 32, "label": "Dietary Decisions Task", "shape": "dot", "size": 10}, {"id": 33, "label": "Digit Span", "shape": "dot", "size": 10}, {"id": 34, "label": "Dimension Switching Task", "shape": "dot", "size": 10}, {"id": 35, "label": "Directed Forgetting Test", "shape": "dot", "size": 10}, {"id": 36, "label": "Discounting Task", "shape": "dot", "size": 10}, {"id": 37, "label": "FIST (Flexible Item Selection Task)", "shape": "dot", "size": 10}, {"id": 38, "label": "Flanker Task", "shape": "dot", "size": 10}, {"id": 39, "label": "Flexibility Test", "shape": "dot", "size": 10}, {"id": 40, "label": "Gift Delay", "shape": "dot", "size": 10}, {"id": 41, "label": "Gift Wrap", "shape": "dot", "size": 10}, {"id": 42, "label": "GoNoGo", "shape": "dot", "size": 10}, {"id": 43, "label": "GrassSnow Task", "shape": "dot", "size": 10}, {"id": 44, "label": "Hayling Test", "shape": "dot", "size": 10}, {"id": 45, "label": "Head-Toes-Knees-Shoulders Task", "shape": "dot", "size": 10}, {"id": 46, "label": "Hierarchical Rule Task", "shape": "dot", "size": 10}, {"id": 47, "label": "Holt and Laury Task", "shape": "dot", "size": 10}, {"id": 48, "label": "IGT (Iowa Gambling Task)", "shape": "dot", "size": 10}, {"id": 49, "label": "Incompatibility Test", "shape": "dot", "size": 10}, {"id": 50, "label": "Information Sampling Task", "shape": "dot", "size": 10}, {"id": 51, "label": "Keep Track Task", "shape": "dot", "size": 10}, {"id": 52, "label": "Knock and Tap", "shape": "dot", "size": 10}, {"id": 53, "label": "LFT (Lexical Fluency Test)", "shape": "dot", "size": 10}, {"id": 54, "label": "LNS (Letter Number Sequencing)", "shape": "dot", "size": 10}, {"id": 55, "label": "Letter Fluency", "shape": "dot", "size": 10}, {"id": 56, "label": "Letter Monitoring", "shape": "dot", "size": 10}, {"id": 57, "label": "Lexical Fluency", "shape": "dot", "size": 10}, {"id": 58, "label": "Local-Global Task", "shape": "dot", "size": 10}, {"id": 59, "label": "MCST (Modified Card Sorting Test)", "shape": "dot", "size": 10}, {"id": 60, "label": "N-back", "shape": "dot", "size": 10}, {"id": 61, "label": "Nine Boxes", "shape": "dot", "size": 10}, {"id": 62, "label": "Number-Letter Task", "shape": "dot", "size": 10}, {"id": 63, "label": "OSpan (Operating Span)", "shape": "dot", "size": 10}, {"id": 64, "label": "Object Substitution Task", "shape": "dot", "size": 10}, {"id": 65, "label": "Odd One Out Task", "shape": "dot", "size": 10}, {"id": 66, "label": "PEG (Pencil Tapping Task)", "shape": "dot", "size": 10}, {"id": 67, "label": "PRP (Psychological Refractory Period Task)", "shape": "dot", "size": 10}, {"id": 68, "label": "PVT (Psychomotor Vigilance Task)", "shape": "dot", "size": 10}, {"id": 69, "label": "RLG (Random Letter Generation Task)", "shape": "dot", "size": 10}, {"id": 70, "label": "RNG (Random Number Generation Task)", "shape": "dot", "size": 10}, {"id": 71, "label": "RPM", "shape": "dot", "size": 10}, {"id": 72, "label": "Raven\u0027s Matrices", "shape": "dot", "size": 10}, {"id": 73, "label": "Reading Span Task", "shape": "dot", "size": 10}, {"id": 74, "label": "Recent Probes Task", "shape": "dot", "size": 10}, {"id": 75, "label": "Reversal Learning", "shape": "dot", "size": 10}, {"id": 76, "label": "Reverse Categorization", "shape": "dot", "size": 10}, {"id": 77, "label": "Rspan (Running Span)", "shape": "dot", "size": 10}, {"id": 78, "label": "S-R Compatibility Task", "shape": "dot", "size": 10}, {"id": 79, "label": "Self-Control Schedule", "shape": "dot", "size": 10}, {"id": 80, "label": "Semantic Fluency Test", "shape": "dot", "size": 10}, {"id": 81, "label": "Sentence Completion Task", "shape": "dot", "size": 10}, {"id": 82, "label": "Sentence Repetition Task", "shape": "dot", "size": 10}, {"id": 83, "label": "Shape School", "shape": "dot", "size": 10}, {"id": 84, "label": "Shape-Matching Task", "shape": "dot", "size": 10}, {"id": 85, "label": "Shift Task", "shape": "dot", "size": 10}, {"id": 86, "label": "Simon Says", "shape": "dot", "size": 10}, {"id": 87, "label": "Simon Task", "shape": "dot", "size": 10}, {"id": 88, "label": "Simple Reaction Time Task", "shape": "dot", "size": 10}, {"id": 89, "label": "Snack Delay", "shape": "dot", "size": 10}, {"id": 90, "label": "Sorting Task", "shape": "dot", "size": 10}, {"id": 91, "label": "Span Tasks (Verbal, Arithmetic, Visuospatial)", "shape": "dot", "size": 10}, {"id": 92, "label": "Spin the Pots", "shape": "dot", "size": 10}, {"id": 93, "label": "Stimulus Selective Stop Signal Task", "shape": "dot", "size": 10}, {"id": 94, "label": "Stroop Task", "shape": "dot", "size": 10}, {"id": 95, "label": "TMT (Trail Making Test)", "shape": "dot", "size": 10}, {"id": 96, "label": "Task Switching Test", "shape": "dot", "size": 10}, {"id": 97, "label": "Tower of Hanoi", "shape": "dot", "size": 10}, {"id": 98, "label": "Tower of London", "shape": "dot", "size": 10}, {"id": 99, "label": "Two-Stage Task", "shape": "dot", "size": 10}, {"id": 100, "label": "Verbal Fluency Task", "shape": "dot", "size": 10}, {"id": 101, "label": "WCST (Wisconsin Card Sort Test)", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": 1, "to": 18, "value": 424653.78383492364, "weight": 1415.5126127830788}, {"from": 2, "to": 7, "value": 1238499.0748732632, "weight": 4128.330249577544}, {"from": 2, "to": 8, "value": 1238499.0748732632, "weight": 4128.330249577544}, {"from": 2, "to": 61, "value": 496854.31027821614, "weight": 1656.1810342607205}, {"from": 5, "to": 18, "value": 424653.78383492364, "weight": 1415.5126127830788}, {"from": 7, "to": 61, "value": 355497.8525213631, "weight": 1184.9928417378771}, {"from": 8, "to": 61, "value": 355497.8525213631, "weight": 1184.9928417378771}, {"from": 9, "to": 10, "value": 510747.06715324096, "weight": 1702.4902238441366}, {"from": 9, "to": 14, "value": 1396436.6973584825, "weight": 4654.788991194941}, {"from": 9, "to": 15, "value": 425959.2932542255, "weight": 1419.8643108474184}, {"from": 9, "to": 16, "value": 344235.6018760821, "weight": 1147.452006253607}, {"from": 9, "to": 20, "value": 1247166.0758850747, "weight": 4157.220252950249}, {"from": 9, "to": 23, "value": 344235.6018760821, "weight": 1147.452006253607}, {"from": 9, "to": 27, "value": 475696.24683272094, "weight": 1585.6541561090698}, {"from": 9, "to": 29, "value": 702831.5157254444, "weight": 2342.771719084815}, {"from": 9, "to": 30, "value": 663966.0309324872, "weight": 2213.220103108291}, {"from": 9, "to": 32, "value": 396838.26184829546, "weight": 1322.794206160985}, {"from": 9, "to": 34, "value": 702831.5157254444, "weight": 2342.771719084815}, {"from": 9, "to": 39, "value": 744506.3921823036, "weight": 2481.687973941012}, {"from": 9, "to": 41, "value": 370243.724934024, "weight": 1234.14574978008}, {"from": 9, "to": 43, "value": 954572.0969588291, "weight": 3181.9069898627636}, {"from": 9, "to": 47, "value": 702831.5157254444, "weight": 2342.771719084815}, {"from": 9, "to": 49, "value": 702831.5157254444, "weight": 2342.771719084815}, {"from": 9, "to": 52, "value": 970415.9675969699, "weight": 3234.7198919898997}, {"from": 9, "to": 61, "value": 496580.92486660567, "weight": 1655.2697495553523}, {"from": 9, "to": 92, "value": 725156.311328564, "weight": 2417.1877044285466}, {"from": 10, "to": 14, "value": 502449.27659630676, "weight": 1674.8309219876892}, {"from": 10, "to": 15, "value": 776945.8784911984, "weight": 2589.8195949706615}, {"from": 10, "to": 20, "value": 556728.7096201533, "weight": 1855.7623654005108}, {"from": 10, "to": 27, "value": 792595.3448180298, "weight": 2641.984482726766}, {"from": 10, "to": 29, "value": 523166.80281156895, "weight": 1743.8893427052299}, {"from": 10, "to": 30, "value": 790845.4070048293, "weight": 2636.1513566827643}, {"from": 10, "to": 32, "value": 807880.2284142915, "weight": 2692.934094714305}, {"from": 10, "to": 34, "value": 523166.80281156895, "weight": 1743.8893427052299}, {"from": 10, "to": 39, "value": 412304.43187245855, "weight": 1374.3481062415285}, {"from": 10, "to": 41, "value": 792406.0005627016, "weight": 2641.3533352090053}, {"from": 10, "to": 43, "value": 675139.3247197326, "weight": 2250.464415732442}, {"from": 10, "to": 47, "value": 523166.80281156895, "weight": 1743.8893427052299}, {"from": 10, "to": 49, "value": 523166.80281156895, "weight": 1743.8893427052299}, {"from": 10, "to": 52, "value": 869733.5570724434, "weight": 2899.1118569081445}, {"from": 10, "to": 61, "value": 383246.8026490307, "weight": 1277.4893421634356}, {"from": 10, "to": 79, "value": 323925.78664759797, "weight": 1079.75262215866}, {"from": 10, "to": 86, "value": 326750.3278823582, "weight": 1089.1677596078607}, {"from": 10, "to": 89, "value": 320083.90630184463, "weight": 1066.946354339482}, {"from": 10, "to": 92, "value": 519848.4851507926, "weight": 1732.8282838359753}, {"from": 14, "to": 15, "value": 441937.3287252451, "weight": 1473.1244290841503}, {"from": 14, "to": 16, "value": 439359.98238406016, "weight": 1464.5332746135339}, {"from": 14, "to": 20, "value": 1386151.4473500107, "weight": 4620.504824500036}, {"from": 14, "to": 23, "value": 439359.98238406016, "weight": 1464.5332746135339}, {"from": 14, "to": 27, "value": 412202.0717065807, "weight": 1374.0069056886023}, {"from": 14, "to": 29, "value": 490811.3223099193, "weight": 1636.0377410330643}, {"from": 14, "to": 30, "value": 627499.6034883725, "weight": 2091.6653449612418}, {"from": 14, "to": 32, "value": 399663.32985437504, "weight": 1332.2110995145836}, {"from": 14, "to": 34, "value": 490811.3223099193, "weight": 1636.0377410330643}, {"from": 14, "to": 39, "value": 1053615.1206523946, "weight": 3512.0504021746483}, {"from": 14, "to": 41, "value": 380381.0980061847, "weight": 1267.936993353949}, {"from": 14, "to": 43, "value": 638064.264387337, "weight": 2126.8808812911234}, {"from": 14, "to": 47, "value": 490811.3223099193, "weight": 1636.0377410330643}, {"from": 14, "to": 49, "value": 490811.3223099193, "weight": 1636.0377410330643}, {"from": 14, "to": 52, "value": 886723.2940052756, "weight": 2955.7443133509187}, {"from": 14, "to": 61, "value": 389822.4305416129, "weight": 1299.4081018053764}, {"from": 14, "to": 86, "value": 316039.7834570692, "weight": 1053.4659448568973}, {"from": 14, "to": 92, "value": 494387.0266409371, "weight": 1647.9567554697903}, {"from": 15, "to": 20, "value": 558213.1304772841, "weight": 1860.7104349242804}, {"from": 15, "to": 27, "value": 427399.3601510453, "weight": 1424.6645338368178}, {"from": 15, "to": 29, "value": 410196.38327378075, "weight": 1367.3212775792692}, {"from": 15, "to": 30, "value": 920004.0805639433, "weight": 3066.6802685464777}, {"from": 15, "to": 32, "value": 1112397.4709851104, "weight": 3707.9915699503676}, {"from": 15, "to": 34, "value": 410196.38327378075, "weight": 1367.3212775792692}, {"from": 15, "to": 39, "value": 392893.18297701556, "weight": 1309.6439432567186}, {"from": 15, "to": 41, "value": 454846.170807181, "weight": 1516.1539026906032}, {"from": 15, "to": 43, "value": 470074.89540309936, "weight": 1566.9163180103312}, {"from": 15, "to": 47, "value": 410196.38327378075, "weight": 1367.3212775792692}, {"from": 15, "to": 49, "value": 410196.38327378075, "weight": 1367.3212775792692}, {"from": 15, "to": 52, "value": 558946.7146040981, "weight": 1863.1557153469937}, {"from": 15, "to": 61, "value": 332243.73835779744, "weight": 1107.4791278593248}, {"from": 15, "to": 79, "value": 380162.2448735787, "weight": 1267.207482911929}, {"from": 15, "to": 86, "value": 321710.3509273111, "weight": 1072.3678364243704}, {"from": 15, "to": 92, "value": 408769.5424293089, "weight": 1362.5651414310296}, {"from": 16, "to": 20, "value": 351024.29154643486, "weight": 1170.0809718214496}, {"from": 16, "to": 39, "value": 466110.5083066142, "weight": 1553.7016943553806}, {"from": 16, "to": 52, "value": 348955.52890749666, "weight": 1163.1850963583222}, {"from": 16, "to": 76, "value": 521949.2377055724, "weight": 1739.830792351908}, {"from": 16, "to": 86, "value": 425897.29581209656, "weight": 1419.6576527069885}, {"from": 16, "to": 89, "value": 340616.1416885863, "weight": 1135.3871389619542}, {"from": 20, "to": 23, "value": 351024.29154643486, "weight": 1170.0809718214496}, {"from": 20, "to": 27, "value": 419977.96807805425, "weight": 1399.9265602601808}, {"from": 20, "to": 29, "value": 552598.6790467727, "weight": 1841.9955968225754}, {"from": 20, "to": 30, "value": 832135.9745812052, "weight": 2773.7865819373505}, {"from": 20, "to": 32, "value": 489104.05670255685, "weight": 1630.3468556751895}, {"from": 20, "to": 34, "value": 552598.6790467727, "weight": 1841.9955968225754}, {"from": 20, "to": 39, "value": 805511.076202193, "weight": 2685.036920673977}, {"from": 20, "to": 41, "value": 371500.1480534311, "weight": 1238.3338268447703}, {"from": 20, "to": 43, "value": 698025.4405340389, "weight": 2326.7514684467965}, {"from": 20, "to": 47, "value": 552598.6790467727, "weight": 1841.9955968225754}, {"from": 20, "to": 49, "value": 552598.6790467727, "weight": 1841.9955968225754}, {"from": 20, "to": 52, "value": 861700.8484548304, "weight": 2872.336161516101}, {"from": 20, "to": 61, "value": 447322.74132785643, "weight": 1491.0758044261881}, {"from": 20, "to": 79, "value": 300461.431204091, "weight": 1001.5381040136366}, {"from": 20, "to": 92, "value": 567451.8615017568, "weight": 1891.506205005856}, {"from": 23, "to": 39, "value": 466110.5083066142, "weight": 1553.7016943553806}, {"from": 23, "to": 52, "value": 348955.52890749666, "weight": 1163.1850963583222}, {"from": 23, "to": 76, "value": 521949.2377055724, "weight": 1739.830792351908}, {"from": 23, "to": 86, "value": 425897.29581209656, "weight": 1419.6576527069885}, {"from": 23, "to": 89, "value": 340616.1416885863, "weight": 1135.3871389619542}, {"from": 27, "to": 29, "value": 646202.6815516293, "weight": 2154.008938505431}, {"from": 27, "to": 30, "value": 548498.7776757241, "weight": 1828.3292589190805}, {"from": 27, "to": 32, "value": 429833.7739570377, "weight": 1432.779246523459}, {"from": 27, "to": 34, "value": 646202.6815516293, "weight": 2154.008938505431}, {"from": 27, "to": 39, "value": 343255.7142847015, "weight": 1144.1857142823383}, {"from": 27, "to": 41, "value": 674929.0563420107, "weight": 2249.7635211400357}, {"from": 27, "to": 43, "value": 784318.5337871718, "weight": 2614.3951126239062}, {"from": 27, "to": 47, "value": 646202.6815516293, "weight": 2154.008938505431}, {"from": 27, "to": 49, "value": 646202.6815516293, "weight": 2154.008938505431}, {"from": 27, "to": 52, "value": 722492.6968394613, "weight": 2408.308989464871}, {"from": 27, "to": 61, "value": 416171.8806899474, "weight": 1387.2396022998246}, {"from": 27, "to": 92, "value": 635804.2173995578, "weight": 2119.3473913318594}, {"from": 29, "to": 30, "value": 605247.8194073502, "weight": 2017.492731357834}, {"from": 29, "to": 32, "value": 416669.44661812525, "weight": 1388.8981553937508}, {"from": 29, "to": 39, "value": 405139.37901220843, "weight": 1350.4645967073614}, {"from": 29, "to": 41, "value": 359786.95681119617, "weight": 1199.2898560373205}, {"from": 29, "to": 43, "value": 1682714.0278132167, "weight": 5609.046759377389}, {"from": 29, "to": 52, "value": 649037.5907216743, "weight": 2163.4586357389144}, {"from": 29, "to": 61, "value": 544013.4805732239, "weight": 1813.3782685774129}, {"from": 29, "to": 92, "value": 3558462.3862351207, "weight": 11861.541287450402}, {"from": 30, "to": 32, "value": 617948.5747468332, "weight": 2059.8285824894438}, {"from": 30, "to": 34, "value": 605247.8194073502, "weight": 2017.492731357834}, {"from": 30, "to": 39, "value": 501992.85875951964, "weight": 1673.3095291983989}, {"from": 30, "to": 41, "value": 472232.66112668946, "weight": 1574.1088704222982}, {"from": 30, "to": 43, "value": 769749.9524042257, "weight": 2565.8331746807526}, {"from": 30, "to": 47, "value": 605247.8194073502, "weight": 2017.492731357834}, {"from": 30, "to": 49, "value": 605247.8194073502, "weight": 2017.492731357834}, {"from": 30, "to": 52, "value": 995048.3170334983, "weight": 3316.8277234449943}, {"from": 30, "to": 61, "value": 405223.3981680069, "weight": 1350.744660560023}, {"from": 30, "to": 92, "value": 596678.5326383057, "weight": 1988.9284421276857}, {"from": 32, "to": 34, "value": 416669.44661812525, "weight": 1388.8981553937508}, {"from": 32, "to": 39, "value": 359972.50055910053, "weight": 1199.9083351970019}, {"from": 32, "to": 41, "value": 426417.5249941284, "weight": 1421.391749980428}, {"from": 32, "to": 43, "value": 463087.7042923478, "weight": 1543.6256809744925}, {"from": 32, "to": 47, "value": 416669.44661812525, "weight": 1388.8981553937508}, {"from": 32, "to": 49, "value": 416669.44661812525, "weight": 1388.8981553937508}, {"from": 32, "to": 52, "value": 484178.2390152189, "weight": 1613.927463384063}, {"from": 32, "to": 61, "value": 330988.1329593712, "weight": 1103.2937765312374}, {"from": 32, "to": 79, "value": 369330.7934297271, "weight": 1231.1026447657568}, {"from": 32, "to": 92, "value": 413842.0796235923, "weight": 1379.4735987453078}, {"from": 34, "to": 39, "value": 405139.37901220843, "weight": 1350.4645967073614}, {"from": 34, "to": 41, "value": 359786.95681119617, "weight": 1199.2898560373205}, {"from": 34, "to": 43, "value": 1682714.0278132167, "weight": 5609.046759377389}, {"from": 34, "to": 52, "value": 649037.5907216743, "weight": 2163.4586357389144}, {"from": 34, "to": 61, "value": 544013.4805732239, "weight": 1813.3782685774129}, {"from": 34, "to": 92, "value": 3558462.3862351207, "weight": 11861.541287450402}, {"from": 39, "to": 41, "value": 328392.3751707714, "weight": 1094.6412505692379}, {"from": 39, "to": 43, "value": 484491.5238713432, "weight": 1614.9717462378105}, {"from": 39, "to": 47, "value": 405139.37901220843, "weight": 1350.4645967073614}, {"from": 39, "to": 49, "value": 405139.37901220843, "weight": 1350.4645967073614}, {"from": 39, "to": 52, "value": 583103.3412566143, "weight": 1943.6778041887144}, {"from": 39, "to": 61, "value": 327429.9788868367, "weight": 1091.4332629561222}, {"from": 39, "to": 86, "value": 306502.731081407, "weight": 1021.6757702713566}, {"from": 39, "to": 92, "value": 403019.3903125426, "weight": 1343.3979677084753}, {"from": 40, "to": 45, "value": 446538.42001058854, "weight": 1488.4614000352951}, {"from": 41, "to": 43, "value": 434126.0766447217, "weight": 1447.0869221490723}, {"from": 41, "to": 47, "value": 359786.95681119617, "weight": 1199.2898560373205}, {"from": 41, "to": 49, "value": 359786.95681119617, "weight": 1199.2898560373205}, {"from": 41, "to": 52, "value": 585243.2793300294, "weight": 1950.810931100098}, {"from": 41, "to": 61, "value": 300346.0577902871, "weight": 1001.1535259676235}, {"from": 41, "to": 86, "value": 363791.58034297964, "weight": 1212.6386011432655}, {"from": 41, "to": 89, "value": 423935.77771808446, "weight": 1413.1192590602816}, {"from": 41, "to": 92, "value": 357961.9384399672, "weight": 1193.2064614665574}, {"from": 43, "to": 47, "value": 1682714.0278132167, "weight": 5609.046759377389}, {"from": 43, "to": 49, "value": 1682714.0278132167, "weight": 5609.046759377389}, {"from": 43, "to": 52, "value": 1031252.0158398639, "weight": 3437.506719466213}, {"from": 43, "to": 61, "value": 518308.51052521064, "weight": 1727.6950350840355}, {"from": 43, "to": 92, "value": 1521207.2324035107, "weight": 5070.690774678369}, {"from": 45, "to": 76, "value": 319853.76388560014, "weight": 1066.1792129520004}, {"from": 47, "to": 52, "value": 649037.5907216743, "weight": 2163.4586357389144}, {"from": 47, "to": 61, "value": 544013.4805732239, "weight": 1813.3782685774129}, {"from": 47, "to": 92, "value": 3558462.3862351207, "weight": 11861.541287450402}, {"from": 49, "to": 52, "value": 649037.5907216743, "weight": 2163.4586357389144}, {"from": 49, "to": 61, "value": 544013.4805732239, "weight": 1813.3782685774129}, {"from": 49, "to": 92, "value": 3558462.3862351207, "weight": 11861.541287450402}, {"from": 52, "to": 61, "value": 444107.6388375539, "weight": 1480.3587961251797}, {"from": 52, "to": 86, "value": 313898.2888905111, "weight": 1046.327629635037}, {"from": 52, "to": 92, "value": 652020.8824486593, "weight": 2173.4029414955307}, {"from": 61, "to": 92, "value": 642188.6451343609, "weight": 2140.628817114536}, {"from": 76, "to": 86, "value": 347644.6395254601, "weight": 1158.815465084867}, {"from": 79, "to": 86, "value": 555370.8580201422, "weight": 1851.2361934004741}, {"from": 79, "to": 89, "value": 372453.1549721605, "weight": 1241.5105165738685}, {"from": 84, "to": 99, "value": 441496.5455923494, "weight": 1471.6551519744978}, {"from": 86, "to": 89, "value": 836699.4740476914, "weight": 2788.998246825638}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"physics": {"barnesHut": {"gravitationalConstant": 0, "centralGravity": 0, "springLength": 400, "springConstant": 0.1, "damping": 1, "avoidOverlap": 1}}, "nodes": {"color": {"border": "white", "background": "lightblue", "highlight": {"border": "mediumpurple", "background": "mediumpurple"}}}, "edges": {"arrows": {"to": {"enabled": true}, "from": {"enabled": true}}, "arrowStrikethrough": false, "color": {"color": "#dcdcdc88", "highlight": "mediumpurple", "inherit": false}, "smooth": {"type": "continuous", "forceDirection": "none"}}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+        network.on("stabilizationProgress", function(params) {
+      		document.getElementById('loadingBar').removeAttribute("style");
+	        var maxWidth = 496;
+	        var minWidth = 20;
+	        var widthFactor = params.iterations/params.total;
+	        var width = Math.max(minWidth,maxWidth * widthFactor);
+
+	        document.getElementById('bar').style.width = width + 'px';
+	        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+	    });
+	    network.once("stabilizationIterationsDone", function() {
+	        document.getElementById('text').innerHTML = '100%';
+	        document.getElementById('bar').style.width = '496px';
+	        document.getElementById('loadingBar').style.opacity = 0;
+	        // really clean the dom element
+	        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+	    });
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
