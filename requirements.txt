@@ -22,9 +22,11 @@ wordcloud
 
 python-Levenshtein  # sued by gensim
 
+seaborn
 networkx
 bokeh
 pyvis
+plotly
 
 
 bertopic  # BERT topic modeling

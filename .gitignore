@@ -11,3 +11,5 @@ __pycache__
 .Rhistory
 .vscode/
 tmp/
+
+.ipynb_checkpoints/
