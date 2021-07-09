@@ -30,6 +30,7 @@ cairocffi  # igraph requires cairo binding; you also need to `brew install cairo
 bokeh
 pyvis
 plotly
+pydot  # keras uses pydot to plot models
 
 
 bertopic  # BERT topic modeling
