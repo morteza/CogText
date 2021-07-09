@@ -39,8 +39,8 @@ sns.set('notebook')
 
 # constraints and constants
 N_TOPICS_MIN = 1
-N_TOPICS_MAX = 100
-N_TOPIC_WORDS = 10  # number of words per topic (for printing and plotting purposes)
+N_TOPICS_MAX = 50
+N_TOPIC_WORDS = 20  # number of words per topic (for printing and plotting purposes)
 MY_STOP_WORDS = ['study', 'task', 'test']
 
 # Note: run this to download the SpaCy model: `python -m spacy download en_core_web_sm`
@@ -114,7 +114,7 @@ def get_topics(texts: pd.DataFrame, corpus_name: str):
 
   model_scores = {}
   models = {}
-  for n_topics in tqdm(range(N_TOPICS_MIN, N_TOPICS_MAX), desc='Fitting n_topics'):
+  for n_topics in tqdm(range(N_TOPICS_MIN, N_TOPICS_MAX), desc='Fitting `n_topics`'):
     models[n_topics] = gensim.models.ldamodel.LdaModel(corpus=corpus, id2word=words, num_topics=n_topics)
     model_scores[n_topics] = gensim.models.CoherenceModel(model=models[n_topics],
                                                           corpus=corpus,
@@ -184,14 +184,51 @@ def save_topic_barplots(topics: pd.DataFrame,
 def save_topic_wordclouds(topics: pd.DataFrame,
                           corpus_name: str,
                           savefig_fname: Path = None):
-  raise NotImplementedError()
+  
+  # raise NotImplementedError
+  from wordcloud import WordCloud
+
+  if savefig_fname is None:
+    # default path
+    savefig_fname = Path('outputs/topic_wordclouds') / (corpus_name.replace('/', '_') + '.png')
+
+  def _cloud(*args, **kwargs):
+    data = kwargs['data']
+    terms = data['term'].to_list()
+    coefs = data['term_coef'].to_list()
+    freqs = dict(zip(terms, coefs))
+        
+    cloud = WordCloud(width=500,height=500,background_color ='white').generate_from_frequencies(freqs)
+    plt.imshow(cloud)
+
+  grid = sns.FacetGrid(topics,
+                       col='topic_index', hue='topic_index', palette='deep', col_wrap=4,
+                       sharex='term_coef', sharey=False,
+                       col_order=range(1, topics['topic_index'].nunique() + 1, 1))
+  grid.map_dataframe(_cloud)
+
+  plt.suptitle(f'{corpus_name} topics', weight='bold', x=.2)
+  plt.axis('off')
+  plt.tight_layout()
+  plt.savefig(savefig_fname)
+  # to reuse the same plt and prevent memory leak warning
+  plt.clf()
+  plt.close('all')
 
 
-# load and iterate corpora
-corpora = Path('data/pubmed').glob('**/*.csv')
 
-for fname in corpora:
+# ===================================
+# MAIN LOOP: load and iterate corpora
+# ===================================
+
+corpus_files = Path('data/pubmed').glob('**/*.csv')
+
+for fname in corpus_files:
   corpus_name = re.findall('.*/pubmed/(.*)\\.csv', str(fname))[0]
+
+  if not (corpus_name.startswith('tests/') or corpus_name.startswith('constructs')):
+    continue
+
   print(f'>> {corpus_name}...', file=sys.stderr)
   df = pd.read_csv(fname)
 
@@ -201,6 +238,6 @@ for fname in corpora:
   topics = get_topics(df, corpus_name=corpus_name)
 
   save_topic_barplots(topics, corpus_name=corpus_name)
-  # save_topic_wordclouds(topics, corpus_name=corpus_name)
+  save_topic_wordclouds(topics, corpus_name=corpus_name)
 
 print('Done!')
