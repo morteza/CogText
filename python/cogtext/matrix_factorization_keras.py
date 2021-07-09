@@ -1,47 +1,84 @@
 # %%
 
+# NOTE: Morty! switch to conda/tf environment before running this code.
+
+# NOTE `conda install --name -c condaforge graphviz`
+# NOTE `pip install pydot tensorflow`
+
 # We're trying to learn two low-dimensional embeddings of tests and constructs.
 from pathlib import Path
 import pandas as pd
+import matplotlib.pyplot as plt
+from IPython.display import Image, display
+
 from sklearn.model_selection import train_test_split
 
-INPUT_CSV_FILE = Path('data/pubmed/test_construct_matrix.csv')
-
-PROBS = pd.read_csv(INPUT_CSV_FILE)
-PROBS['p'] = PROBS['intersection_corpus_size'] / PROBS['union_corpus_size']
-
-train, test = train_test_split(PROBS, test_size=0.2)
-
-# %%
+import tensorflow as tf
 import keras
 from keras.layers import Input, Embedding
 from IPython.display import SVG
 from keras.utils.vis_utils import model_to_dot
 
 
+INPUT_CSV_FILE = Path('data/pubmed/test_construct_matrix.csv')
+
+PROBS = pd.read_csv(INPUT_CSV_FILE)
+
+PROBS['test_id'] = PROBS['test'].astype('category').cat.codes.values
+PROBS['construct_id'] = PROBS['construct'].astype('category').cat.codes.values
+
+PROBS['p'] = PROBS['intersection_corpus_size'] / PROBS['union_corpus_size']
+
+# train/test split
+train, test = train_test_split(PROBS, test_size=0.2)
+
 n_tests, n_constructs = len(PROBS['test'].unique()), len(PROBS['construct'].unique())
+
+# TODO use hyperparameter
 embedding_dim = 3
 
 # tests (M)
-test_input = Input(shape=[1], name='test_input')
-test_embedding = Embedding(input_dim=n_tests + 1,
-                           output_dim=embedding_dim,
-                           name='test_embedding')(test_input)
-test_vec = keras.layers.Flatten(name='test_vec')(test_embedding)
+M_input = Input(shape=[1], name='test_input')
+M_embedding = Embedding(input_dim=n_tests + 1,
+                        output_dim=embedding_dim,
+                        name='test_embedding')(M_input)
+M_vec = keras.layers.Flatten(name='test_vec')(M_embedding)
 
 # constructs (C)
-construct_input = Input(shape=[1], name='construct')
-construct_embedding = Embedding(input_dim=n_constructs + 1,
-                                output_dim=embedding_dim,
-                                name='construct_embedding')(construct_input)
-construct_vec = keras.layers.Flatten(name='construct_vec')(construct_embedding)
+C_input = Input(shape=[1], name='construct_input')
+C_embedding = Embedding(input_dim=n_constructs + 1,
+                        output_dim=embedding_dim,
+                        name='construct_embedding')(C_input)
+C_vec = keras.layers.Flatten(name='construct_vec')(C_embedding)
 
-# M*C
-prod = keras.layers.Dot(axes=1)([test_vec, construct_vec])
-model = keras.Model([test_input, construct_input], prod)
+# X = M*C
+prod = keras.layers.Dot(axes=1, name='dot_product')([M_vec, C_vec])
+model = keras.Model([M_input, C_input], prod)
 model.compile(optimizer='adam', loss='mse')
+# DEBUG model.summary()
 
-model_to_dot(model, show_shapes=True, show_layer_names=True, rankdir='HB')
 
-# y = Dot(1, normalize=False)([user_vecs, item_vecs])
-# model = Model(inputs=[user_id_input, item_id_input], outputs=y)
+# plot
+model_dot_plot = model_to_dot(model, show_shapes=True, show_layer_names=True, rankdir='HB').create_png()
+Image(model_dot_plot)
+
+# DEBUG tf.keras.utils.plot_model(model)
+
+
+# %%
+history = model.fit([train['test_id'], train['construct_id']], train['p'], epochs=100, verbose=0)
+
+pd.Series(history.history['loss']).plot(logy=True)
+plt.xlabel("Epoch")
+plt.ylabel("Training Error")
+plt.show()
+
+results = model.evaluate((test['test_id'], test['construct_id']), test['p'], batch_size=1)
+
+# %% embeddings
+
+construct_embedding_ = model.get_layer(name='construct_embedding').get_weights()[0]
+test_embedding_ = model.get_layer(name='test_embedding').get_weights()[0]
+
+pd.DataFrame(construct_embedding_)
+pd.DataFrame(test_embedding_)
