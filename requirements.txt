@@ -24,6 +24,9 @@ python-Levenshtein  # sued by gensim
 
 seaborn
 networkx
+python-igraph
+cairocffi  # igraph requires cairo binding; you also need to `brew install cairo` on macOS. or use conda to install cairo.
+# pycairo  # igraph requires cairo binding; you also need to `brew install cairo` on macOS. or use conda to install cairo.
 bokeh
 pyvis
 plotly
