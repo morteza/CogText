@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from IPython.display import Image, display
 
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
 
 import tensorflow as tf
 import keras
@@ -39,14 +40,14 @@ embedding_dim = 3
 
 # tests (M)
 M_input = Input(shape=[1], name='test_input')
-M_embedding = Embedding(input_dim=n_tests + 1,
+M_embedding = Embedding(input_dim=n_tests,
                         output_dim=embedding_dim,
                         name='test_embedding')(M_input)
 M_vec = keras.layers.Flatten(name='test_vec')(M_embedding)
 
 # constructs (C)
 C_input = Input(shape=[1], name='construct_input')
-C_embedding = Embedding(input_dim=n_constructs + 1,
+C_embedding = Embedding(input_dim=n_constructs,
                         output_dim=embedding_dim,
                         name='construct_embedding')(C_input)
 C_vec = keras.layers.Flatten(name='construct_vec')(C_embedding)
@@ -70,15 +71,30 @@ history = model.fit([train['test_id'], train['construct_id']], train['p'], epoch
 
 pd.Series(history.history['loss']).plot(logy=True)
 plt.xlabel("Epoch")
-plt.ylabel("Training Error")
+plt.ylabel("Training Loss")
 plt.show()
 
 results = model.evaluate((test['test_id'], test['construct_id']), test['p'], batch_size=1)
 
+# %%
+
+y_hat = model.predict((test['test_id'], test['construct_id']))
+y_true = test['p']
+mean_squared_error(y_true, y_hat)
+
 # %% embeddings
 
-construct_embedding_ = model.get_layer(name='construct_embedding').get_weights()[0]
-test_embedding_ = model.get_layer(name='test_embedding').get_weights()[0]
+C = model.get_layer(name='construct_embedding').get_weights()[0]
+M = model.get_layer(name='test_embedding').get_weights()[0]
 
-pd.DataFrame(construct_embedding_)
-pd.DataFrame(test_embedding_)
+pd.DataFrame(C)
+pd.DataFrame(M)
+
+y_hat = (M @ C.T).flatten()
+y_true = PROBS['p'].values
+
+mean_squared_error(y_true, y_hat)
+
+import seaborn as sns
+sns.displot(y_true - y_hat, kde=True)
+plt.show()
