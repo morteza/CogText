@@ -19,18 +19,22 @@ of the Literature
 Morteza Ansarinia
 Pedro Cardoso-Leite
 
-:dog:
+
+![h:160](assets/unilu_logo.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![h:160](assets/xcit_logo.png)
 
 ---
 <!-- _class: lead -->
 
-# EF-TM
-## Executive Functions Text Mining
+<!-- This is a comment -->
+# Executive Functions Text Mining
+<br />
 
 Morteza Ansarinia
 Pedro Cardoso-Leite
 
-:dog:
+<br />
+
+*July 14, 2021*
 
 ---
 
