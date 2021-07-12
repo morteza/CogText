@@ -1,5 +1,6 @@
 ---
-title: EFO
+instruction: Compile using MARP and save the output in the `outputs/colloqium2021/` folder.
+title: EFO (Uni.lu LUCET Colloquium; July 14, 2021)
 marp: true
 theme: gaia
 # class: lead
@@ -20,58 +21,76 @@ Morteza Ansarinia
 Pedro Cardoso-Leite
 
 
-![h:160](assets/unilu_logo.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![h:160](assets/xcit_logo.png)
+![h:160](../../docs/colloquium2021/assets/unilu_logo.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![h:160](../../docs/colloquium2021/assets/xcit_logo.png)
 
 ---
 <!-- _class: lead -->
 
 <!-- This is a comment -->
-# Executive Functions Text Mining
+OR
+
+# "Executive Functions" Text Mining
 <br />
 
-Morteza Ansarinia
-Pedro Cardoso-Leite
-
-<br />
-
+*COSA-LUCET Colloquium*
 *July 14, 2021*
 
 ---
 
-# Background
+## Background
+### Executive Functions
+- One of the quirks of human cognition is the ability to coordinate complex behaviors in pursuit of goals.
+- It has been the focus of research in many disciplines, including psychology, neuroscience,and artificial intelligence.
 
-## Executive Functions
-One of the quirks of human cognition is the ability to coordinate complex behaviors in pursuit of goals. This ability has been the focus of a substantial body of research in many disciplines, including psychology, neuroscience,and artificial intelligence.
+`![FIGURE: control disciplines triangle]()`
 
-- One example of such complex tasks would be, for instance, cooking. Imagine we want to make Pizza.
+:pizza: One example of such complex behaviors would be, for instance, cooking a pizza.
+
+---
+
+## Background
+### Executive Functions
+
+`![FIGURE: a complex task such as cooking]()`
 
 ---
 # Problem
 
 
-- Cognitive scientists have created numerous constructs like executive functions, executive attention, executive control, attention control, attentional control, cognitive control, fluid intelligence, fluid cognition, working memory, updating, shifting and inhibition, to cite just a few.
+Cognitive scientists have created numerous constructs.
 
-- It's not always clear  to what extent those terms refer to different phenomena and b) are distinct, synonymous or polysemous.
+- To name just a few, executive functions (<mark>ref</mark>), executive attention (<mark>ref</mark>), executive control (<mark>ref</mark>), attention control (<mark>ref</mark>), attentional control (<mark>ref</mark>), cognitive control (<mark>ref</mark>), fluid intelligence (<mark>ref</mark>), fluid cognition (<mark>ref</mark>), working memory (<mark>ref</mark>), updating, shifting and inhibition (<mark>ref</mark>).
 
-
-- This state of affairs makes it hard to understand past results and limits scientific progress; it also makes it hard to develop effective interventions: there is a great need for more conceptual clarity.
-
+- To what extent those terms refer to different phenomena?
+- To what extent those terms are distinct, synonymous or polysemous?
 
 ---
 
-# Problem (2)
+`![FIGURE](models of EF)`
 
-To gain clarity:
+---
+
+- Current state of affairs makes it hard to understand past results and limits scientific progress;
+
+- it also makes it hard to develop effective interventions: there is a great need for more conceptual clarity.
+    - Example: Targeting Attentional Control vs. Cognitive Control in cognitive training regimes with action video game.
+
+`![FIGURE](CC vs AC brain activities)`
+
+---
+
+To gain clarity, we can:
 
 1. extensively reading, synthesizing and criticizing the literature and writing reviews or reports describing their understanding of the field
-    - biase
-    - sheer volume of papers published every year  (6 EFs paper per day on PubMed)
+    - it's biased
+    - sheer volume of papers published every year (6 EFs paper per day on PubMed)
 
+2. Automatic analysis of the scientific texts
 
 ---
-# Current project
+## Current project
 
-To use text-based methods to gain clarity on the meaning of cognitive constructs and the measures provided by cognitive tests.
+We aim use text-based methods to gain clarity on the meaning of cognitive constructs and the measures provided by cognitive tests.
 
 Why?
 it is clear that psychological constructs are not fully distinct since the same cognitive test may be used to characterize different constructs.
@@ -92,13 +111,15 @@ More generally, and analogous to some recommender systems, two tasks are similar
 - conceptualize -> constructs/algorithms
 - observe -> brain and behavior
 
-
-TODO: A figure of the EFO
-
+`TODO: A figure of the EFO`
 
 ---
-# Data Collection
-## Knowledge Model
+## Data Collection
+### Pipeline
+
+---
+## Data Collection
+### Knowledge Model
 
 - Improving the ontology via manual knowledge mining of highly cited papers
     - main classes: task, cognitive processes, brain regions
@@ -109,8 +130,8 @@ TODO: A figure of the EFO
 
 
 ---
-# Data Collection
-## PubMed Abstracts
+## Data Collection
+### PubMed Abstracts
 
 - Improving the ontology via manual knowledge mining of highly cited papers
 
@@ -209,13 +230,15 @@ did not take into account that how often papers are cited
 
 ## future works
 questionnaires
-ecologically valid tasks (models that do not involve standard lab-tasks)
+- a website
+- manually annotate part of the corpus
+- ecologically valid tasks (models that do not involve standard lab-tasks)
 
 ---
 # Reproducibility and Open Science
 
-ontology
-collected PubMed dataset
-notebooks and codes
+- EF ontology,
+- collected PubMed corpus,
+- notebooks, and codes
 
-Are all on Uni.lu GitLab. Contact pedro@xcit.org for access.
+are all available on a private Uni.lu GitLab. Contact pedro@xcit.org for access.
