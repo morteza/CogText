@@ -81,6 +81,9 @@ More generally, and analogous to some recommender systems, two tasks are similar
 ---
 # Research questions
 
+- Which tests help to operationalize cognitive constructs by cognitive tests
+- Which cognitive processes are useful as constructs
+- evolution over time
 
 ---
 # Executive Functions Ontology
@@ -140,6 +143,17 @@ evolution over time
 - co-appearance of task-construct
 - specificity of tasks and constructs
 
+![bg](#fff)
+![bg fit right:60%](../../outputs/matrix_factorization/1_test_construct_coappearance_heatmap.png)
+
+---
+# Popular tasks and constructs
+
+A subset of previous heat map
+
+![bg](#fff)
+![bg fit right:60%](../../outputs/matrix_factorization/1_top_test_construct_coappearance_heatmap.png)
+
 ---
 <!-- _class: lead -->
 topic modeling descriptive results
@@ -154,7 +168,24 @@ topic modeling descriptive results
 
 
 ---
-# Similarity map
+Cognitive tests
+similarity map
+
+![bg](#fff)
+![bg fit right:60%](../../outputs/matrix_factorization/5_tests_similarity_map.png)
+
+
+---
+Cognitive constructs
+similarity map
+
+![bg](#fff)
+![bg fit right:60%](../../outputs/matrix_factorization/6_constructs_similarity_map.png)
+
+
+
+---
+Topic evolution over time
 
 
 ---
@@ -179,3 +210,12 @@ did not take into account that how often papers are cited
 ## future works
 questionnaires
 ecologically valid tasks (models that do not involve standard lab-tasks)
+
+---
+# Reproducibility and Open Science
+
+ontology
+collected PubMed dataset
+notebooks and codes
+
+Are all on Uni.lu GitLab. Contact pedro@xcit.org for access.
