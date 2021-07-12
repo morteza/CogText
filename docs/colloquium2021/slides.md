@@ -138,11 +138,13 @@ More generally, and analogous to some recommender systems, two tasks are similar
 ---
 <!-- _class: lead -->
 # Descriptive Results
+- Frequency of tasks/constructs
 
 ---
-frequency of tasks/constructs
 
-follows power law
+![bg vertical](#fff)
+![bg fit](../../outputs/descriptive_plots/1_tests_corpus_size.png)
+![bg fit](../../outputs/descriptive_plots/1_constructs_corpus_size.png)
 
 ---
 - number of tasks per paper (x), percentage of papers (y)
