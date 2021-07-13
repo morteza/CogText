@@ -21,7 +21,7 @@ Morteza Ansarinia
 Pedro Cardoso-Leite
 
 
-![h:160](../../docs/colloquium2021/assets/unilu_logo.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![h:160](../../docs/colloquium2021/assets/xcit_logo.png)
+![h:120](../../docs/colloquium2021/assets/unilu_logo.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![h:120](../../docs/colloquium2021/assets/xcit_logo.png)
 
 
 *COSA-LUCET Colloquium*
@@ -31,6 +31,7 @@ Pedro Cardoso-Leite
 <!-- _class: lead -->
 
 # :warning:
+
 `
 This is an ongoing study. Results are still inconclusive.
 `
@@ -47,8 +48,7 @@ To name just a few, executive functions (<mark>ref</mark>), executive attention 
 
 
 --- 
-## Example
-### Executive Functions (EFs)
+## Example: Executive Functions (EFs)
 
 The ability to coordinate complex behaviors in pursuit of goals.
 
@@ -60,64 +60,69 @@ Focus of research in many disciplines, including psychology, neuroscience, and a
 
 </center>
 
+<!-- _footer: Image reproduced from <mark>Botvinick</mark> at <mark>Triangulating Intelligence (Oct 2020)</mark>. -->
 ---
 
 ## Executive Functions (EFs)
-### Example
 
 :pizza: One example of such complex behaviors would be, for instance, cooking a pizza.
 
-`![FIGURE: a complex task such as cooking]()`
+![bg](#fff)
 
+<center>
+
+![w:650](../../docs/colloquium2021/assets/pizza.png)
+
+</center>
+
+---
+
+## Models of EFs
+
+![bg](#fff)
+![bg fit 95%](../../docs/colloquium2021/assets/ef_bavelier2019.jpg)
+![bg fit 95%](../../docs/colloquium2021/assets/ef_miyake2017.jpg)
+
+<!-- _footer: Images from <mark>Bavelier2019</mark> and <mark>Miyake2017</mark>. -->
+
+---
+
+![bg vertical](#fff)
+![bg fit 90%](../../docs/colloquium2021/assets/ef_dosenbach2007_corbetta2008.png)
+
+<!-- _footer: Images from <mark>Dosenbach2007</mark> and <mark>Corbetta2008</mark>. -->
 ---
 
 - Current state of affairs makes it hard to understand past results and limits scientific progress;
 
 - it also makes it hard to develop effective interventions: there is a great need for more conceptual clarity.
     - Example: Targeting Attentional Control vs. Cognitive Control in cognitive training regimes with action video game.
-    - EF models (MIyake) vs Attention models (Posner).
-
----
-## Models of EFs
-
-
-![bg](#fff)
-![bg auto 95%](../../docs/colloquium2021/assets/ef_bavelier2019.jpg)
-![bg auto 95%](../../docs/colloquium2021/assets/ef_miyake2017.jpg)
-
-
----
-## Models of EFs
-
-![bg](#fff)
-![bg w:500](../../docs/colloquium2021/assets/ef_corbetta2008.jpg)
-
-`TODO: add dosenbach2007`
+    - EF models (Miyake) vs Attention models (Posner).
 
 ---
 
-To gain clarity, we can:
+### To gain clarity, we can...
 
-1. extensively reading, synthesizing and criticizing the literature and writing reviews or reports describing their understanding of the field
-    - it's biased
-    - sheer volume of papers published every year (6 EFs paper per day on PubMed). 376030 for a subset of cognitive tasks and 46256 for a subset of cognitive constructs.
+:feather: **Manually** read, synthesize, and criticize the literature to write reviews describing our understanding of the field.
+- :thumbsdown: it's biased.
+- :exploding_head: sheer volume of papers published every year (200 EFs paper per month on PubMed).
 
-2. Automatic analysis of the scientific texts
+:robot: **Automatic** analysis of the scientific texts.
 
 ---
 ## Current project
 
 <!--fit-->
 This study aims a text-based method to gain clarity on the meaning of cognitive constructs and the measures provided by cognitive tests.
-- Psychological constructs are not fully independent since the same cognitive test may be used to characterize different constructs.
-- Cognitive tests are similar to the extent that their similarly relate to constructs
-- Constructs are similar to the extent that they are measured using the same tasks.
+- Psychological constructs are not fully independent because the same tests may be used to characterize different constructs.
+- Cognitive tests are similar to the extent that their similarly relate to constructs.
+
 - :question: Which tests help operationalize executive function constructs?
 - :question: Which constructs are useful, observable, and unambiguous?
 
 ---
 
-# Method
+## Method
 
 <!-- _class: gaia -->
 
@@ -130,15 +135,11 @@ This study aims a text-based method to gain clarity on the meaning of cognitive 
     3. topic modeling
 
 ---
-# Executive Functions Ontology
+## Executive Functions Ontology
 
-A machine-readable graph-based model of knowledge.
+A machine-readable graph-based model of what we know about *Executive Functions*.
 
-- operationalize (tests)
-- conceptualize (constructs) -> Marr's algorithms
-- observe (brain mechanisms) -> Marr's implementation
-
-`TODO: ontology figure`
+`TODO: EFO ontology figure`
 
 ---
 ## Data Collection
@@ -170,13 +171,18 @@ A machine-readable graph-based model of knowledge.
 - ...
 
 ---
-## Descriptive Results
+
+<!-- _class: lead -->
+
+## Results
+
+---
 ### Frequency of tasks/constructs
 
-![bg fit](../../outputs/descriptive_plots/1_tests_corpus_size.png)
-![bg fit](../../outputs/descriptive_plots/1_constructs_corpus_size.png)
+![bg vertical](#fff)
+![bg fit right:60%](../../outputs/descriptive_plots/1_tests_corpus_size.png)
+![bg fit 80%](../../outputs/descriptive_plots/1_constructs_corpus_size.png)
 
-`TODO`
 
 what is the message:
 - many tasks but few are used (+power law)
