@@ -37,18 +37,58 @@ This is an ongoing study. Results are still inconclusive.
 `
 
 ---
-## Cognitive constructs are ambiguous
+## Cognitive concepts are ambiguous
 
 Cognitive scientists have created numerous constructs.
 
-To name just a few, executive functions (<mark>ref</mark>), executive attention (<mark>ref</mark>), executive control (<mark>ref</mark>), attention control (<mark>ref</mark>), attentional control (<mark>ref</mark>), cognitive control (<mark>ref</mark>), fluid intelligence (<mark>ref</mark>), fluid cognition (<mark>ref</mark>), working memory (<mark>ref</mark>), updating, shifting and inhibition (<mark>ref</mark>).
+<center>
 
-:question: To what extent those terms refer to different phenomena?
-:question: To what extent those terms are synonymous or polysemous?
+![w:250](../../docs/colloquium2021/assets/buzsaki_book_cover.jpg)
 
+</center>
+
+---
+
+- Current state of affairs makes it hard to understand past results and limits scientific progress.
+
+- Combining results from multiple disciplines is pretty difficult.
+
+- It also makes it hard to develop effective interventions.
+
+- There is a great need for more conceptual clarity.
+
+---
+
+![bg w:750](../../docs/colloquium2021/assets/buzsaki_frontal.png)
+
+<!-- _footer: Image from <mark>Buzsaki2019</mark>. -->
+
+---
+
+## Example: *Executive Functions*
+
+
+Executive functions (<mark>Diamond2013</mark>), executive attention (<mark>Engle2002</mark>), executive control (<mark>Posner1990</mark>), attention control, attentional control (<mark>Bavelier2019</mark>), cognitive control (<mark>Botvinick2016</mark>), fluid intelligence (<mark>Diamond2013</mark>), fluid cognition, working memory (<mark>Baddeley1996</mark>), updating, shifting, and inhibition (<mark>Miyake2000</mark>).
+
+
+
+# :exploding_head:
+
+---
+
+## Example: *Executive Functions*
+
+**:question: To what extent those terms refer to different phenomena?**
+**:question: To what extent those terms are synonymous or polysemous?**
+
+<center>
+
+![w:550](../../docs/colloquium2021/assets/buzsaki_frontal.png)
+
+</center>
 
 --- 
-## Example: Executive Functions (EFs)
+## Executive Functions (EFs)
 
 The ability to coordinate complex behaviors in pursuit of goals.
 
@@ -93,32 +133,29 @@ Focus of research in many disciplines, including psychology, neuroscience, and a
 <!-- _footer: Images from <mark>Dosenbach2007</mark> and <mark>Corbetta2008</mark>. -->
 ---
 
-- Current state of affairs makes it hard to understand past results and limits scientific progress;
-
-- it also makes it hard to develop effective interventions: there is a great need for more conceptual clarity.
-    - Example: Targeting Attentional Control vs. Cognitive Control in cognitive training regimes with action video game.
-    - EF models (Miyake) vs Attention models (Posner).
-
----
-
 ### To gain clarity, we can...
 
 :feather: **Manually** read, synthesize, and criticize the literature to write reviews describing our understanding of the field.
-- :thumbsdown: it's biased.
-- :exploding_head: sheer volume of papers published every year (200 EFs paper per month on PubMed).
+- :thumbsdown: It's biased and reflect author's view.
+- :chart_with_upwards_trend: Sheer volume of papers published every year
+(200 EFs papers per month on PubMed).
 
-:robot: **Automatic** analysis of the scientific texts.
+*OR*
+
+:robot: **Automatically** analyze of the scientific texts.
 
 ---
 ## Current project
 
 <!--fit-->
-This study aims a text-based method to gain clarity on the meaning of cognitive constructs and the measures provided by cognitive tests.
-- Psychological constructs are not fully independent because the same tests may be used to characterize different constructs.
-- Cognitive tests are similar to the extent that their similarly relate to constructs.
+This study aims a text-based method to gain clarity on the meaning of
+- cognitive constructs (**conceptualize** EFs)
+- the measures provided by cognitive tests (**operationalize** EFs)
+- **brain** mechanisms of EFs
 
-- :question: Which tests help operationalize executive function constructs?
-- :question: Which constructs are useful, observable, and unambiguous?
+:bulb: Psychological constructs are not fully independent because the same tests may be used to characterize different constructs.
+
+:bulb: Cognitive tests are similar to the extent that they measure similar set of constructs and activates similar brain mechanisms.
 
 ---
 
@@ -126,39 +163,46 @@ This study aims a text-based method to gain clarity on the meaning of cognitive 
 
 <!-- _class: gaia -->
 
-- Develop a knowledge model of what we know about EF-related constructs and tests.
-- Collect articles related to the constructs and tests.
-- preprocessing
-- mining the corpus:
-    1. descriptive statistics analysis
-    2. latent space modeling
-    3. topic modeling
+- Develop a knowledge model of we know about EF-related constructs, tests, and brain mechanisms.
+- Collect publications related to the constructs and tests.
+- Parse the texts.
+- Use computational methods to develop:
+    1. descriptive statistics
+    2. latent space model of tests/constructs co-appearance
+    3. latent topic model
 
 ---
 ## Executive Functions Ontology
+![bg](#fff)
 
 A machine-readable graph-based model of what we know about *Executive Functions*.
+<center>
 
-`TODO: EFO ontology figure`
+![fit](../../outputs/ontology_plots/efo_overview.png)
+
+</center>
+Main entities: cognitive test, cognitive construct, brain mechanism, cognitive model
+
+---
+### Executive Functions Ontology
+### Building a knowledge model
+
+
+- We then improved the ontology by manually adding tests, constructs, brain mechanism, models, and questionnaires from highly cited reviews$^1$.
+
+    - `TODO` some statistics of the ontology
+
+<!-- _footer:  $^1$ <mark>Diamond2013</mark>, <mark>Miyake2000</mark>, <mark>Baggetta2016</mark>, <mark>Enkavi2019</mark>, <mark>Eisenberg2019</mark>, <mark>CogPo</mark>, and <mark>CogAt</mark>. -->
+---
+
+![bg](#fff)
+![bg auto](../../outputs/ontology_plots/efo.png)
 
 ---
 ## Data Collection
 ### Pipeline
 
 `TODO: figure for data collection and preprocessing pipeline`
-
----
-## Data Collection
-### Knowledge Model
-
-`TODO`
-
-- Developed an ontology by manually mining three highly cited reviews (<mark>diamond</mark>, <mark>miyake</mark>, <mark>baggetta</mark>, <mark>enkavi</mark>).
-
-    - main classes: cognitive test, cognitive construct, brain mechanism, cognitive model
-    - `TODO` some statistics of the ontology
-    - other resources: CogAt, CogPo
-
 
 
 ---
@@ -177,18 +221,19 @@ A machine-readable graph-based model of what we know about *Executive Functions*
 ## Results
 
 ---
-### Frequency of tasks/constructs
+
+**Frequency of tasks and constructs**
 
 ![bg vertical](#fff)
-![bg fit right:60%](../../outputs/descriptive_plots/1_tests_corpus_size.png)
+![bg fit right:70%](../../outputs/descriptive_plots/1_tests_corpus_size.png)
 ![bg fit 80%](../../outputs/descriptive_plots/1_constructs_corpus_size.png)
 
-
-what is the message:
-- many tasks but few are used (+power law)
-
+- Many tests and constructs but few are used (power law)
 
 ---
+
+`TODO`
+
 - number of tasks per paper (x), percentage of papers (y)
 - how many papers used more than one task
 - co-occurrence of tasks
@@ -197,10 +242,16 @@ message:
 - ???
 
 ---
+
+`TODO`
+
 [same for the constructs]
 
 
 ---
+
+`TODO`
+
 evolution over time
 
 - frequency given first appearance
@@ -208,19 +259,22 @@ evolution over time
 
 ---
 
-- co-appearance of task-construct
-- specificity of tasks and constructs
+**co-appearance of tests and constructs**
 
 ![bg](#fff)
 ![bg fit right:60%](../../outputs/matrix_factorization/1_test_construct_coappearance_heatmap.png)
 
-message: ??? (if you show a figure, what is the message?)
- - some are specific
- - some are generic for many constructs
----
-# Popular tasks and constructs
+:thought_balloon: specificity of tests
+- some are specific to a single construct
+- some are generic as for many constructs
 
-A subset of previous heat map
+---
+
+**co-appearance of tests and constructs**
+
+:thought_balloon: Popular tests and constructs$^1$
+
+<!-- _footer: This is a subset of previous heat map. -->
 
 ![bg](#fff)
 ![bg fit right:60%](../../outputs/matrix_factorization/1_top_test_construct_coappearance_heatmap.png)
@@ -232,13 +286,20 @@ A subset of previous heat map
 
 
 --- 
-<!-- _class: lead -->
 # Latent Space
+
+`TODO`
 
 - Method 1: factorize the probability matrix of co-appearance
   - goal: ??? remind them that what is the goal. Answer should be the figure we are showing afterwards.
   - show the bavelier2019 as an example of what we want to do, but driven by data.
 - [SKIP] Method 2: topic modeling
+
+
+---
+
+![bg auto](../../outputs/matrix_factorization/7_pca_3d_projection_test.png)
+![bg auto](../../outputs/matrix_factorization/7_pca_3d_projection_construct.png)
 
 
 ---
@@ -306,13 +367,3 @@ Currently are all the materials are available on *Uni HPC GitLab*. In the future
 
 <!-- class: gaia -->
 `TODO`
-
-- Page 4 image reproduced from Botvinick's talk.
-- Page 6 image from Peterson2016 (reproduced in Bavelier2019) and Miyake2017
-- Page 7 image from Corbetta2008
-
-
----
-
-<!-- _paginate: false -->
-<!-- _class: lead gaia -->
