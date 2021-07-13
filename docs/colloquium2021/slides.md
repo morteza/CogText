@@ -15,7 +15,7 @@ emoji:
 Clarifying Cognitive Constructs
 by Automated Text Mining 
 of the Literature
-===
+---
 
 Morteza Ansarinia
 Pedro Cardoso-Leite
@@ -23,50 +23,51 @@ Pedro Cardoso-Leite
 
 ![h:160](../../docs/colloquium2021/assets/unilu_logo.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![h:160](../../docs/colloquium2021/assets/xcit_logo.png)
 
----
-<!-- _class: lead -->
-
-<!-- This is a comment -->
-OR
-
-# "Executive Functions" Text Mining
-<br />
 
 *COSA-LUCET Colloquium*
 *July 14, 2021*
 
 ---
+<!-- _class: lead -->
 
-## Background
-### Executive Functions
-- One of the quirks of human cognition is the ability to coordinate complex behaviors in pursuit of goals.
-- It has been the focus of research in many disciplines, including psychology, neuroscience,and artificial intelligence.
-
-`![FIGURE: control disciplines triangle]()`
-
-:pizza: One example of such complex behaviors would be, for instance, cooking a pizza.
+# :warning:
+`
+This is an ongoing study. Results are still inconclusive.
+`
 
 ---
-
-## Background
-### Executive Functions
-
-`![FIGURE: a complex task such as cooking]()`
-
----
-# Problem
-
+## Cognitive constructs are ambiguous
 
 Cognitive scientists have created numerous constructs.
 
-- To name just a few, executive functions (<mark>ref</mark>), executive attention (<mark>ref</mark>), executive control (<mark>ref</mark>), attention control (<mark>ref</mark>), attentional control (<mark>ref</mark>), cognitive control (<mark>ref</mark>), fluid intelligence (<mark>ref</mark>), fluid cognition (<mark>ref</mark>), working memory (<mark>ref</mark>), updating, shifting and inhibition (<mark>ref</mark>).
+To name just a few, executive functions (<mark>ref</mark>), executive attention (<mark>ref</mark>), executive control (<mark>ref</mark>), attention control (<mark>ref</mark>), attentional control (<mark>ref</mark>), cognitive control (<mark>ref</mark>), fluid intelligence (<mark>ref</mark>), fluid cognition (<mark>ref</mark>), working memory (<mark>ref</mark>), updating, shifting and inhibition (<mark>ref</mark>).
 
-- To what extent those terms refer to different phenomena?
-- To what extent those terms are distinct, synonymous or polysemous?
+:question: To what extent those terms refer to different phenomena?
+:question: To what extent those terms are synonymous or polysemous?
+
+
+--- 
+## Example
+### Executive Functions (EFs)
+
+The ability to coordinate complex behaviors in pursuit of goals.
+
+Focus of research in many disciplines, including psychology, neuroscience, and artificial intelligence.
+
+<center>
+
+![h:200](../../docs/colloquium2021/assets/botvinick_triangle.png)
+
+</center>
 
 ---
 
-`![FIGURE](models of EF)`
+## Executive Functions (EFs)
+### Example
+
+:pizza: One example of such complex behaviors would be, for instance, cooking a pizza.
+
+`![FIGURE: a complex task such as cooking]()`
 
 ---
 
@@ -74,8 +75,24 @@ Cognitive scientists have created numerous constructs.
 
 - it also makes it hard to develop effective interventions: there is a great need for more conceptual clarity.
     - Example: Targeting Attentional Control vs. Cognitive Control in cognitive training regimes with action video game.
+    - EF models (MIyake) vs Attention models (Posner).
 
-`![FIGURE](CC vs AC brain activities)`
+---
+## Models of EFs
+
+
+![bg](#fff)
+![bg auto 95%](../../docs/colloquium2021/assets/ef_bavelier2019.jpg)
+![bg auto 95%](../../docs/colloquium2021/assets/ef_miyake2017.jpg)
+
+
+---
+## Models of EFs
+
+![bg](#fff)
+![bg w:500](../../docs/colloquium2021/assets/ef_corbetta2008.jpg)
+
+`TODO: add dosenbach2007`
 
 ---
 
@@ -83,48 +100,62 @@ To gain clarity, we can:
 
 1. extensively reading, synthesizing and criticizing the literature and writing reviews or reports describing their understanding of the field
     - it's biased
-    - sheer volume of papers published every year (6 EFs paper per day on PubMed)
+    - sheer volume of papers published every year (6 EFs paper per day on PubMed). 376030 for a subset of cognitive tasks and 46256 for a subset of cognitive constructs.
 
 2. Automatic analysis of the scientific texts
 
 ---
 ## Current project
 
-We aim use text-based methods to gain clarity on the meaning of cognitive constructs and the measures provided by cognitive tests.
-
-Why?
-it is clear that psychological constructs are not fully distinct since the same cognitive test may be used to characterize different constructs.
-
-More generally, and analogous to some recommender systems, two tasks are similar to the extent that they similarly relate to constructs, and constructs are similar to the extent that they are measured using the same tasks.
+<!--fit-->
+This study aims a text-based method to gain clarity on the meaning of cognitive constructs and the measures provided by cognitive tests.
+- Psychological constructs are not fully independent since the same cognitive test may be used to characterize different constructs.
+- Cognitive tests are similar to the extent that their similarly relate to constructs
+- Constructs are similar to the extent that they are measured using the same tasks.
+- :question: Which tests help operationalize executive function constructs?
+- :question: Which constructs are useful, observable, and unambiguous?
 
 ---
-# Research questions
 
-- Which tests help to operationalize cognitive constructs by cognitive tests
-- Which cognitive processes are useful as constructs
-- evolution over time
+# Method
+
+<!-- _class: gaia -->
+
+- Develop a knowledge model of what we know about EF-related constructs and tests.
+- Collect articles related to the constructs and tests.
+- preprocessing
+- mining the corpus:
+    1. descriptive statistics analysis
+    2. latent space modeling
+    3. topic modeling
 
 ---
 # Executive Functions Ontology
 
-- operationalize -> Marr's 3rd level
-- conceptualize -> constructs/algorithms
-- observe -> brain and behavior
+A machine-readable graph-based model of knowledge.
 
-`TODO: A figure of the EFO`
+- operationalize (tests)
+- conceptualize (constructs) -> Marr's algorithms
+- observe (brain mechanisms) -> Marr's implementation
+
+`TODO: ontology figure`
 
 ---
 ## Data Collection
 ### Pipeline
 
+`TODO: figure for data collection and preprocessing pipeline`
+
 ---
 ## Data Collection
 ### Knowledge Model
 
-- Improving the ontology via manual knowledge mining of highly cited papers
-    - main classes: task, cognitive processes, brain regions
-    - some statistics of the ontology
-    - references: diamond, miyake, baggetta, <mark>enkavi</mark>
+`TODO`
+
+- Developed an ontology by manually mining three highly cited reviews (<mark>diamond</mark>, <mark>miyake</mark>, <mark>baggetta</mark>, <mark>enkavi</mark>).
+
+    - main classes: cognitive test, cognitive construct, brain mechanism, cognitive model
+    - `TODO` some statistics of the ontology
     - other resources: CogAt, CogPo
 
 
@@ -133,23 +164,31 @@ More generally, and analogous to some recommender systems, two tasks are similar
 ## Data Collection
 ### PubMed Abstracts
 
+`TODO`
+
 - Improving the ontology via manual knowledge mining of highly cited papers
+- ...
 
 ---
-<!-- _class: lead -->
-# Descriptive Results
-- Frequency of tasks/constructs
+## Descriptive Results
+### Frequency of tasks/constructs
 
----
-
-![bg vertical](#fff)
 ![bg fit](../../outputs/descriptive_plots/1_tests_corpus_size.png)
 ![bg fit](../../outputs/descriptive_plots/1_constructs_corpus_size.png)
+
+`TODO`
+
+what is the message:
+- many tasks but few are used (+power law)
+
 
 ---
 - number of tasks per paper (x), percentage of papers (y)
 - how many papers used more than one task
 - co-occurrence of tasks
+
+message:
+- ???
 
 ---
 [same for the constructs]
@@ -169,6 +208,9 @@ evolution over time
 ![bg](#fff)
 ![bg fit right:60%](../../outputs/matrix_factorization/1_test_construct_coappearance_heatmap.png)
 
+message: ??? (if you show a figure, what is the message?)
+ - some are specific
+ - some are generic for many constructs
 ---
 # Popular tasks and constructs
 
@@ -179,7 +221,8 @@ A subset of previous heat map
 
 ---
 <!-- _class: lead -->
-topic modeling descriptive results
+
+`TODO: topic modeling descriptive results`
 
 
 --- 
@@ -187,7 +230,9 @@ topic modeling descriptive results
 # Latent Space
 
 - Method 1: factorize the probability matrix of co-appearance
-- Method 2: topic modeling
+  - goal: ??? remind them that what is the goal. Answer should be the figure we are showing afterwards.
+  - show the bavelier2019 as an example of what we want to do, but driven by data.
+- [SKIP] Method 2: topic modeling
 
 
 ---
@@ -208,8 +253,12 @@ similarity map
 
 
 ---
-Topic evolution over time
 
+<!-- _class: lead -->
+
+`TODO: Topic evolution over time`
+
+`leave aside for the presentation`
 
 ---
 # Conclusion
@@ -220,7 +269,7 @@ instead of focusing on confirmatory analysis, we can focus on tasks
 a battery of tasks that covers most cognitive processes
 
 ---
-# Limitations and Future Works
+## Limitations
 
 - a measure of coherency that works for machines
 
@@ -230,17 +279,34 @@ implicit decisions during data collection and processing
 did not take into account that how often papers are cited
 ... (we are aware!)
 
-## future works
-questionnaires
-- a website
+---
+## Future works
+- questionnaires
 - manually annotate part of the corpus
+- a website for interactive visualizations
 - ecologically valid tasks (models that do not involve standard lab-tasks)
 
 ---
-# Reproducibility and Open Science
+## Reproducibility and open science
 
 - EF ontology,
 - collected PubMed corpus,
 - notebooks, and codes
 
-are all available on a private Uni.lu GitLab. Contact pedro@xcit.org for access.
+Currently are all the materials are available on *Uni HPC GitLab*. In the future it will be openly available on GitHub.
+
+---
+# References and Citations
+
+<!-- class: gaia -->
+`TODO`
+
+- Page 4 image reproduced from Botvinick's talk.
+- Page 6 image from Peterson2016 (reproduced in Bavelier2019) and Miyake2017
+- Page 7 image from Corbetta2008
+
+
+---
+
+<!-- _paginate: false -->
+<!-- _class: lead gaia -->
