@@ -21,11 +21,11 @@ Morteza Ansarinia
 Pedro Cardoso-Leite
 
 
-![h:120](../../docs/colloquium2021/assets/unilu_logo.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![h:120](../../docs/colloquium2021/assets/xcit_logo.png)
-
-
 *COSA-LUCET Colloquium*
 *July 14, 2021*
+
+
+![h:120](../../docs/colloquium2021/assets/unilu_logo.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![h:120](../../docs/colloquium2021/assets/xcit_logo.png)
 
 ---
 <!-- _class: lead -->
@@ -37,31 +37,16 @@ This is an ongoing study. Results are still inconclusive.
 `
 
 ---
-## Cognitive concepts are ambiguous
 
 Cognitive scientists have created numerous constructs.
 
 <center>
 
-![w:250](../../docs/colloquium2021/assets/buzsaki_book_cover.jpg)
+![w:900](../../docs/colloquium2021/assets/buzsaki.png)
 
 </center>
 
----
-
-- Current state of affairs makes it hard to understand past results and limits scientific progress.
-
-- Combining results from multiple disciplines is pretty difficult.
-
-- It also makes it hard to develop effective interventions.
-
-- There is a great need for more conceptual clarity.
-
----
-
-![bg w:750](../../docs/colloquium2021/assets/buzsaki_frontal.png)
-
-<!-- _footer: Image from <mark>Buzsaki2019</mark>. -->
+<!-- _footer: Images from <mark>Buzsaki2019</mark>. -->
 
 ---
 
@@ -70,20 +55,10 @@ Cognitive scientists have created numerous constructs.
 
 Executive functions (<mark>Diamond2013</mark>), executive attention (<mark>Engle2002</mark>), executive control (<mark>Posner1990</mark>), attention control, attentional control (<mark>Bavelier2019</mark>), cognitive control (<mark>Botvinick2016</mark>), fluid intelligence (<mark>Diamond2013</mark>), fluid cognition, working memory (<mark>Baddeley1996</mark>), updating, shifting, and inhibition (<mark>Miyake2000</mark>).
 
-
-
-# :exploding_head:
-
----
-
-## Example: *Executive Functions*
-
-**:question: To what extent those terms refer to different phenomena?**
-**:question: To what extent those terms are synonymous or polysemous?**
-
+<br />
 <center>
 
-![w:550](../../docs/colloquium2021/assets/buzsaki_frontal.png)
+# :exploding_head:
 
 </center>
 
@@ -133,29 +108,46 @@ Focus of research in many disciplines, including psychology, neuroscience, and a
 <!-- _footer: Images from <mark>Dosenbach2007</mark> and <mark>Corbetta2008</mark>. -->
 ---
 
+
+:pensive: Psychological constructs are not fully independent because the same tests are being used to tap into different constructs.
+
+:pensive: Current state of affairs makes it hard to understand past results and limits scientific progress.
+
+:pensive: Combining results from multiple disciplines is pretty difficult.
+
+:pensive: It also makes it hard to develop effective interventions.
+
+:pensive: There is a great need for more conceptual clarity.
+
+<!--
+**:question: To what extent those terms refer to different phenomena?**
+**:question: To what extent those terms are synonymous or polysemous?**
+
+-->
+
+---
+
 ### To gain clarity, we can...
 
 :feather: **Manually** read, synthesize, and criticize the literature to write reviews describing our understanding of the field.
-- :thumbsdown: It's biased and reflect author's view.
+- :thumbsdown: It's biased and reflect author's view
 - :chart_with_upwards_trend: Sheer volume of papers published every year
-(200 EFs papers per month on PubMed).
+(200 EFs papers per month on PubMed)
 
 *OR*
 
-:robot: **Automatically** analyze of the scientific texts.
+:robot: **Automatically** analyze the scientific texts.
 
 ---
 ## Current project
 
 <!--fit-->
-This study aims a text-based method to gain clarity on the meaning of
-- cognitive constructs (**conceptualize** EFs)
-- the measures provided by cognitive tests (**operationalize** EFs)
-- **brain** mechanisms of EFs
 
-:bulb: Psychological constructs are not fully independent because the same tests may be used to characterize different constructs.
+A text-based method to gain clarity on the meaning of EFs, including:
 
-:bulb: Cognitive tests are similar to the extent that they measure similar set of constructs and activates similar brain mechanisms.
+- how they should be **operationalized** (tasks, batteries, instructions)
+- how they should be **conceptualized** (constructs)
+- how they should be **observed** (methods and brain mechanisms)
 
 ---
 
@@ -168,57 +160,51 @@ This study aims a text-based method to gain clarity on the meaning of
 - Parse the texts.
 - Use computational methods to develop:
     1. descriptive statistics
-    2. latent space model of tests/constructs co-appearance
+    2. latent model of tests/constructs co-appearance
     3. latent topic model
+
+---
+## Pipeline
+
+
+<center>
+
+![w:1000px](../../docs/colloquium2021/assets/modeling_pipeline.png)
+
+</center>
 
 ---
 ## Executive Functions Ontology
 ![bg](#fff)
 
-A machine-readable graph-based model of what we know about *Executive Functions*.
+A machine-readable graph-based knowledge model of what we know about *Executive Functions*.
+
 <center>
 
-![fit](../../outputs/ontology_plots/efo_overview.png)
+![w:600](../../outputs/ontology_plots/efo_overview.png)
 
 </center>
-Main entities: cognitive test, cognitive construct, brain mechanism, cognitive model
 
 ---
-### Executive Functions Ontology
-### Building a knowledge model
+### Executive Functions Ontology (EFO)
 
-
-- We then improved the ontology by manually adding tests, constructs, brain mechanism, models, and questionnaires from highly cited reviews$^1$.
+- We created a seed ontology and then improved the ontology by manually adding tests, constructs, brain mechanism, models, and questionnaires from highly cited reviews$^1$.
 
     - `TODO` some statistics of the ontology
 
 <!-- _footer:  $^1$ <mark>Diamond2013</mark>, <mark>Miyake2000</mark>, <mark>Baggetta2016</mark>, <mark>Enkavi2019</mark>, <mark>Eisenberg2019</mark>, <mark>CogPo</mark>, and <mark>CogAt</mark>. -->
 ---
 
+## EFO
+
 ![bg](#fff)
 ![bg auto](../../outputs/ontology_plots/efo.png)
-
----
-## Data Collection
-### Pipeline
-
-`TODO: figure for data collection and preprocessing pipeline`
-
-
----
-## Data Collection
-### PubMed Abstracts
-
-`TODO`
-
-- Improving the ontology via manual knowledge mining of highly cited papers
-- ...
 
 ---
 
 <!-- _class: lead -->
 
-## Results
+## Preliminary Results
 
 ---
 
@@ -232,30 +218,63 @@ Main entities: cognitive test, cognitive construct, brain mechanism, cognitive m
 
 ---
 
-`TODO`
+**Overall EFs
+word cloud**
+
+
+![bg](white)
+![bg 50%](../../docs/colloquium2021/assets/pubmed_all_docs_wordcloud.png)
+
+---
+
+`SKIP`
 
 - number of tasks per paper (x), percentage of papers (y)
 - how many papers used more than one task
 - co-occurrence of tasks
 
-message:
-- ???
 
 ---
 
-`TODO`
 
-[same for the constructs]
+## Example Corpus: Stroop Task
 
+![bg](white)
+
+<center>
+
+![w:700](../../outputs/topics/barplots/tests_stroop_task.png)
+
+</center>
 
 ---
 
-`TODO`
 
-evolution over time
+## Example Corpus: Stroop Task
 
-- frequency given first appearance
-- development of new tasks and constructs
+![bg](white)
+
+<center>
+
+<br />
+
+![w:1200](../../outputs/topics/over_time/tests_stroop_task.png)
+
+</center>
+
+---
+
+## New standard tests
+
+![bg](white)
+
+<center>
+
+<br />
+
+![w:650](../../outputs/R_notebook/plot_new_tasks_rate-1.png)
+
+</center>
 
 ---
 
@@ -279,22 +298,53 @@ evolution over time
 ![bg](#fff)
 ![bg fit right:60%](../../outputs/matrix_factorization/1_top_test_construct_coappearance_heatmap.png)
 
----
-<!-- _class: lead -->
-
-`TODO: topic modeling descriptive results`
-
 
 --- 
-# Latent Space
+# A latent space of tasks and constructs
 
-`TODO`
+We are interested in a shared space of tests and constructs that encapsulates the similarity between one type given the other.
 
-- Method 1: factorize the probability matrix of co-appearance
-  - goal: ??? remind them that what is the goal. Answer should be the figure we are showing afterwards.
-  - show the bavelier2019 as an example of what we want to do, but driven by data.
-- [SKIP] Method 2: topic modeling
+Similar to <mark>Peterson2019</mark> and <mark>Bavelier2019</mark>, but driven by data.
 
+
+- Method 1: factorize the co-appearance matrix
+
+$$
+X_{m \times c} \approx M_{m \times n} \times C^T_{n \times c}
+$$
+
+- `SKIP` Method 2: topic modeling
+
+<!-- _footer: $X$ is the co-appearances, $n$ is embedding dimension, $M$ is test, and $C$ is construct.
+ -->
+
+---
+
+![bg](#fff)
+![bg 60%](../../docs/colloquium2021/assets/factorization.png)
+
+
+---
+
+## Model fitting
+
+- Non-negative factorization was used to infer latent matrices from a log-transformed probability matrix.
+$$
+\operatorname*{f}(n) = \alpha \times \min(\mathbf{MSE}_{1 \ldotp\ldotp \min(m,c)}) - \mathbf{MSE}_n(X-M \times C^T) \\
+$$
+
+$$
+\operatorname*{argmin}_n(f(n)), f>0
+$$
+
+---
+## Model fitting
+
+![bg](white)
+
+![bg auto](../../outputs/matrix_factorization/2_nmf_fitting_mse.png)
+
+![bg fit 90%](../../docs/colloquium2021/assets/factorization_cv.png)
 
 ---
 
@@ -317,53 +367,43 @@ similarity map
 ![bg](#fff)
 ![bg fit right:60%](../../outputs/matrix_factorization/6_constructs_similarity_map.png)
 
-
-
 ---
+# Recap
 
-<!-- _class: lead -->
-
-`TODO: Topic evolution over time`
-
-`leave aside for the presentation`
+- We created an ontology of EF-related cognitive tests and constructs,
+- collected ~7GB of PubMed abstracts,
+- developed tools to automatically analyze the texts,
+- extracted a latent space that was shared between tests and constructs, and
+- all to reduce the confusion.
 
 ---
 # Conclusion
 
-- need for more rigorous methods to avoid confusion (e.g., ontology, constrained definition of constructs)
-a theory about tasks
-instead of focusing on confirmatory analysis, we can focus on tasks
-a battery of tasks that covers most cognitive processes
+- EFs are redundant and unclear, yet analysis of the test/construct latent space reduces the confusion. 
 
----
-## Limitations
+- Need for more rigorous methods to avoid confusion (e.g., ontologies, constrained definition of constructs, data-driven knowledge models, and a theory about cognitive tests).
 
-- a measure of coherency that works for machines
-
-
-limitations:
-implicit decisions during data collection and processing
-did not take into account that how often papers are cited
-... (we are aware!)
+- Instead of focusing on confirmatory analysis, we can focus on cognitive tests (.e.g, use data to develop a battery that covers many cognitive constructs).
 
 ---
 ## Future works
-- questionnaires
-- manually annotate part of the corpus
-- a website for interactive visualizations
-- ecologically valid tasks (models that do not involve standard lab-tasks)
+- Improved topic modeling using transformers.
+- Questionnaires in the ontology.
+- Human-in-the-loop (manually annotate ambiguous parts of the corpus).
+- A website for the interactive visualizations.
+- Named Entity Tagging (NER) to identify new tests and constructs.
 
 ---
 ## Reproducibility and open science
 
+<!-- class: gaia -->
+
+Outcomes of this study include:
+
 - EF ontology,
 - collected PubMed corpus,
-- notebooks, and codes
+- trained NLP models and derived data,
+- codes.
 
-Currently are all the materials are available on *Uni HPC GitLab*. In the future it will be openly available on GitHub.
-
----
-# References and Citations
-
-<!-- class: gaia -->
-`TODO`
+Currently are all the materials are available on **Uni HPC GitLab**.
+In the future it will be openly available on GitHub.
