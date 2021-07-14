@@ -38,7 +38,8 @@ This is an ongoing study. Results are still inconclusive.
 
 ---
 
-Cognitive scientists have created numerous constructs.
+<!-- To understand our cognitive system,... -->
+Cognitive scientists have created numerous concepts, referring to them by arbitrary names.
 
 <center>
 
@@ -50,24 +51,60 @@ Cognitive scientists have created numerous constructs.
 
 ---
 
-## Example: *Executive Functions*
+## Example:
+### *Executive Functions (EFs)*
 
+<!--
+To motivate the topic, I would like to give an example of such confusability in the literature.
+
+**:question: To what extent those terms refer to different phenomena?**
+**:question: To what extent those terms are synonymous or polysemous?**
+
+-->
 
 Executive functions (<mark>Diamond2013</mark>), executive attention (<mark>Engle2002</mark>), executive control (<mark>Posner1990</mark>), attention control, attentional control (<mark>Bavelier2019</mark>), cognitive control (<mark>Botvinick2016</mark>), fluid intelligence (<mark>Diamond2013</mark>), fluid cognition, working memory (<mark>Baddeley1996</mark>), updating, shifting, and inhibition (<mark>Miyake2000</mark>).
 
-<br />
 <center>
 
 # :exploding_head:
 
 </center>
 
+---
+
+:pensive: There is a many-to-many relationship between tests and constructs. E.g, constructs are not fully independent; the same tests are being loaded into different constructs.
+
+:pensive: Current state of affairs makes it hard to understand past results and limits scientific progress.
+
+:pensive: Combining results from multiple disciplines is pretty difficult.
+
+:pensive: It also makes it hard to develop effective interventions.
+
+:dart: There is a great need for more conceptual clarity.
+
+---
+
+### To gain clarity, we can...
+
+:feather: **manually** read, synthesize, and criticize the literature to write reviews describing our understanding of the field.
+- :thumbsdown: It's biased and reflect author's view.
+- :chart_with_upwards_trend: Sheer volume of papers published every year (200 EFs papers per month on PubMed).
+
+<span style="color:red">
+
+*OR*
+
+</span>
+
+:robot: **automatically** analyze the scientific texts.
+
+
 --- 
 ## Executive Functions (EFs)
 
 The ability to coordinate complex behaviors in pursuit of goals.
 
-Focus of research in many disciplines, including psychology, neuroscience, and artificial intelligence.
+Is a focus of research in many disciplines, including psychology, neuroscience, and artificial intelligence.
 
 <center>
 
@@ -75,7 +112,7 @@ Focus of research in many disciplines, including psychology, neuroscience, and a
 
 </center>
 
-<!-- _footer: Image reproduced from <mark>Botvinick</mark> at <mark>Triangulating Intelligence (Oct 2020)</mark>. -->
+<!-- _footer: Image reproduced from <mark>Botvinick</mark> at <mark>Triangulating Intelligence (2020)</mark>. -->
 ---
 
 ## Executive Functions (EFs)
@@ -106,48 +143,29 @@ Focus of research in many disciplines, including psychology, neuroscience, and a
 ![bg fit 90%](../../docs/colloquium2021/assets/ef_dosenbach2007_corbetta2008.png)
 
 <!-- _footer: Images from <mark>Dosenbach2007</mark> and <mark>Corbetta2008</mark>. -->
----
-
-
-:pensive: Psychological constructs are not fully independent because the same tests are being used to tap into different constructs.
-
-:pensive: Current state of affairs makes it hard to understand past results and limits scientific progress.
-
-:pensive: Combining results from multiple disciplines is pretty difficult.
-
-:pensive: It also makes it hard to develop effective interventions.
-
-:pensive: There is a great need for more conceptual clarity.
-
-<!--
-**:question: To what extent those terms refer to different phenomena?**
-**:question: To what extent those terms are synonymous or polysemous?**
-
--->
 
 ---
 
-### To gain clarity, we can...
-
-:feather: **Manually** read, synthesize, and criticize the literature to write reviews describing our understanding of the field.
-- :thumbsdown: It's biased and reflect author's view
-- :chart_with_upwards_trend: Sheer volume of papers published every year
-(200 EFs papers per month on PubMed)
-
-*OR*
-
-:robot: **Automatically** analyze the scientific texts.
-
----
 ## Current project
 
 <!--fit-->
 
 A text-based method to gain clarity on the meaning of EFs, including:
 
-- how they should be **operationalized** (tasks, batteries, instructions)
+- how they should be **operationalized** (tests, batteries, instructions)
 - how they should be **conceptualized** (constructs)
 - how they should be **observed** (methods and brain mechanisms)
+
+Ultimately, develop a shared latent space that connects many tests, constructs, and brain mechanisms.
+
+---
+## Method
+
+<center>
+
+![w:1000px](../../docs/colloquium2021/assets/modeling_pipeline.png)
+
+</center>
 
 ---
 
@@ -164,17 +182,7 @@ A text-based method to gain clarity on the meaning of EFs, including:
     3. latent topic model
 
 ---
-## Pipeline
-
-
-<center>
-
-![w:1000px](../../docs/colloquium2021/assets/modeling_pipeline.png)
-
-</center>
-
----
-## Executive Functions Ontology
+### Executive Functions Ontology (EFO)
 ![bg](#fff)
 
 A machine-readable graph-based knowledge model of what we know about *Executive Functions*.
@@ -188,9 +196,11 @@ A machine-readable graph-based knowledge model of what we know about *Executive 
 ---
 ### Executive Functions Ontology (EFO)
 
-- We created a seed ontology and then improved the ontology by manually adding tests, constructs, brain mechanism, models, and questionnaires from highly cited reviews$^1$.
+- We created a seed ontology and then improved it by manually adding tests, constructs, brain mechanism, models, and questionnaires from highly cited review papers$^1$.
 
-    - `TODO` some statistics of the ontology
+    - 102 EF tests.
+    - 67 EF constructs.
+    - *<span style="color:lightgray">brain mechanisms, EF models, questionnaires, etc.</span>*
 
 <!-- _footer:  $^1$ <mark>Diamond2013</mark>, <mark>Miyake2000</mark>, <mark>Baggetta2016</mark>, <mark>Enkavi2019</mark>, <mark>Eisenberg2019</mark>, <mark>CogPo</mark>, and <mark>CogAt</mark>. -->
 ---
@@ -212,18 +222,17 @@ A machine-readable graph-based knowledge model of what we know about *Executive 
 
 ![bg vertical](#fff)
 ![bg fit right:70%](../../outputs/descriptive_plots/1_tests_corpus_size.png)
-![bg fit 80%](../../outputs/descriptive_plots/1_constructs_corpus_size.png)
+![bg fit right:70%](../../outputs/descriptive_plots/1_constructs_corpus_size.png)
 
-- Many tests and constructs but few are used (power law)
+- Many tests and constructs, but few are used (power law).
 
 ---
 
-**Overall EFs
-word cloud**
+**PubMed-EF corpus: word cloud**
 
 
 ![bg](white)
-![bg 50%](../../docs/colloquium2021/assets/pubmed_all_docs_wordcloud.png)
+![bg fit right:60%](../../docs/colloquium2021/assets/pubmed_all_docs_wordcloud.png)
 
 ---
 
@@ -278,7 +287,7 @@ word cloud**
 
 ---
 
-**co-appearance of tests and constructs**
+**Co-appearance of tests and constructs**
 
 ![bg](#fff)
 ![bg fit right:60%](../../outputs/matrix_factorization/1_test_construct_coappearance_heatmap.png)
@@ -289,7 +298,7 @@ word cloud**
 
 ---
 
-**co-appearance of tests and constructs**
+**Co-appearance of tests and constructs**
 
 :thought_balloon: Popular tests and constructs$^1$
 
@@ -302,7 +311,7 @@ word cloud**
 --- 
 # A latent space of tasks and constructs
 
-We are interested in a shared space of tests and constructs that encapsulates the similarity between one type given the other.
+:thought_balloon: We are interested in a shared space of tests and constructs that encapsulates the similarity between one type given the other.
 
 Similar to <mark>Peterson2019</mark> and <mark>Bavelier2019</mark>, but driven by data.
 
