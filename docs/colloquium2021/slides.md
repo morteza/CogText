@@ -51,7 +51,7 @@ Cognitive scientists have created numerous concepts, referring to them by arbitr
 
 ---
 
-:pensive: There is a many-to-many relationship between tests and constructs. E.g, constructs are not fully independent; the same tests are being loaded into different constructs.
+:pensive: There is a many-to-many relationship between tests and constructs; e.g., constructs are not fully independent and the same tests are being loaded into different constructs.
 
 :pensive: Current state of affairs makes it hard to understand past results and limits scientific progress.
 
@@ -87,7 +87,7 @@ Executive functions (<mark>Diamond2013</mark>), executive attention (<mark>Engle
 ### To gain clarity, we can...
 
 :feather: **manually** read, synthesize, and criticize the literature to write reviews describing our understanding of the field.
-- :thumbsdown: It's biased and reflect author's view.
+- :thumbsdown: It's biased and reflects author's view.
 - :chart_with_upwards_trend: Sheer volume of papers published every year (200 EFs papers per month on PubMed).
 
 <span style="color:red">
@@ -173,7 +173,7 @@ Ultimately, develop a shared latent space that connects many tests, constructs, 
 
 <!-- _class: gaia -->
 
-- Develop a knowledge model of we know about EF-related constructs, tests, and brain mechanisms.
+- Develop a knowledge model of what we know about EF-related constructs, tests, and brain mechanisms.
 - Collect publications related to the constructs and tests.
 - Parse the texts.
 - Use computational methods to develop:
