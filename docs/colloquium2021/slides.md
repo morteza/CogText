@@ -51,6 +51,18 @@ Cognitive scientists have created numerous concepts, referring to them by arbitr
 
 ---
 
+:pensive: There is a many-to-many relationship between tests and constructs. E.g, constructs are not fully independent; the same tests are being loaded into different constructs.
+
+:pensive: Current state of affairs makes it hard to understand past results and limits scientific progress.
+
+:pensive: Combining results from multiple disciplines is pretty difficult.
+
+:pensive: It also makes it hard to develop effective interventions.
+
+:dart: There is a great need for more conceptual clarity.
+
+---
+
 ## Example:
 ### *Executive Functions (EFs)*
 
@@ -62,25 +74,13 @@ To motivate the topic, I would like to give an example of such confusability in 
 
 -->
 
-Executive functions (<mark>Diamond2013</mark>), executive attention (<mark>Engle2002</mark>), executive control (<mark>Posner1990</mark>), attention control, attentional control (<mark>Bavelier2019</mark>), cognitive control (<mark>Botvinick2016</mark>), fluid intelligence (<mark>Diamond2013</mark>), fluid cognition, working memory (<mark>Baddeley1996</mark>), updating, shifting, and inhibition (<mark>Miyake2000</mark>).
+Executive functions (<mark>Diamond2013</mark>), executive attention (<mark>Engle2002</mark>), executive control (<mark>Posner1990</mark>), attention control, attentional control (<mark>Bavelier2019</mark>), cognitive control (<mark>Botvinick2016</mark>), self-regulation (<mark>Eisenberg2019</mark>), fluid intelligence (<mark>Diamond2013</mark>), fluid cognition, working memory (<mark>Baddeley1996</mark>), updating, shifting, and inhibition (<mark>Miyake2000</mark>).
 
 <center>
 
 # :exploding_head:
 
 </center>
-
----
-
-:pensive: There is a many-to-many relationship between tests and constructs. E.g, constructs are not fully independent; the same tests are being loaded into different constructs.
-
-:pensive: Current state of affairs makes it hard to understand past results and limits scientific progress.
-
-:pensive: Combining results from multiple disciplines is pretty difficult.
-
-:pensive: It also makes it hard to develop effective interventions.
-
-:dart: There is a great need for more conceptual clarity.
 
 ---
 
