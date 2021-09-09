@@ -5,7 +5,9 @@ from pathlib import Path
 from collections import OrderedDict
 from datetime import date
 from xml.etree import ElementTree
+import re
 
+import pandas as pd
 
 NCBI_EUTILS_BASE_URL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils'
 
@@ -90,10 +92,39 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ['
 
 def cleanup_abstract(abstract_text):
     """PubMed returns abstract with semantic tags. This function cleans those tags and keep the text."""
-    select_content = lambda c: c if isinstance(c, str) else c['#text'] if (c is not None and ('#text' in c)) else ''
+
+    def _select_content(c):
+      return c if isinstance(c, str) else c['#text'] if (c is not None and ('#text' in c)) else ''
 
     if isinstance(abstract_text, list):
-        return ' '.join([select_content(a) for a in abstract_text])
+        return ' '.join([_select_content(a) for a in abstract_text])
     elif isinstance(abstract_text, OrderedDict):
-        return select_content(abstract_text)
+        return _select_content(abstract_text)
     return abstract_text    # when the abstract is string
+
+
+def find_mesh(mesh_list):
+    """Extracts MeSH names from a list of XML MedlineCitation.MeshHeadingList.MeshHeading tags."""
+    if not isinstance(mesh_list, list):
+        return []
+
+    mesh_names = [h['DescriptorName']['#text'] for h in mesh_list]  # if d['DescriptorName']['@MajorTopicYN'] == 'Y']
+    return mesh_names
+
+
+def extract_doi(ids):
+    """Helper function to extact DOI from PubMed `PubmedData.ArticleIdList.ArticleId`."""
+    if isinstance(ids, list):
+        all_dois = [_id['#text'] for _id in ids if _id['@IdType'] == 'doi' and '#text' in _id.keys()]
+        if len(all_dois) == 0:
+            return None
+        return all_dois[0]
+    else:
+        return None
+
+
+def parse_publication_year(x):
+    if isinstance(x, str):
+        year = re.findall('[0-9]+', x)[0]
+        return int(year)
+    return x if pd.notna(x) else 0.
