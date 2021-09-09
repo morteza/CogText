@@ -10,11 +10,11 @@
 
 ### Ouptuts
 
-- **[a] `data/ontologies/efo.owl`**: executive functions ontology (i.e. EFO), with the following IRI: `http://xcit.org/ontologies/2021/executive-functions-ontology`.
-- **[b] `data/pubmed_abstracts.csv.gz`**: PubMed abstracts dataset of cognitive tasks and constructs; use gzip to decompress.
+- **[a] [data/ontologies/efo.owl](data/ontologies/efo.owl)**: executive functions ontology (i.e. EFO), with the following IRI: `http://xcit.org/ontologies/2021/executive-functions-ontology`.
+- **[b] [data/pubmed_abstracts.csv.gz](data/pubmed_abstracts.csv.gz)**: PubMed abstracts dataset of cognitive tasks and constructs; use gzip to decompress.
 
 ### Notebooks
 
-**Note**: Notebooks are stored in the `notebooks/` folder.
+**Note**: Notebooks are stored in the [notebooks/](notebooks/) folder.
 
-- **`[1] Data Collection.ipynb`**: searches PubMed, aggregates abstracts as a single dataset, and stores the results in a single CSV file.
+- **[1] [Data Collection.ipynb](notebooks/1%20Data%20Collection.ipynb)**: searches PubMed, aggregates abstracts as a single dataset, and stores the results in a single CSV file.
