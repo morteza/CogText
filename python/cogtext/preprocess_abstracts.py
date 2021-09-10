@@ -1,7 +1,8 @@
 import gensim
 from gensim.models.phrases import ENGLISH_CONNECTOR_WORDS
+from spacy import Language
 
-def preprocess_abstracts(abstracts: list[str], nlp_model, extract_phrases=False) -> list[str]:
+def preprocess_abstracts(abstracts: list[str], nlp_model: Language, extract_phrases=False) -> list[str]:
   """Opinionated preprocessing pipeline.
 
   Note:
@@ -30,6 +31,8 @@ def preprocess_abstracts(abstracts: list[str], nlp_model, extract_phrases=False)
           and not token.is_space):
         cleaned.append(token.lemma_.lower().strip())
     return cleaned
+
+  # TODO do not discard sentences
 
   docs = [_clean(txt) for txt in nlp_model.pipe(abstracts)]
 
