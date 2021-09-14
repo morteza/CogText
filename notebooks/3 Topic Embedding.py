@@ -10,12 +10,27 @@ from sentence_transformers import SentenceTransformer
 from bertopic import BERTopic
 import matplotlib.pyplot as plt
 import seaborn as sns
+import spacy
 
+# !python -m spacy download en_core_web_trf
+# !python -m spacy download en_core_web_sm
+import en_core_web_trf
+import en_core_web_sm
+
+from python.cogtext.preprocess_abstracts import preprocess_abstracts
 
 sns.set()
-
-
 DEV_MODE = True
+DEV_MODE_MAX_CORPUS_SIZE = 20
+
+nlp = en_core_web_sm.load()
+
+# add additional stop words to the language model
+CUSTOM_STOP_WORDS = ['study', 'task', 'test', 'performance']
+for stop_word in CUSTOM_STOP_WORDS:
+  lexeme = nlp.vocab[stop_word]
+  lexeme.is_stop = True
+
 
 df = pd.read_csv('data/pubmed_abstracts.csv.gz')
 
@@ -26,12 +41,13 @@ df = df.query('subcategory in @valid_subcats')
 
 
 if DEV_MODE:
-  small_subcats = df['subcategory'].value_counts()[lambda cnt: cnt < 50].index.to_list()
+  small_subcats = df['subcategory'].value_counts()[lambda cnt: cnt < DEV_MODE_MAX_CORPUS_SIZE].index.to_list()
   df = df.query('subcategory in @small_subcats').copy()
-
 
 print('# of tasks and constructs: ', df.groupby('category').apply(lambda x: x['subcategory'].nunique()))
 
+# preprocess abstracts
+df['abstract'] = preprocess_abstracts(df['abstract'].to_list(), nlp_model=nlp, extract_phrases=True)
 
 X = df['abstract'].values
 y = df[['category', 'subcategory']].astype('category')
@@ -93,7 +109,7 @@ plot_pca_projection(H_test)
 
 # TODO fit n_topics given train/test split
 # TODO use train/test cosine similarity as a measure of performance
-
+# TODO discard abstracts with plasmid and genetic-related topics
 
 # plot joint similarity matrix (train set)
 def plot_joint_similarity_map(embedding, y, title):
