@@ -22,4 +22,6 @@
 
 - **[a] [data/ontologies/efo.owl](data/ontologies/efo.owl)**: executive functions ontology (i.e. EFO), with the following IRI: `http://xcit.org/ontologies/2021/executive-functions-ontology`.
 - **[b] [data/pubmed_abstracts.csv.gz](data/pubmed_abstracts.csv.gz)**: PubMed abstracts dataset of cognitive tasks and constructs; compressed in gzip format.
-- **[c] [data/pubmed_abstracts_preprocessed.csv.gz](data/pubmed_abstracts.csv.gz)**: Preprocessed abstracts, compressed in gzip format. The format of the CSV file remains the same after preprocessing.
+- **[c] [data/pubmed_abstracts_preprocessed.csv.gz](data/pubmed_abstracts_preprocessed.csv.gz)**: Preprocessed abstracts, compressed in gzip format. The format of the CSV file remains the same after preprocessing.
+- **[d] [data/pubmed_coappearances.csv.gz](data/pubmed_coappearances.csv.gz)**: Preprocessed abstracts, compressed in gzip format. The format of the CSV file remains the same after preprocessing.
+- **[d] [data/pubmed_journals.csv.gz](data/pubmed_journals.csv.gz)**: TODO
