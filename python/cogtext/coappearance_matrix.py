@@ -1,5 +1,6 @@
 import pandas as pd
 from tqdm import tqdm
+from itertools import product
 
 
 def _select_relevant_articles(corpus):
@@ -18,14 +19,26 @@ def _select_relevant_articles(corpus):
   return corpus[corpus.apply(is_relevant, axis=1)]
 
 
-def generate_coappearance_matrix(pubmed_abstracts: pd.DataFrame) -> pd.DataFrame:
+def generate_coappearance_matrix(
+    pubmed_abstracts: pd.DataFrame,
+    group: str = None,
+    sort=True,
+    probabilities=False
+) -> pd.DataFrame:
+
+  """DEPRECATED: use generate_coappearance_matrix_fast() instead.
+
+  This function will be deleted as soon as removeing its usages from the codebase.
+  
+  """
+
 
   tasks = pubmed_abstracts.query('category == "CognitiveTask"')['subcategory'].unique()
   constructs = pubmed_abstracts.query('category == "CognitiveConstruct"')['subcategory'].unique()
 
   freqs = []
 
-  for task in tqdm(tasks):
+  for task in tasks:
     for construct in constructs:
       task_df = pubmed_abstracts.query('subcategory == @task')
       construct_df = pubmed_abstracts.query('subcategory == @construct').pipe(_select_relevant_articles)
@@ -48,7 +61,33 @@ def generate_coappearance_matrix(pubmed_abstracts: pd.DataFrame) -> pd.DataFrame
                'task_corpus_size', 'construct_corpus_size',
                'union_corpus_size', 'intersection_corpus_size'])
 
-  freqs_df.sort_values('intersection_corpus_size', ascending=False, inplace=True)
+  if sort:
+    freqs_df.sort_values('intersection_corpus_size', ascending=False, inplace=True)
+
+  if probabilities:
+    freqs_df['probability'] = freqs_df['intersection_corpus_size'] / freqs_df['union_corpus_size']
+    freqs_df = freqs_df.pivot(index='task', columns='construct', values='p')
 
   # freqs_df.to_csv(OUTPUT_FILE, index=False, compression='gzip')
   return freqs_df
+
+
+def generate_coappearance_matrix_fast(pubmed_abstracts: pd.DataFrame,
+                                      probabilities=False):
+
+  """A new faster version of co-appearance matrix generator."""
+
+  pmids = pubmed_abstracts.pivot_table(values='pmid', index='subcategory', aggfunc=lambda x: x.to_list())['pmid']
+
+  coappearances = pd.DataFrame.from_records(product(pmids.index, pmids.index), columns=['subcategory_1', 'subcategory_2'])
+
+  coappearances['intersection_corpus_size'] = coappearances.apply(
+      lambda t: len(set(pmids.loc[t[0]]).intersection(set(pmids.loc[t[1]]))), axis=1)
+
+  coappearances['union_corpus_size'] = coappearances.apply(
+      lambda t: len(set(pmids.loc[t[0]]).union(set(pmids.loc[t[1]]))), axis=1)
+
+  if probabilities:
+    coappearances['probability'] = coappearances['intersection_corpus_size'] / coappearances['union_corpus_size']
+
+  return coappearances
