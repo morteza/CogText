@@ -73,21 +73,31 @@ def generate_coappearance_matrix(
 
 
 def generate_coappearance_matrix_fast(pubmed_abstracts: pd.DataFrame,
-                                      probabilities=False):
+                                      probability=False,
+                                      group_categories=False):
 
   """A new faster version of co-appearance matrix generator."""
 
-  pmids = pubmed_abstracts.pivot_table(values='pmid', index='subcategory', aggfunc=lambda x: x.to_list())['pmid']
+  pmids = pubmed_abstracts.pivot_table(values=['category','pmid'], index='subcategory', aggfunc=lambda x: x.to_list())
+  pmids['category'] = pmids['category'].apply(lambda x: x[0])
 
-  coappearances = pd.DataFrame.from_records(product(pmids.index, pmids.index), columns=['subcategory_1', 'subcategory_2'])
+  constructs = tasks = pmids.index
+  columns = ['subcategory_1', 'subcategory_2']
+
+  if group_categories:
+    tasks = pmids.reset_index().pivot(columns='category').iloc[:,1].dropna()
+    constructs = pmids.reset_index().pivot(columns='category').iloc[:,0].dropna()
+    columns = ['construct', 'task']
+
+  coappearances = pd.DataFrame.from_records(product(constructs, tasks), columns=columns)
 
   coappearances['intersection_corpus_size'] = coappearances.apply(
-      lambda t: len(set(pmids.loc[t[0]]).intersection(set(pmids.loc[t[1]]))), axis=1)
+      lambda t: len(set(pmids.loc[t[0], 'pmid']).intersection(set(pmids.loc[t[1], 'pmid']))), axis=1)
 
   coappearances['union_corpus_size'] = coappearances.apply(
-      lambda t: len(set(pmids.loc[t[0]]).union(set(pmids.loc[t[1]]))), axis=1)
+      lambda t: len(set(pmids.loc[t[0], 'pmid']).union(set(pmids.loc[t[1], 'pmid']))), axis=1)
 
-  if probabilities:
+  if probability:
     coappearances['probability'] = coappearances['intersection_corpus_size'] / coappearances['union_corpus_size']
 
   return coappearances
