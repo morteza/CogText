@@ -12,7 +12,7 @@ import pandas as pd
 NCBI_EUTILS_BASE_URL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils'
 
 
-def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ['NCBI_API_KEY']):
+def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ.get('NCBI_API_KEY', '')):
   """Search for a term and store abstracts in a file
 
   Args:
