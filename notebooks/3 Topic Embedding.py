@@ -1,4 +1,6 @@
 # %%
+import os
+os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 
 import pandas as pd
 import numpy as np
@@ -9,36 +11,26 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 from bertopic import BERTopic
 import matplotlib.pyplot as plt
-import seaborn as sns
-import spacy
+import seaborn as sns; sns.set()
 
-# !python -m spacy download en_core_web_trf
-# !python -m spacy download en_core_web_sm
-import en_core_web_trf
-import en_core_web_sm
-
-from python.cogtext.preprocess_abstracts import preprocess_abstracts
-
-sns.set()
-DEV_MODE = True
+# ====================
+# parameters
+# ====================
+DEV_MODE = False
+MIN_CORPUS_SIZE = 4
 DEV_MODE_MAX_CORPUS_SIZE = 20
 
-nlp = en_core_web_sm.load()
-
-# add additional stop words to the language model
-CUSTOM_STOP_WORDS = ['study', 'task', 'test', 'performance']
-for stop_word in CUSTOM_STOP_WORDS:
-  lexeme = nlp.vocab[stop_word]
-  lexeme.is_stop = True
+# ====================
+# load the data
+# ====================
+df = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
 
 
-df = pd.read_csv('data/pubmed_abstracts.csv.gz')
-
-df.dropna(subset=['abstract'], inplace=True)
-
-valid_subcats = df['subcategory'].value_counts()[lambda cnt: cnt > 3].index.to_list()
+# ====================
+# discard low-appeared tasks/constructs
+# ====================
+valid_subcats = df['subcategory'].value_counts()[lambda cnt: cnt >= MIN_CORPUS_SIZE].index.to_list()
 df = df.query('subcategory in @valid_subcats')
-
 
 if DEV_MODE:
   small_subcats = df['subcategory'].value_counts()[lambda cnt: cnt < DEV_MODE_MAX_CORPUS_SIZE].index.to_list()
@@ -46,41 +38,39 @@ if DEV_MODE:
 
 print('# of tasks and constructs: ', df.groupby('category').apply(lambda x: x['subcategory'].nunique()))
 
-# preprocess abstracts
-df['abstract'] = preprocess_abstracts(df['abstract'].to_list(), nlp_model=nlp, extract_phrases=True)
 
+# ====================
+# prep input and output
+# ====================
 X = df['abstract'].values
 y = df[['category', 'subcategory']].astype('category')
 
-# y = np.array([y[col].cat.codes.values for col in y.columns]).T
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=.8, stratify=y['subcategory'])
 
-# custom sentence embedding (use SpaCy)
+# custom sentence embedding
 # sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
 # embeddings = sentence_model.encode(X_train, show_progress_bar=True)
 
+
 topic_model = BERTopic(verbose=True, calculate_probabilities=True)
 H_train_topics, H_train_probs = topic_model.fit_transform(
-    X_train,
-    # embeddings=embeddings,
-    y=y_train['subcategory'].cat.codes)
+    X_train, y=y_train['subcategory'].cat.codes,)  # embeddings=embeddings,)
 
 # topics_per_class = topic_model.topics_per_class(
 #     X_train,
 #     topics,
 #     classes=y_train['subcategory'])
 
-# topics_per_class
 # topic_model.visualize_topics_per_class(topics_per_class)
 
 H_train = pd.DataFrame(H_train_probs)
 H_train['subcategory'] = y_train['subcategory'].values
 H_train = H_train.groupby('subcategory').mean()
 
-# project to 3D for visualization
 
 def plot_pca_projection(embedding):
+  """project the embedding to 3D space and visualize it."""
   pca = PCA(n_components=3)
   X_proj = pca.fit_transform(embedding).T
 
@@ -98,6 +88,7 @@ def plot_pca_projection(embedding):
   plt.show()
 
 
+#
 H_test_topics, H_test_probs = topic_model.transform(X_test)
 
 H_test = pd.DataFrame(H_test_probs)
@@ -137,3 +128,17 @@ plot_joint_similarity_map(
     embedding=H_test,
     y=y_test,
     title='Topics embedding similarity (test set)')
+
+# %%
+
+from datetime import datetime
+
+version = datetime.now().strftime('%Y%m%d%H')
+topic_model.save(f'outputs/models/bertopic_lg_v{version}.model')
+
+topic_model.save(
+    f'outputs/models/bertopic_sm_v{version}.model',
+    save_embedding_model=False)
+
+# TODO: annotate topics as relevant/irrelevant
+# TODO: automatically mark documents by using their assigned topics
