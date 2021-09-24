@@ -1,9 +1,10 @@
 # %%
 import os
-os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+from datetime import datetime
 
 import pandas as pd
 import numpy as np
+from seaborn import palettes
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_similarity
@@ -16,39 +17,40 @@ import seaborn as sns; sns.set()
 # ====================
 # parameters
 # ====================
-DEV_MODE = False
-MIN_CORPUS_SIZE = 4
-DEV_MODE_MAX_CORPUS_SIZE = 20
+DATA_SAMPLE_FRACTION = .1
 
-# ====================
-# load the data
-# ====================
-df = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
+# Fix transformers bug when nprocess>1
+os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 
 
-# ====================
+# load data
+PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
+
+
+# select a fraction of data to speed up development
+if DATA_SAMPLE_FRACTION < 1.:
+  PUBMED = PUBMED.groupby('subcategory').apply(lambda sc: sc.sample(frac=DATA_SAMPLE_FRACTION)).reset_index(drop=True)
+
+print('# of tasks and constructs:\n', PUBMED.groupby('category').apply(lambda x: x['subcategory'].nunique()))
+
+
 # discard low-appeared tasks/constructs
-# ====================
-valid_subcats = df['subcategory'].value_counts()[lambda cnt: cnt >= MIN_CORPUS_SIZE].index.to_list()
-df = df.query('subcategory in @valid_subcats')
-
-if DEV_MODE:
-  small_subcats = df['subcategory'].value_counts()[lambda cnt: cnt < DEV_MODE_MAX_CORPUS_SIZE].index.to_list()
-  df = df.query('subcategory in @small_subcats').copy()
-
-print('# of tasks and constructs: ', df.groupby('category').apply(lambda x: x['subcategory'].nunique()))
+valid_subcats = PUBMED['subcategory'].value_counts()[lambda cnt: cnt > 3].index.to_list()
+PUBMED = PUBMED.query('subcategory in @valid_subcats')
 
 
-# ====================
-# prep input and output
-# ====================
-X = df['abstract'].values
-y = df[['category', 'subcategory']].astype('category')
+# prep input (X) and output (y)
+X = PUBMED['abstract'].values
+y = PUBMED[['category', 'subcategory']].astype('category')
 
 
+# train/test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=.8, stratify=y['subcategory'])
 
-# custom sentence embedding
+# ====================
+# training
+# ====================
+# custom sentence embedding, defaults to paraphrase-MiniLM-L6-v2
 # sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
 # embeddings = sentence_model.encode(X_train, show_progress_bar=True)
 
@@ -69,6 +71,19 @@ H_train['subcategory'] = y_train['subcategory'].values
 H_train = H_train.groupby('subcategory').mean()
 
 
+# ====================
+# evaluating the test split
+# ====================
+H_test_topics, H_test_probs = topic_model.transform(X_test)
+
+H_test = pd.DataFrame(H_test_probs)
+H_test['subcategory'] = y_test['subcategory'].values
+H_test = H_test.groupby('subcategory').mean()
+
+
+# ====================
+# visualization
+# ====================
 def plot_pca_projection(embedding):
   """project the embedding to 3D space and visualize it."""
   pca = PCA(n_components=3)
@@ -88,57 +103,54 @@ def plot_pca_projection(embedding):
   plt.show()
 
 
-#
-H_test_topics, H_test_probs = topic_model.transform(X_test)
-
-H_test = pd.DataFrame(H_test_probs)
-H_test['subcategory'] = y_test['subcategory'].values
-H_test = H_test.groupby('subcategory').mean()
-
-plot_pca_projection(H_train)
-plot_pca_projection(H_test)
-
-# TODO fit n_topics given train/test split
-# TODO use train/test cosine similarity as a measure of performance
-# TODO discard abstracts with plasmid and genetic-related topics
-
-# plot joint similarity matrix (train set)
 def plot_joint_similarity_map(embedding, y, title):
   H_sim = pd.DataFrame(cosine_similarity(embedding), columns=embedding.index, index=embedding.index)
 
-  cats = y.groupby(['subcategory'])['category'].apply(lambda x: x.unique()[0])
+  cats = y.groupby(['subcategory'])['category'].apply(lambda x: x.unique()[0] if x.nunique() > 0 else '-')
   _palette = dict(zip(cats.unique(), sns.color_palette('Accent', cats.nunique())))
   cat_colors = cats.apply(lambda x: _palette[x])
 
   g = sns.clustermap(
-      H_sim, metric='cosine', lw=1, cmap='RdBu', figsize=(15, 15),
+      H_sim, metric='cosine', lw=1, cmap='RdBu', figsize=(50, 50),
       col_colors=cat_colors, row_colors=cat_colors)
   g.ax_row_dendrogram.set_visible(False)
   g.ax_col_dendrogram.set_visible(False)
   plt.suptitle(title)
   plt.show()
 
-
+# visualize similarity map on the trains set
+plot_pca_projection(H_train)
 plot_joint_similarity_map(
     embedding=H_train,
     y=y_train,
     title='Topics embedding similarity (train set)')
 
+# visualize similarity map on the test set
+plot_pca_projection(H_train)
 plot_joint_similarity_map(
-    embedding=H_test,
+    embedding=H_test.fillna(-1.),
     y=y_test,
-    title='Topics embedding similarity (test set)')
+    title='Topics embedding similarity (train set)')
 
-# %%
 
-from datetime import datetime
+def save_topic_model(model):
+  """[Summary]
+  
+  models naming: <model-name>_<pubmed-dataset>_<lg|sm>_f<percent-size>_v<version>.model
 
-version = datetime.now().strftime('%Y%m%d%H')
-topic_model.save(f'outputs/models/bertopic_lg_v{version}.model')
+  Args:
+      model (BERTopic): [description]
+  """
+  version = datetime.now().strftime('%Y%m%d%H')
+  model.save(f'outputs/models/bertopic_prep_lg_p10_v{version}.model')
 
-topic_model.save(
-    f'outputs/models/bertopic_sm_v{version}.model',
-    save_embedding_model=False)
+  model.save(
+      f'outputs/models/bertopic_prep_sm_p10_v{version}.model',
+      save_embedding_model=False)
 
+
+# TODO fit n_topics given train/test split
+# TODO use train/test cosine similarity as a measure of performance
+# TODO discard abstracts with plasmid and genetic-related topics
 # TODO: annotate topics as relevant/irrelevant
 # TODO: automatically mark documents by using their assigned topics
