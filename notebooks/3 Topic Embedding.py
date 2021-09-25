@@ -4,7 +4,6 @@ from datetime import datetime
 
 import pandas as pd
 import numpy as np
-from seaborn import palettes
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_similarity
@@ -17,7 +16,7 @@ import seaborn as sns; sns.set()
 # ====================
 # parameters
 # ====================
-DATA_SAMPLE_FRACTION = .1
+DATA_SAMPLE_FRACTION = .05
 
 # Fix transformers bug when nprocess>1
 os.environ['TOKENIZERS_PARALLELISM'] = 'false'
@@ -46,6 +45,9 @@ y = PUBMED[['category', 'subcategory']].astype('category')
 
 # train/test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=.8, stratify=y['subcategory'])
+
+assert y_train['subcategory'].nunique() == y_test['subcategory'].nunique()
+
 
 # ====================
 # training
@@ -118,6 +120,7 @@ def plot_joint_similarity_map(embedding, y, title):
   plt.suptitle(title)
   plt.show()
 
+
 # visualize similarity map on the trains set
 plot_pca_projection(H_train)
 plot_joint_similarity_map(
@@ -125,29 +128,36 @@ plot_joint_similarity_map(
     y=y_train,
     title='Topics embedding similarity (train set)')
 
+
 # visualize similarity map on the test set
-plot_pca_projection(H_train)
+plot_pca_projection(H_test)
 plot_joint_similarity_map(
-    embedding=H_test.fillna(-1.),
+    embedding=H_test,
     y=y_test,
     title='Topics embedding similarity (train set)')
 
 
-def save_topic_model(model):
+# now store the model and probabilities
+
+def save_topic_model(model, probs, name='pubmed_bertopic'):
   """[Summary]
   
-  models naming: <model-name>_<pubmed-dataset>_<lg|sm>_f<percent-size>_v<version>.model
+  models naming: <dataset>_<model>_v<version>.model
 
   Args:
       model (BERTopic): [description]
   """
   version = datetime.now().strftime('%Y%m%d%H')
-  model.save(f'outputs/models/bertopic_prep_lg_p10_v{version}.model')
 
-  model.save(
-      f'outputs/models/bertopic_prep_sm_p10_v{version}.model',
-      save_embedding_model=False)
+  model.save(f'outputs/models/{name}_v{version}.model')
+  np.savez(f'outputs/models/{name}_v{version}.probs', probs)
 
+
+save_topic_model(
+    topic_model,
+    H_train_probs,
+    f'pubmed{int(100*DATA_SAMPLE_FRACTION)}pct_bertopic'
+)
 
 # TODO fit n_topics given train/test split
 # TODO use train/test cosine similarity as a measure of performance
