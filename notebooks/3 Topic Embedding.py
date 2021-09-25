@@ -1,6 +1,7 @@
-# %%
+# %% 1. Load the data and define the analysis
 import os
 from datetime import datetime
+from collections import namedtuple
 
 import pandas as pd
 import numpy as np
@@ -8,79 +9,72 @@ from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_similarity
 
-from sentence_transformers import SentenceTransformer
 from bertopic import BERTopic
 import matplotlib.pyplot as plt
-import seaborn as sns; sns.set()
+import seaborn as sns
+
+sns.set()
 
 # ====================
 # parameters
 # ====================
-DATA_SAMPLE_FRACTION = .05
+DATA_SAMPLE_FRACTION = .01
 
-# Fix transformers bug when nprocess>1
+# Fix transformers bug when nprocess > 1
 os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 
 
 # load data
 PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
 
-
 # select a fraction of data to speed up development
-if DATA_SAMPLE_FRACTION < 1.:
-  PUBMED = PUBMED.groupby('subcategory').apply(lambda sc: sc.sample(frac=DATA_SAMPLE_FRACTION)).reset_index(drop=True)
-
-print('# of tasks and constructs:\n', PUBMED.groupby('category').apply(lambda x: x['subcategory'].nunique()))
-
+PUBMED = PUBMED.groupby('subcategory').sample(frac=DATA_SAMPLE_FRACTION)
 
 # discard low-appeared tasks/constructs
-valid_subcats = PUBMED['subcategory'].value_counts()[lambda cnt: cnt > 3].index.to_list()
+valid_subcats = PUBMED['subcategory'].value_counts()[lambda cnt: cnt > 3].index.to_list() # noqa
 PUBMED = PUBMED.query('subcategory in @valid_subcats')
 
-
-# prep input (X) and output (y)
-X = PUBMED['abstract'].values
-y = PUBMED[['category', 'subcategory']].astype('category')
+print('# of tasks and constructs:\n', PUBMED.groupby('category')['subcategory'].nunique())
 
 
-# train/test split
-X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=.8, stratify=y['subcategory'])
-
-assert y_train['subcategory'].nunique() == y_test['subcategory'].nunique()
-
-
-# ====================
-# training
-# ====================
-# custom sentence embedding, defaults to paraphrase-MiniLM-L6-v2
-# sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
-# embeddings = sentence_model.encode(X_train, show_progress_bar=True)
+TopicModelResult = namedtuple('TopicModelResult', [
+    'model', 'X_train', 'X_test', 'y_train', 'y_test', 'H_train', 'H_test',
+    'H_train_topics', 'H_train_probs', 'H_test_topics', 'H_test_probs'
+])
+"""This is a handy container to store model fitting results"""
 
 
-topic_model = BERTopic(verbose=True, calculate_probabilities=True)
-H_train_topics, H_train_probs = topic_model.fit_transform(
-    X_train, y=y_train['subcategory'].cat.codes,)  # embeddings=embeddings,)
+def fit_topic_embedding(df: pd.DataFrame) -> TopicModelResult:
 
-# topics_per_class = topic_model.topics_per_class(
-#     X_train,
-#     topics,
-#     classes=y_train['subcategory'])
+  # prep input (X) and output (y)
+  X = df['abstract'].values
+  y = df[['category', 'subcategory']].astype('category')
 
-# topic_model.visualize_topics_per_class(topics_per_class)
+  # train/test split
+  X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=.8, stratify=y['subcategory'])
+  assert y_train['subcategory'].nunique() == y_test['subcategory'].nunique()
 
-H_train = pd.DataFrame(H_train_probs)
-H_train['subcategory'] = y_train['subcategory'].values
-H_train = H_train.groupby('subcategory').mean()
+  # custom sentence embedding, defaults to paraphrase-MiniLM-L6-v2
+  # from sentence_transformers import SentenceTransformer
+  # sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
+  # embeddings = sentence_model.encode(X_train, show_progress_bar=True)
 
+  topic_model = BERTopic(verbose=True, calculate_probabilities=True)
 
-# ====================
-# evaluating the test split
-# ====================
-H_test_topics, H_test_probs = topic_model.transform(X_test)
+  H_train_topics, H_train_probs = topic_model.fit_transform(
+      X_train, y=y_train['subcategory'].cat.codes,)  # embeddings=embeddings,)
+  H_train = pd.DataFrame(H_train_probs)
+  H_train['subcategory'] = y_train['subcategory'].values
+  H_train = H_train.groupby('subcategory').mean()
 
-H_test = pd.DataFrame(H_test_probs)
-H_test['subcategory'] = y_test['subcategory'].values
-H_test = H_test.groupby('subcategory').mean()
+  H_test_topics, H_test_probs = topic_model.transform(X_test)
+  H_test = pd.DataFrame(H_test_probs)
+  H_test['subcategory'] = y_test['subcategory'].values
+  H_test = H_test.groupby('subcategory').mean()
+
+  return TopicModelResult(
+      topic_model, X_train, X_test, y_train, y_test, H_train, H_test,
+      H_train_topics, H_train_probs, H_test_topics, H_test_probs)
 
 
 # ====================
@@ -121,27 +115,9 @@ def plot_joint_similarity_map(embedding, y, title):
   plt.show()
 
 
-# visualize similarity map on the trains set
-plot_pca_projection(H_train)
-plot_joint_similarity_map(
-    embedding=H_train,
-    y=y_train,
-    title='Topics embedding similarity (train set)')
+def save_result(result: TopicModelResult, name='pubmed_bertopic'):
+  """Save topic modeling results and weights
 
-
-# visualize similarity map on the test set
-plot_pca_projection(H_test)
-plot_joint_similarity_map(
-    embedding=H_test,
-    y=y_test,
-    title='Topics embedding similarity (train set)')
-
-
-# now store the model and probabilities
-
-def save_topic_model(model, probs, name='pubmed_bertopic'):
-  """[Summary]
-  
   models naming: <dataset>_<model>_v<version>.model
 
   Args:
@@ -149,18 +125,43 @@ def save_topic_model(model, probs, name='pubmed_bertopic'):
   """
   version = datetime.now().strftime('%Y%m%d%H')
 
-  model.save(f'outputs/models/{name}_v{version}.model')
-  np.savez(f'outputs/models/{name}_v{version}.probs', probs)
+  result.model.save(f'outputs/models/{name}_v{version}.model')
+  np.savez(f'outputs/models/{name}_v{version}.train_probs', result.H_train_probs)
+  # TODO store test probs and test/train splits
 
 
-save_topic_model(
-    topic_model,
-    H_train_probs,
-    f'pubmed{int(100*DATA_SAMPLE_FRACTION)}pct_bertopic'
-)
+# %% 2. Now run the model fitting
+
+
+result = fit_topic_embedding(PUBMED)
+
+# visualize similarity map on the trains set
+plot_pca_projection(result.H_train)
+plot_joint_similarity_map(
+    embedding=result.H_train,
+    y=result.y_train,
+    title='Topics embedding similarity (train set)')
+
+# visualize similarity map on the test set
+plot_pca_projection(result.H_test)
+plot_joint_similarity_map(
+    embedding=result.H_test,
+    y=result.y_test,
+    title='Topics embedding similarity (train set)')
+
+# now store the model and probabilities
+save_result(result, f'pubmed{int(100*DATA_SAMPLE_FRACTION)}pct_bertopic')
 
 # TODO fit n_topics given train/test split
 # TODO use train/test cosine similarity as a measure of performance
 # TODO discard abstracts with plasmid and genetic-related topics
 # TODO: annotate topics as relevant/irrelevant
 # TODO: automatically mark documents by using their assigned topics
+
+# %% test/train RSA
+from scipy.stats import spearmanr
+
+sim_train = cosine_similarity(result.H_train)
+sim_test = cosine_similarity(result.H_test)
+rho = spearmanr(sim_train, sim_test)
+print(f'[RSA] mean test/train correlation: {rho[0].mean():.2f}')
