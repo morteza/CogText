@@ -1,33 +1,40 @@
 # Executive Functions Text Analysis
 
+[TOC]
 
-## Method Pipeline
-
-> :warning: This is a rough draft figure. It's being updated.
+## Method
 
 
 ![method pipeline](docs/pipeline.drawio.png)
 
 
-### Notebooks
+## Notebooks
 
-**Note**: Notebooks are stored in the [notebooks/](notebooks/) folder.
+> **Note**: Notebooks are stored in the [notebooks/](notebooks/) folder.
 
-- **[NB1] [Data Collection.ipynb](notebooks/1%20Data%20Collection.ipynb)**: searches PubMed, aggregates abstracts as a single dataset, and stores the results in a single CSV file.
+- **<kbd>NB1</kbd> [Data Collection](notebooks/1%20Data%20Collection.ipynb)**: searches PubMed, aggregates abstracts as a single dataset, and stores the results in a single CSV file.
 
-- **[NB2] [Preprocessing.ipynb](notebooks/)**: performs tokenizing, stripping, stop words removal, word stemming, lemmatizing, and n-gram phrase detection (e.g., working_memory will be a single token instead of two words).
+- **<kbd>NB2</kbd> [Preprocessing](notebooks/2%20Preprocessing.ipynb)**: performs tokenizing, stripping, stop words removal, word stemming, lemmatizing, and n-gram phrase detection (e.g., working_memory will be a single token instead of two words).
 
-- **[NB3] [NB3](notebooks/)**: TODO
+- **<kbd>NB3</kbd> [Preprocessing](notebooks/2%20Preprocessing.ipynb)**: TODO
 
-- **[NB4] [NB4](notebooks/)**: TODO
-- **[NB5] [NB5](notebooks/)**: TODO
+- **<kbd>NB4</kbd> [Preprocessing](notebooks/2%20Preprocessing.ipynb)**: TODO
 
-### Outputs
+- **<kbd>NB5</kbd> [Preprocessing](notebooks/2%20Preprocessing.ipynb)**: TODO
 
-- **[D0] [data/ontologies/efo.owl](data/ontologies/efo.owl)**: executive functions ontology (i.e. EFO), with the following IRI: `http://xcit.org/ontologies/2021/executive-functions-ontology`.
-- **[D1] [data/pubmed_abstracts.csv.gz](data/pubmed_abstracts.csv.gz)**: PubMed abstracts dataset of cognitive tasks and constructs; compressed in gzip format.
-- **[D1] [data/pubmed_journals.csv](data/pubmed_journals.csv)**: TODO
-- **[D3] [data/pubmed_abstracts_preprocessed.csv.gz](data/pubmed_abstracts_preprocessed.csv.gz)**: TODO
-- **[D3] [data/pubmed_coappearances.csv.gz](data/pubmed_coappearances.csv.gz)**: TODO
-- **[D5] [...]()**: TODO
-- **[D6] [...]()**: TODO
+## Data
+
+- **<kbd>EFO</kbd> [data/ontologies/efo.owl](data/ontologies/efo.owl)**: executive functions ontology, i.e. EFO.
+  
+  The EFO ontology uses the following IRI to prefix its entities: `http://xcit.org/ontologies/2021/executive-functions-ontology`.
+
+- **<kbd>D1</kbd> [data/pubmed_abstracts.csv.gz](data/pubmed_abstracts.csv.gz)**: PubMed abstracts dataset of cognitive tasks and constructs; compressed in gzip format.
+- **<kbd>D2</kbd> [data/pubmed_journals.csv](data/pubmed_journals.csv)**: TBD
+
+- **<kbd>D3</kbd> [data/pubmed_abstracts_preprocessed.csv.gz](data/pubmed_abstracts_preprocessed.csv.gz)**: TBD
+
+- **<kbd>D4</kbd> [data/pubmed_coappearances.csv.gz](data/pubmed_coappearances.csv.gz)**: TBD
+
+- **<kbd>D5</kbd> [...]()**: TBD
+
+- **<kbd>D6</kbd> [...]()**: TBD
