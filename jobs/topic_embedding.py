@@ -2,6 +2,7 @@
 import os
 from datetime import datetime
 from collections import namedtuple
+from pathlib import Path
 
 import pandas as pd
 import numpy as np
@@ -116,10 +117,15 @@ def save_result(result: TopicModelResult, name='pubmed_bertopic'):
   Args:
       model (BERTopic): [description]
   """
-  version = datetime.now().strftime('%Y%m%d%H')
+  root = Path('outputs/models/')
 
-  result.model.save(f'outputs/models/{name}_v{version}.model')
-  np.savez(f'outputs/models/{name}_v{version}.train_probs', result.Z_probs)
+  version = datetime.now().strftime('%Y%m%d')
+  version_iter = 1
+  while (root / f'{name}_v{version}{iter}.model').exists():
+    version_iter += 1
+
+  result.model.save(root / f'{name}_v{version}{version_iter}.model')
+  np.savez(root / f'{name}_v{version}{version_iter}.probs', result.Z_probs)
 
 # %% 2. Now run the model fitting
 
