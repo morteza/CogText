@@ -3,7 +3,7 @@ stages:
   - deploy
 
 
-hpc topic embedding:
+hpc_topic_embedding:
   stage: deploy
   when: manual
   image: ubuntu
