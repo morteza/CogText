@@ -18,14 +18,14 @@ sns.set()
 # ====================
 # parameters
 # ====================
-DATA_SAMPLE_FRACTION = .01
+DATA_SAMPLE_FRACTION = .05
 
 # Fix transformers bug when nprocess > 1
 os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 
 
 # load data
-PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
+PUBMED = pd.read_csv('data/pubmed_abstracts.csv.gz').dropna(subset=['abstract'])
 
 # select a fraction of data to speed up development
 PUBMED = PUBMED.groupby('subcategory').sample(frac=DATA_SAMPLE_FRACTION)
@@ -59,7 +59,7 @@ def fit_topic_embedding(df: pd.DataFrame) -> TopicModelResult:
   # sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
   # embeddings = sentence_model.encode(X_train, show_progress_bar=True)
 
-  topic_model = BERTopic(verbose=True, calculate_probabilities=True)
+  topic_model = BERTopic(verbose=True, calculate_probabilities=True, n_gram_range=(1, 3))
 
   H_train_topics, H_train_probs = topic_model.fit_transform(
       X_train, y=y_train['subcategory'].cat.codes,)  # embeddings=embeddings,)
@@ -158,7 +158,7 @@ save_result(result, f'pubmed{int(100*DATA_SAMPLE_FRACTION)}pct_bertopic')
 # TODO: annotate topics as relevant/irrelevant
 # TODO: automatically mark documents by using their assigned topics
 
-# %% test/train RSA
+# %% 3. test/train RSA
 from scipy.stats import spearmanr
 
 sim_train = cosine_similarity(result.H_train)
