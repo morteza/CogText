@@ -13,11 +13,11 @@ from sentence_transformers import SentenceTransformer
 
 # PARAMETERS
 # set the following env var to fit only a fraction of the dataset: COGTEXT_SAMPLE_FRACTION
-DATA_SAMPLE_FRACTION = float(os.getenv('COGTEXT_SAMPLE_FRACTION', '.01'))
-EMBEDDINGS_CACHE_PATH = Path('data/tmp/pubmed_abstract_embedding.npz')
-EMBEDDING_MODEL = 'all-MiniLM-L6-v2'
+DATA_FRACTION = float(os.getenv('COGTEXT_DATA_FRACTION', '1.0'))
+EMBEDDING_MODEL = 'all-MiniLM-L6-v2'  # or a faster model: 'paraphrase-MiniLM-L3-v2'
+CACHE_DIR = 'data/.cache/'
 
-print(f'Fitting {int(DATA_SAMPLE_FRACTION*100)}% of the PUBMED dataset...')
+print(f'Fitting {int(DATA_FRACTION*100)}% of the PUBMED dataset...')
 
 # Fix transformers bug when nprocess > 1 (commented because it's automatically set by the .env in Morty's local env)
 # os.environ['TOKENIZERS_PARALLELISM'] = 'false'
@@ -26,7 +26,7 @@ print(f'Fitting {int(DATA_SAMPLE_FRACTION*100)}% of the PUBMED dataset...')
 PUBMED = pd.read_csv('data/pubmed_abstracts.csv.gz').dropna(subset=['abstract'])
 
 # select a fraction of data to speed up development
-PUBMED = PUBMED.groupby('subcategory').sample(frac=DATA_SAMPLE_FRACTION)
+PUBMED = PUBMED.groupby('subcategory').sample(frac=DATA_FRACTION)
 
 # discard low-appeared tasks/constructs
 valid_subcats = PUBMED['subcategory'].value_counts()[lambda cnt: cnt > 3].index.to_list() # noqa
@@ -45,7 +45,7 @@ TopicModelResult = namedtuple('TopicModelResult', [
 def fit_topic_embedding(
     df: pd.DataFrame,
     embedding_model=EMBEDDING_MODEL,
-    embedding_cache_path=EMBEDDINGS_CACHE_PATH
+    cache_dir: str = CACHE_DIR
 ) -> TopicModelResult:
 
   # prep input and output (X and y)
@@ -54,20 +54,22 @@ def fit_topic_embedding(
 
   # TODO keep track of pmids in the `y` for future references
 
-  # custom sentence embedding, defaults to all-MiniLM-L6-v2
+  # custom sentence embedding
   sentence_model = SentenceTransformer(embedding_model)
 
-  # DEBUG: cache embeddings to speed things up by 4h
-  if (embedding_cache_path is not None) and embedding_cache_path.exists():
-    with np.load(embedding_cache_path) as _fp:
-      embeddings = _fp['arr_0']
+  embeddings_file = Path(CACHE_DIR) / 'pubmed_abstracts_embeddings.npz'
+
+  # cache embeddings to speed things up to the UMAP process
+  if (embeddings_file is not None) and embeddings_file.exists():
+    with np.load(embeddings_file) as arrays:
+      embeddings = arrays.arr_0
   else:
     embeddings = sentence_model.encode(X, show_progress_bar=True)
-    np.savez(embedding_cache_path, embeddings)
+    np.savez(embeddings_file, embeddings)
 
   # define the model
   topic_model = BERTopic(
-      low_memory=True,
+      # FIXME low_memory=True,
       calculate_probabilities=True,
       n_gram_range=(1, 3),
       embedding_model=sentence_model,
@@ -79,12 +81,10 @@ def fit_topic_embedding(
       y=y['subcategory'].cat.codes,
       embeddings=embeddings)
 
-  # topic embeddings by subcategory
+  # mean-pool embeddings by subcategory
   Z = pd.DataFrame(Z_probs)
   Z['subcategory'] = y['subcategory'].values
   Z = Z.groupby('subcategory').mean()
-
-  topic_model.find_topics('task')
 
   return TopicModelResult(
       topic_model, X, y, embeddings, Z, Z_topics, Z_probs
@@ -113,4 +113,4 @@ def save_result(result: TopicModelResult, name='pubmed_bertopic'):
 
 # Now run the model fitting, and then store the model, embedding, and probabilities.
 result = fit_topic_embedding(PUBMED)
-save_result(result, f'pubmed{int(100*DATA_SAMPLE_FRACTION)}pct_bertopic')
+save_result(result, f'pubmed{int(100*DATA_FRACTION)}pct_bertopic')
