@@ -6,14 +6,10 @@ from pathlib import Path
 
 import pandas as pd
 import numpy as np
-from sklearn.decomposition import PCA
-from sklearn.metrics.pairwise import cosine_similarity
 
 from bertopic import BERTopic
 from sentence_transformers import SentenceTransformer
 
-import matplotlib.pyplot as plt
-import seaborn as sns; sns.set()
 
 # PARAMETERS
 # set the following env var to fit only a fraction of the dataset: COGTEXT_SAMPLE_FRACTION
@@ -47,9 +43,10 @@ TopicModelResult = namedtuple('TopicModelResult', [
 
 
 def fit_topic_embedding(
-  df: pd.DataFrame,
-  embedding_model=EMBEDDING_MODEL,
-  embedding_cache_path=EMBEDDINGS_CACHE_PATH) -> TopicModelResult:
+    df: pd.DataFrame,
+    embedding_model=EMBEDDING_MODEL,
+    embedding_cache_path=EMBEDDINGS_CACHE_PATH
+) -> TopicModelResult:
 
   # prep input and output (X and y)
   X = df['abstract'].values
@@ -94,45 +91,6 @@ def fit_topic_embedding(
   )
 
 
-# ====================
-# visualization
-# ====================
-def plot_pca_projection(embedding):
-  """project the embedding to 3D space and visualize it."""
-  pca = PCA(n_components=3)
-  X_proj = pca.fit_transform(embedding).T
-
-  fig = plt.figure()
-  ax = fig.add_subplot(projection='3d')
-
-  ax.scatter(X_proj[0], X_proj[1], X_proj[2])
-
-  ax.set(xlabel='PC1', ylabel='PC2', zlabel='PC3')
-
-  for i, label in enumerate(embedding.index):
-    if np.max(X_proj[:, i]) > .2:
-      ax.text(X_proj[0, i], X_proj[1, i], X_proj[2, i], label)
-
-  plt.show(block=False)
-
-
-def plot_joint_similarity_map(embedding, y, title):
-  Z_sim = pd.DataFrame(cosine_similarity(embedding), columns=embedding.index, index=embedding.index)
-
-  cats = y.groupby(['subcategory'])['category'].apply(lambda x: x.unique()[0] if x.nunique() > 0 else '-')
-  _palette = dict(zip(cats.unique(), sns.color_palette('Accent', cats.nunique())))
-  cat_colors = cats.apply(lambda x: _palette[x])
-  w_fig = len(Z_sim) / 2
-
-  g = sns.clustermap(
-      Z_sim, metric='cosine', lw=1, cmap='RdBu', figsize=(w_fig, w_fig),
-      col_colors=cat_colors, row_colors=cat_colors)
-  g.ax_row_dendrogram.set_visible(False)
-  g.ax_col_dendrogram.set_visible(False)
-  plt.suptitle(title)
-  plt.show(block=False)
-
-
 def save_result(result: TopicModelResult, name='pubmed_bertopic'):
   """Save topic modeling results and weights
 
@@ -152,19 +110,7 @@ def save_result(result: TopicModelResult, name='pubmed_bertopic'):
   np.savez(root / f'{name}_v{version}{version_iter}.probs', result.Z_probs)
   np.savez(root / f'{name}_v{version}{version_iter}.embeddings', result.embedding)
 
-# 2. Now run the model fitting
 
-
+# Now run the model fitting, and then store the model, embedding, and probabilities.
 result = fit_topic_embedding(PUBMED)
-
-# now store the model and probabilities
 save_result(result, f'pubmed{int(100*DATA_SAMPLE_FRACTION)}pct_bertopic')
-
-# visualize similarity map on the trains set
-plot_pca_projection(result.Z)
-plot_joint_similarity_map(
-    embedding=result.Z,
-    y=result.y,
-    title='Similarities in the topic embedding space')
-
-# TODO discard abstracts with irrelevant topics
