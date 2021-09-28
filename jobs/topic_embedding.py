@@ -10,11 +10,16 @@ from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_similarity
 
 from bertopic import BERTopic
+from sentence_transformers import SentenceTransformer
+
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()
 
+# PARAMETERS
 # set the following env var to fit only a fraction of the dataset: COGTEXT_SAMPLE_FRACTION
 DATA_SAMPLE_FRACTION = float(os.getenv('COGTEXT_SAMPLE_FRACTION', '.01'))
+EMBEDDINGS_CACHE_PATH = Path('data/tmp/pubmed_abstract_embedding.npz')
+EMBEDDING_MODEL = 'all-MiniLM-L6-v2'
 
 print(f'Fitting {int(DATA_SAMPLE_FRACTION*100)}% of the PUBMED dataset...')
 
@@ -35,13 +40,16 @@ print('# of tasks and constructs:\n', PUBMED.groupby('category')['subcategory'].
 
 
 TopicModelResult = namedtuple('TopicModelResult', [
-    'model', 'X', 'y', 'Z',
-    'Z_topics', 'Z_probs'
+    'model', 'X', 'y', 'embedding',
+    'Z', 'Z_topics', 'Z_probs'
 ])
 """This is a handy container to store model fitting results"""
 
 
-def fit_topic_embedding(df: pd.DataFrame) -> TopicModelResult:
+def fit_topic_embedding(
+  df: pd.DataFrame,
+  embedding_model=EMBEDDING_MODEL,
+  embedding_cache_path=EMBEDDINGS_CACHE_PATH) -> TopicModelResult:
 
   # prep input and output (X and y)
   X = df['abstract'].values
@@ -49,24 +57,40 @@ def fit_topic_embedding(df: pd.DataFrame) -> TopicModelResult:
 
   # TODO keep track of pmids in the `y` for future references
 
-  # OBSOLETE custom sentence embedding, defaults to paraphrase-MiniLM-L6-v2
-  # from sentence_transformers import SentenceTransformer
-  # sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
-  # embeddings = sentence_model.encode(X, show_progress_bar=True)
+  # custom sentence embedding, defaults to all-MiniLM-L6-v2
+  sentence_model = SentenceTransformer(embedding_model)
+
+  # DEBUG: cache embeddings to speed things up by 4h
+  if (embedding_cache_path is not None) and embedding_cache_path.exists():
+    with np.load(embedding_cache_path) as _fp:
+      embeddings = _fp['arr_0']
+  else:
+    embeddings = sentence_model.encode(X, show_progress_bar=True)
+    np.savez(embedding_cache_path, embeddings)
 
   # define the model
-  topic_model = BERTopic(verbose=True, calculate_probabilities=True, n_gram_range=(1, 3))
+  topic_model = BERTopic(
+      low_memory=True,
+      calculate_probabilities=True,
+      n_gram_range=(1, 3),
+      embedding_model=sentence_model,
+      verbose=True)
 
   # fit the model
-  Z_topics, Z_probs = topic_model.fit_transform(X, y=y['subcategory'].cat.codes,)  # embeddings=embeddings,)
+  Z_topics, Z_probs = topic_model.fit_transform(
+      documents=X,
+      y=y['subcategory'].cat.codes,
+      embeddings=embeddings)
 
   # topic embeddings by subcategory
   Z = pd.DataFrame(Z_probs)
   Z['subcategory'] = y['subcategory'].values
   Z = Z.groupby('subcategory').mean()
 
+  topic_model.find_topics('task')
+
   return TopicModelResult(
-      topic_model, X, y, Z, Z_topics, Z_probs
+      topic_model, X, y, embeddings, Z, Z_topics, Z_probs
   )
 
 
@@ -126,8 +150,9 @@ def save_result(result: TopicModelResult, name='pubmed_bertopic'):
 
   result.model.save(root / f'{name}_v{version}{version_iter}.model')
   np.savez(root / f'{name}_v{version}{version_iter}.probs', result.Z_probs)
+  np.savez(root / f'{name}_v{version}{version_iter}.embeddings', result.embedding)
 
-# %% 2. Now run the model fitting
+# 2. Now run the model fitting
 
 
 result = fit_topic_embedding(PUBMED)
