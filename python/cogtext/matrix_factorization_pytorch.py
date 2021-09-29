@@ -45,11 +45,11 @@ class MFNet(nn.Module):
 
 
 # prep data
-from python.cogtext.utils import select_relevant_pubmed_articles
+from python.cogtext.utils import select_relevant_journals
 
 INPUT_FILE = 'data/pubmed_abstracts.csv.gz'
 PUBMED = (pd.read_csv(INPUT_FILE)
-            .pipe(select_relevant_pubmed_articles)
+            .pipe(select_relevant_journals)
             .dropna(subset=['abstract']))
 
 # only corpora with # of articles < DEV_MAX_CORPUS_SIZE

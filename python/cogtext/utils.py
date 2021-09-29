@@ -2,17 +2,13 @@ import pandas as pd
 import re
 
 
-def select_relevant_pubmed_articles(corpus: pd.DataFrame) -> pd.DataFrame:
+def select_relevant_journals(corpus: pd.DataFrame) -> pd.DataFrame:
   """Remove certain irrelevant articles from the corpus.
 
   Note:
     This function uses `journal_iso_abbreviation` and `journal_title` to find relevant articles.
 
   """
-
-  def _is_relevant(journal):
-    matched = re.search('', journal, flags=re.IGNORECASE)
-    return bool(matched)
 
   journals = corpus[
       ['journal_title', 'journal_iso_abbreviation']
