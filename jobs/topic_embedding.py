@@ -17,13 +17,15 @@ DATA_FRACTION = float(os.getenv('COGTEXT_DATA_FRACTION', '1.0'))
 EMBEDDING_MODEL = 'all-MiniLM-L6-v2'  # or a faster model: 'paraphrase-MiniLM-L3-v2'
 CACHE_DIR = 'data/.cache/'
 
+DATA_FRACTION = .01
+
 print(f'Fitting {int(DATA_FRACTION*100)}% of the PUBMED dataset...')
 
 # Fix transformers bug when nprocess > 1 (commented because it's automatically set by the .env in Morty's local env)
 # os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 
 # load data
-PUBMED = pd.read_csv('data/pubmed_abstracts.csv.gz').dropna(subset=['abstract'])
+PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
 
 # select a fraction of data to speed up development
 PUBMED = PUBMED.groupby('subcategory').sample(frac=DATA_FRACTION)
@@ -35,11 +37,8 @@ PUBMED = PUBMED.query('subcategory in @valid_subcats')
 print('# of tasks and constructs:\n', PUBMED.groupby('category')['subcategory'].nunique())
 
 
-TopicModelResult = namedtuple('TopicModelResult', [
-    'model', 'X', 'y', 'embedding',
-    'Z', 'Z_topics', 'Z_probs'
-])
-"""This is a handy container to store model fitting results"""
+TopicModelResult = namedtuple('TopicModelResult', ['model', 'data', 'topics', 'probs'])
+"""This is a handy container to store fitted results."""
 
 
 def fit_topic_embedding(
@@ -61,8 +60,8 @@ def fit_topic_embedding(
 
   # cache embeddings to speed things up to the UMAP process
   if (embeddings_file is not None) and embeddings_file.exists():
-    with np.load(embeddings_file) as arrays:
-      embeddings = arrays.arr_0
+    with np.load(embeddings_file) as fp:
+      embeddings = fp['arr_0']
   else:
     embeddings = sentence_model.encode(X, show_progress_bar=True)
     np.savez(embeddings_file, embeddings)
@@ -76,18 +75,13 @@ def fit_topic_embedding(
       verbose=True)
 
   # fit the model
-  Z_topics, Z_probs = topic_model.fit_transform(
+  topics, probs = topic_model.fit_transform(
       documents=X,
       y=y['subcategory'].cat.codes,
       embeddings=embeddings)
 
-  # mean-pool embeddings by subcategory
-  Z = pd.DataFrame(Z_probs)
-  Z['subcategory'] = y['subcategory'].values
-  Z = Z.groupby('subcategory').mean()
-
   return TopicModelResult(
-      topic_model, X, y, embeddings, Z, Z_topics, Z_probs
+      topic_model, df, topics, probs
   )
 
 
@@ -103,14 +97,17 @@ def save_result(result: TopicModelResult, name='pubmed_bertopic'):
 
   version = datetime.now().strftime('%Y%m%d')
   version_iter = 1
-  while (root / f'{name}_v{version}{iter}.model').exists():
+  while (root / f'{name}_v{version}{version_iter}.model').exists():
     version_iter += 1
 
   result.model.save(root / f'{name}_v{version}{version_iter}.model')
-  np.savez(root / f'{name}_v{version}{version_iter}.probs', result.Z_probs)
-  np.savez(root / f'{name}_v{version}{version_iter}.embeddings', result.embedding)
+  np.savez(root / f'{name}_v{version}{version_iter}.topics', result.topics)
+  np.savez(root / f'{name}_v{version}{version_iter}.probs', result.probs)
+  np.savez(root / f'{name}_v{version}{version_iter}.idx', result.data.index.values)
 
 
 # Now run the model fitting, and then store the model, embedding, and probabilities.
 result = fit_topic_embedding(PUBMED)
 save_result(result, f'pubmed{int(100*DATA_FRACTION)}pct_bertopic')
+
+print('Finished!')
