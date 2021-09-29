@@ -13,3 +13,4 @@ __pycache__
 tmp/
 
 .ipynb_checkpoints/
+runs/
