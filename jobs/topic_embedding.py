@@ -13,7 +13,7 @@ from sentence_transformers import SentenceTransformer
 
 # PARAMETERS
 # set the following env var to fit only a fraction of the dataset: COGTEXT_SAMPLE_FRACTION
-DATA_FRACTION = float(os.getenv('COGTEXT_DATA_FRACTION', '1.0'))
+DATA_FRACTION = float(os.getenv('COGTEXT_DATA_FRACTION', '0.1'))
 EMBEDDING_MODEL = 'all-MiniLM-L6-v2'  # or a faster model: 'paraphrase-MiniLM-L3-v2'
 CACHE_DIR = 'data/.cache/'
 
