@@ -26,7 +26,7 @@ conda env remove -n cogtext
 
 if [ ! -d "cogtext/" ]
 then 
-  git clone --recurse-submodules ssh://git@gitlab.uni.lu:8022/xcit/efo/cognitive-tests-text-analysis.git
+  git clone --recurse-submodules ssh://git@gitlab.uni.lu:8022/xcit/efo/cognitive-tests-text-analysis.git cogtext/
   cd cogtext/
 else
   cd cogtext/
