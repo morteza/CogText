@@ -50,6 +50,9 @@ pip install -r requirements_hpc.txt
 # training parameters
 export COGTEXT_DATA_FRACTION=1.0
 
+# Fix transformers bug when nprocess > 1
+export TOKENIZERS_PARALLELISM=false
+
 # run the code
 python jobs/topic_embedding.py
 
