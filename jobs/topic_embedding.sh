@@ -4,8 +4,8 @@
 #SBATCH --chdir=/work/projects/acnets/repositories/
 #SBATCH --output=/work/projects/acnets/logs/%x_%A.out
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=24gb
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=96gb
 #SBATCH --partition=batch
 #SBATCH --time=24:00:00
 #SBATCH --mail-type=ALL
