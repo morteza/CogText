@@ -23,9 +23,6 @@ Path('outputs/models').mkdir(parents=True, exist_ok=True)
 
 print(f'Fitting {int(DATA_FRACTION*100)}% of the PUBMED dataset...')
 
-# Fix transformers bug when nprocess > 1 (commented because it's automatically set by the .env in Morty's local env)
-# os.environ['TOKENIZERS_PARALLELISM'] = 'false'
-
 # load data
 PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
 
