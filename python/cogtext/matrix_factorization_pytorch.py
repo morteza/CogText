@@ -27,7 +27,7 @@ class MFNet(nn.Module):
     optimizer = torch.optim.Adam(self.parameters(), lr=.001)
 
     # input features and outputs of the network
-    X = data[['subcategory_1', 'subcategory_2']]
+    X = data[['label_1', 'label_2']]
     y = data[['probability']]
 
     for epoch in range(n_epochs):
@@ -53,17 +53,17 @@ PUBMED = (pd.read_csv(INPUT_FILE)
             .dropna(subset=['abstract']))
 
 # only corpora with # of articles < DEV_MAX_CORPUS_SIZE
-# subcats_cnt = PUBMED['subcategory'].value_counts()
+# subcats_cnt = PUBMED['label'].value_counts()
 # small_subcats = subcats_cnt[subcats_cnt < DEV_MAX_CORPUS_SIZE].index.to_list()
-# PUBMED = PUBMED.query('subcategory in @small_subcats',).copy()
+# PUBMED = PUBMED.query('label in @small_subcats',).copy()
 
 # DROP tasks/constructs with less than 5 articles (1/test + 1/valid + 4/train = 6)
-valid_subcats = PUBMED['subcategory'].value_counts()[lambda cnt: cnt > 5].index.to_list()
-PUBMED = PUBMED.query('subcategory in @valid_subcats')
+valid_subcats = PUBMED['label'].value_counts()[lambda cnt: cnt > 5].index.to_list()
+PUBMED = PUBMED.query('label in @valid_subcats')
 
 # train/test split (80% train 20% test)
 PUBMED_train, PUBMED_test = train_test_split(
     PUBMED,
     test_size=0.2,
-    stratify=PUBMED['subcategory'],
+    stratify=PUBMED['label'],
     random_state=0)
