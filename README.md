@@ -33,7 +33,7 @@
 
 - **<kbd>D3</kbd> [data/pubmed_abstracts_preprocessed.csv.gz](data/pubmed_abstracts_preprocessed.csv.gz)**: TBD
 
-- **<kbd>D4</kbd> [data/pubmed_cooc.csv.gz](data/pubmed_cooc.csv.gz)**: TBD
+- **<kbd>D4</kbd> [data/pubmed_cooc.csv](data/pubmed_cooc.csv)**: TBD
 
 - **<kbd>D5</kbd> [...]()**: TBD
 
