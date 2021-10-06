@@ -290,7 +290,7 @@ A machine-readable graph-based knowledge model of what we know about *Executive 
 **Co-appearance of tests and constructs**
 
 ![bg](#fff)
-![bg fit right:60%](../../outputs/matrix_factorization/1_test_construct_coappearance_heatmap.png)
+![bg fit right:60%](../../outputs/matrix_factorization/1_test_construct_cooc_heatmap.png)
 
 :thought_balloon: specificity of tests
 - some are specific to a single construct
@@ -305,7 +305,7 @@ A machine-readable graph-based knowledge model of what we know about *Executive 
 <!-- _footer: This is a subset of previous heat map. -->
 
 ![bg](#fff)
-![bg fit right:60%](../../outputs/matrix_factorization/1_top_test_construct_coappearance_heatmap.png)
+![bg fit right:60%](../../outputs/matrix_factorization/1_top_test_construct_cooc__heatmap.png)
 
 
 --- 
