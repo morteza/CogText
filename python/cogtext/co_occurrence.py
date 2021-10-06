@@ -31,15 +31,18 @@ def co_occurrence_matrix(
     constructs = pmids.reset_index().pivot(columns='category').iloc[:, 0].dropna()
     columns = ['construct', 'task']
 
-  x_c = pd.DataFrame.from_records(product(constructs, tasks), columns=columns)
+  cooc = pd.DataFrame.from_records(product(constructs, tasks), columns=columns)
 
-  x_c['intersection_corpus_size'] = x_c.apply(
+  for i, col in enumerate(columns):
+    cooc[f'{col}_corpus_size'] = cooc.apply(lambda t: len(set(pmids.loc[t[i], 'pmid'])), axis=1)
+
+  cooc['intersection_corpus_size'] = cooc.apply(
       lambda t: len(set(pmids.loc[t[0], 'pmid']).intersection(set(pmids.loc[t[1], 'pmid']))), axis=1)
 
-  x_c['union_corpus_size'] = x_c.apply(
+  cooc['union_corpus_size'] = cooc.apply(
       lambda t: len(set(pmids.loc[t[0], 'pmid']).union(set(pmids.loc[t[1], 'pmid']))), axis=1)
 
   if probability:
-    x_c['probability'] = x_c['intersection_corpus_size'] / x_c['union_corpus_size']
+    cooc['probability'] = cooc['intersection_corpus_size'] / cooc['union_corpus_size']
 
-  return x_c
+  return cooc
