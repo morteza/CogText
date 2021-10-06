@@ -27,13 +27,13 @@ print(f'Fitting {int(DATA_FRACTION*100)}% of the PUBMED dataset...')
 PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
 
 # select a fraction of data to speed up development
-PUBMED = PUBMED.groupby('subcategory').sample(frac=DATA_FRACTION)
+PUBMED = PUBMED.groupby('label').sample(frac=DATA_FRACTION)
 
 # discard low-appeared tasks/constructs
-valid_subcats = PUBMED['subcategory'].value_counts()[lambda cnt: cnt > 3].index.to_list() # noqa
-PUBMED = PUBMED.query('subcategory in @valid_subcats')
+valid_subcats = PUBMED['label'].value_counts()[lambda cnt: cnt > 3].index.to_list() # noqa
+PUBMED = PUBMED.query('label in @valid_subcats')
 
-print('# of tasks and constructs:\n', PUBMED.groupby('category')['subcategory'].nunique())
+print('# of tasks and constructs:\n', PUBMED.groupby('category')['label'].nunique())
 
 
 TopicModelResult = namedtuple('TopicModelResult', ['model', 'data', 'topics', 'probs'])
@@ -48,7 +48,7 @@ def fit_topic_embedding(
 
   # prep input and output (X and y)
   X = df['abstract'].values
-  y = df[['category', 'subcategory']].astype('category')
+  y = df[['category', 'label']].astype('category')
 
   # TODO keep track of pmids in the `y` for future references
 
@@ -76,7 +76,7 @@ def fit_topic_embedding(
   # fit the model
   topics, probs = topic_model.fit_transform(
       documents=X,
-      y=y['subcategory'].cat.codes,
+      y=y['label'].cat.codes,
       embeddings=embeddings)
 
   return TopicModelResult(
