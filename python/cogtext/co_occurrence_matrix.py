@@ -18,7 +18,7 @@ def co_occurrence_matrix(
 
   pmids = pubmed_abstracts.pivot_table(
       values=['category', 'pmid'],
-      index='labels',
+      index='label',
       aggfunc=lambda x: x.to_list()
   )
 
