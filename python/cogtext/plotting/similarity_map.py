@@ -24,7 +24,7 @@ def similarity_map(embedding, y, title):
 
   Z_sim = pd.DataFrame(cosine_similarity(embedding), columns=embedding.index, index=embedding.index)
 
-  cats = y.groupby(['subcategory'])['category'].apply(lambda x: x.unique()[0] if x.nunique() > 0 else '-')
+  cats = y.groupby(['label'])['category'].apply(lambda x: x.unique()[0] if x.nunique() > 0 else '-')
   _palette = dict(zip(cats.unique(), sns.color_palette('Accent', cats.nunique())))
   cat_colors = cats.apply(lambda x: _palette[x])
   w_fig = len(Z_sim) / 2
