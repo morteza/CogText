@@ -26,6 +26,9 @@ print(f'Fitting {int(DATA_FRACTION*100)}% of the PUBMED dataset...')
 # load data
 PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
 
+if 'label' not in PUBMED.columns:
+  PUBMED['label'] = PUBMED['subcategory']
+
 # select a fraction of data to speed up development
 PUBMED = PUBMED.groupby('label').sample(frac=DATA_FRACTION)
 
