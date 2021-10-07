@@ -13,9 +13,12 @@ from sentence_transformers import SentenceTransformer
 
 # PARAMETERS
 # set the following env var to fit only a fraction of the dataset: COGTEXT_SAMPLE_FRACTION
-DATA_FRACTION = float(os.getenv('COGTEXT_DATA_FRACTION', '0.1'))
+DATA_FRACTION = float(os.getenv('COGTEXT_DATA_FRACTION', '0.01'))
 EMBEDDING_MODEL = 'all-MiniLM-L6-v2'  # or a faster model: 'paraphrase-MiniLM-L3-v2'
 CACHE_DIR = 'data/.cache/'
+
+# load data
+PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
 
 # init folders if they do not exist yet.
 Path(CACHE_DIR).mkdir(parents=True, exist_ok=True)
@@ -23,8 +26,6 @@ Path('outputs/models').mkdir(parents=True, exist_ok=True)
 
 print(f'Fitting {int(DATA_FRACTION*100)}% of the PUBMED dataset...')
 
-# load data
-PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
 
 if 'label' not in PUBMED.columns:
   PUBMED['label'] = PUBMED['subcategory']
