@@ -8,11 +8,12 @@ import pandas as pd
 import numpy as np
 
 from bertopic import BERTopic
+from top2vec import Top2Vec
 from sentence_transformers import SentenceTransformer
 
 
 # PARAMETERS
-# set the following env var to fit only a fraction of the dataset: COGTEXT_SAMPLE_FRACTION
+# set the following env var to fit only a fraction of the dataset: COGTEXT_DATA_FRACTION
 DATA_FRACTION = float(os.getenv('COGTEXT_DATA_FRACTION', '0.01'))
 EMBEDDING_MODEL = 'all-MiniLM-L6-v2'  # or a faster model: 'paraphrase-MiniLM-L3-v2'
 CACHE_DIR = 'data/.cache/'
@@ -41,15 +42,15 @@ PUBMED = PUBMED.query('label in @valid_subcats')
 print('# of tasks and constructs:\n', PUBMED.groupby('category')['label'].nunique())
 
 
-TopicModelResult = namedtuple('TopicModelResult', ['model', 'data', 'topics', 'probs'])
-"""This is a handy container to store fitted results."""
+BERTopicResult = namedtuple('TopicModelResult', ['model', 'data', 'topics', 'probs'])
+"""This is a handy container to store fitted BERTopic results."""
 
 
-def fit_topic_embedding(
+def fit_bertopic(
     df: pd.DataFrame,
     embedding_model=EMBEDDING_MODEL,
     cache_dir: str = CACHE_DIR
-) -> TopicModelResult:
+) -> BERTopicResult:
 
   # prep input and output (X and y)
   X = df['abstract'].values
@@ -58,9 +59,9 @@ def fit_topic_embedding(
   # custom sentence embedding
   sentence_model = SentenceTransformer(embedding_model)
 
-  embeddings_file = Path(CACHE_DIR) / 'pubmed_abstracts_embeddings.npz'
+  embeddings_file = Path(cache_dir) / 'pubmed_abstracts_embeddings.npz'
 
-  # cache embeddings to speed things up to the UMAP process
+  # cache embeddings to speed things up to the UMAP step
   if embeddings_file.exists():
     print('Loading sentence embeddings from cache...')
     with np.load(embeddings_file) as fp:
@@ -71,7 +72,6 @@ def fit_topic_embedding(
 
   # define the model
   topic_model = BERTopic(
-      # FIXME low_memory=True,
       calculate_probabilities=True,
       n_gram_range=(1, 3),
       embedding_model=sentence_model,
@@ -83,20 +83,31 @@ def fit_topic_embedding(
       y=y['label'].cat.codes,
       embeddings=embeddings)
 
-  return TopicModelResult(
-      topic_model, df, topics, probs
-  )
+  return BERTopicResult(topic_model, df, topics, probs)
 
 
-def save_result(result: TopicModelResult, name='pubmed_bertopic'):
-  """Save topic modeling results and weights
+def fit_top2vec(df: pd.DataFrame):
 
-  models naming: <dataset>_<model>_v<version>.model
+  docs = df['abstract'].to_list()
+  # doc_ids = df['abstract'].to_list()
+  # labels = df[['category', 'label']].astype('category')
 
-  Args:
-      model (BERTopic): [description]
-  """
-  root = Path('outputs/models/')
+  model = Top2Vec(docs, workers=8, verbose=True)
+
+  return model
+
+
+def save_top2vec(model, name='pubmed_top2vec', root=Path('outputs/models/')):
+
+  version = datetime.now().strftime('%Y%m%d')
+  version_iter = 1
+  while (root / f'{name}_v{version}{version_iter}.model').exists():
+    version_iter += 1
+
+  model.save(root / f'{name}_v{version}{version_iter}.model')
+
+
+def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('outputs/models/')):
 
   version = datetime.now().strftime('%Y%m%d')
   version_iter = 1
@@ -110,7 +121,9 @@ def save_result(result: TopicModelResult, name='pubmed_bertopic'):
 
 
 # Now run the model fitting, and then store the model, embedding, and probabilities.
-result = fit_topic_embedding(PUBMED)
-save_result(result, f'pubmed{int(100*DATA_FRACTION)}pct_bertopic')
+t2v_result = fit_top2vec(PUBMED, )
+save_top2vec(t2v_result, name=f'pubmed{int(100*DATA_FRACTION)}pct_top2vec')
+brt_result = fit_bertopic(PUBMED)
+save_bertopic(brt_result, f'pubmed{int(100*DATA_FRACTION)}pct_bertopic')
 
 print('Finished!')
