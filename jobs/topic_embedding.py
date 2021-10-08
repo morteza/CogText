@@ -42,8 +42,11 @@ PUBMED = PUBMED.query('label in @valid_subcats')
 print('# of tasks and constructs:\n', PUBMED.groupby('category')['label'].nunique())
 
 
-BERTopicResult = namedtuple('TopicModelResult', ['model', 'data', 'topics', 'probs'])
+BERTopicResult = namedtuple('BERTopicResult', ['model', 'data', 'topics', 'probs'])
 """This is a handy container to store fitted BERTopic results."""
+
+Top2VecResult = namedtuple('Top2VecResult', ['model', 'data', 'scores'])
+"""Handy container to store fitted Top2Vec results (with doc2vec embedding)."""
 
 
 def fit_bertopic(
@@ -92,19 +95,22 @@ def fit_top2vec(df: pd.DataFrame):
   # doc_ids = df['abstract'].to_list()
   # labels = df[['category', 'label']].astype('category')
 
-  model = Top2Vec(docs, workers=os.cpu_count(), verbose=True)
+  model = Top2Vec(docs, workers=os.cpu_count() - 1, speed='deep-learn', verbose=True)
+  scores = model.get_documents_topics(model.document_ids, num_topics=model.get_num_topics())[1].shape
 
-  return model
+  return Top2VecResult(model, df, scores)
 
 
-def save_top2vec(model, name='pubmed_top2vec', root=Path('outputs/models/')):
+def save_top2vec(result: Top2VecResult, name='pubmed_top2vec', root=Path('outputs/models/')):
 
   version = datetime.now().strftime('%Y%m%d')
   version_iter = 1
   while (root / f'{name}_v{version}{version_iter}.model').exists():
     version_iter += 1
 
-  model.save(root / f'{name}_v{version}{version_iter}.model')
+  result.model.save(root / f'{name}_v{version}{version_iter}.model')
+  np.savez(root / f'{name}_v{version}{version_iter}.idx', result.data.index.values)
+  np.savez(root / f'{name}_v{version}{version_iter}.scores', result.scores)
 
 
 def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('outputs/models/')):
@@ -123,6 +129,7 @@ def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('out
 # Now run the model fitting, and then store the model, embedding, and probabilities.
 t2v_result = fit_top2vec(PUBMED, )
 save_top2vec(t2v_result, name=f'pubmed{int(100*DATA_FRACTION)}pct_top2vec')
+
 brt_result = fit_bertopic(PUBMED)
 save_bertopic(brt_result, f'pubmed{int(100*DATA_FRACTION)}pct_bertopic')
 
