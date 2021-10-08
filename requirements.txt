@@ -34,6 +34,7 @@ pydot  # keras uses pydot to plot models
 
 
 bertopic  # BERT topic modeling
+top2vec   # deep topic modeling
 pigeon-jupyter  # annotation
 pigeonXT-jupyter  # improved annotation
 
