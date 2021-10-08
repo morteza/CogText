@@ -1,6 +1,10 @@
 numpy
 pandas
+
 sklearn
+
 bertopic
+top2vec
+
 matplotlib
 seaborn
