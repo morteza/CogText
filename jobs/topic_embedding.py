@@ -31,7 +31,8 @@ if 'label' not in PUBMED.columns:
   PUBMED['label'] = PUBMED['subcategory']
 
 # select a fraction of data to speed up development
-PUBMED = PUBMED.groupby('label').sample(frac=DATA_FRACTION)
+if DATA_FRACTION < 1.0:
+  PUBMED = PUBMED.groupby('label').sample(frac=DATA_FRACTION)
 
 # discard low-appeared tasks/constructs
 valid_subcats = PUBMED['label'].value_counts()[lambda cnt: cnt > 3].index.to_list() # noqa
@@ -54,15 +55,14 @@ def fit_topic_embedding(
   X = df['abstract'].values
   y = df[['category', 'label']].astype('category')
 
-  # TODO keep track of pmids in the `y` for future references
-
   # custom sentence embedding
   sentence_model = SentenceTransformer(embedding_model)
 
   embeddings_file = Path(CACHE_DIR) / 'pubmed_abstracts_embeddings.npz'
 
   # cache embeddings to speed things up to the UMAP process
-  if (embeddings_file is not None) and embeddings_file.exists():
+  if embeddings_file.exists():
+    print('Loading sentence embeddings from cache...')
     with np.load(embeddings_file) as fp:
       embeddings = fp['arr_0']
   else:
