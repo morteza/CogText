@@ -92,7 +92,7 @@ def fit_top2vec(df: pd.DataFrame):
   # doc_ids = df['abstract'].to_list()
   # labels = df[['category', 'label']].astype('category')
 
-  model = Top2Vec(docs, workers=8, verbose=True)
+  model = Top2Vec(docs, workers=os.cpu_count(), verbose=True)
 
   return model
 
