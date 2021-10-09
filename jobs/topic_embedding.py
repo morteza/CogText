@@ -1,5 +1,6 @@
 # %% 1. Load the data and define the analysis
-import os
+import os, sys
+import argparse
 from datetime import datetime
 from collections import namedtuple
 from pathlib import Path
@@ -13,8 +14,16 @@ from sentence_transformers import SentenceTransformer
 
 
 # PARAMETERS
-# set the following env var to fit only a fraction of the dataset: COGTEXT_DATA_FRACTION
-DATA_FRACTION = float(os.getenv('COGTEXT_DATA_FRACTION', '0.01'))
+parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--fraction', type=float, default=os.getenv('COGTEXT_DATA_FRACTION', '0.01'))
+parser.add_argument('--top2vec', dest='enable_top2vec', action='store_true')
+parser.add_argument('--bertopic', dest='enable_bertopic', action='store_true')
+args = vars(parser.parse_args())
+
+DATA_FRACTION = args['fraction']
+ENABLE_TOP2VEC = args['enable_top2vec']
+ENABLE_BERTOPIC = args['enable_bertopic']
+
 EMBEDDING_MODEL = 'all-MiniLM-L6-v2'  # or a faster model: 'paraphrase-MiniLM-L3-v2'
 CACHE_DIR = 'data/.cache/'
 
@@ -127,10 +136,12 @@ def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('out
 
 
 # Now run the model fitting, and then store the model, embedding, and probabilities.
-t2v_result = fit_top2vec(PUBMED, )
-save_top2vec(t2v_result, name=f'pubmed{int(100*DATA_FRACTION)}pct_top2vec')
+if ENABLE_TOP2VEC:
+  t2v_result = fit_top2vec(PUBMED, )
+  save_top2vec(t2v_result, name=f'pubmed{int(100*DATA_FRACTION)}pct_top2vec')
 
-brt_result = fit_bertopic(PUBMED)
-save_bertopic(brt_result, f'pubmed{int(100*DATA_FRACTION)}pct_bertopic')
+if ENABLE_BERTOPIC:
+  brt_result = fit_bertopic(PUBMED)
+  save_bertopic(brt_result, f'pubmed{int(100*DATA_FRACTION)}pct_bertopic')
 
 print('Finished!')
