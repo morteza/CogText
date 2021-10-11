@@ -1,7 +1,14 @@
 import gensim
-from gensim.models.phrases import ENGLISH_CONNECTOR_WORDS
 from spacy import Language
 from tqdm  import tqdm
+import numpy
+from sklearn import feature_extraction
+
+try:
+  from gensim.models.phrases import ENGLISH_CONNECTOR_WORDS
+except Exception as e:
+  print('ERROR: Abstract preprocessing pipeline requires gensim v4.0 or later')
+
 
 def preprocess_abstracts(abstracts: list[str], nlp_model: Language) -> list[str]:
   """Opinionated preprocessing pipeline.
@@ -64,3 +71,10 @@ def concat_common_phrases(abstracts):
   # concat tokens
   docs = [' '.join(doc) for doc in docs]
   return docs
+
+
+def remove_short_abstracts(df):
+  vectorizer = feature_extraction.text.CountVectorizer()
+  counts = vectorizer.fit_transform(df['abstract']).toarray()
+  invalid_indices = (counts.sum(axis=1) < 10).nonzero()[0]
+  return df.drop(invalid_indices)

@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pandas as pd
 import numpy as np
+from sklearn import feature_extraction
 
 from bertopic import BERTopic
 from top2vec import Top2Vec
@@ -56,6 +57,13 @@ BERTopicResult = namedtuple('BERTopicResult', ['model', 'data', 'topics', 'probs
 
 Top2VecResult = namedtuple('Top2VecResult', ['model', 'data', 'scores'])
 """Handy container to store fitted Top2Vec results (with doc2vec embedding)."""
+
+
+def remove_short_abstracts(df):
+  vectorizer = feature_extraction.text.CountVectorizer()
+  counts = vectorizer.fit_transform(df['abstract']).toarray()
+  invalid_indices = (counts.sum(axis=1) < 10).nonzero()[0]
+  return df.drop(invalid_indices)
 
 
 def fit_bertopic(
