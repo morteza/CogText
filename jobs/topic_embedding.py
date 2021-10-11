@@ -122,7 +122,7 @@ def fit_top2vec(df: pd.DataFrame):
       verbose=True
   )
 
-  scores = model.get_documents_topics(model.document_ids, num_topics=model.get_num_topics())[1].shape
+  scores = model.get_documents_topics(model.document_ids, num_topics=model.get_num_topics())[1]
 
   return Top2VecResult(model, df, scores)
 
