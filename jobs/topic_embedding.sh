@@ -46,15 +46,11 @@ pip install pip -U
 pip install -r requirements_hpc.txt
 # pip install ipython jupyter
 
-
-# training parameters
-export COGTEXT_DATA_FRACTION=1.0
-
 # Fix transformers bug when nprocess > 1
 export TOKENIZERS_PARALLELISM=false
 
 # run the code
-python jobs/topic_embedding.py
+python jobs/topic_embedding.py -f 1.0 --bertopic --top2vec
 
 # push the BIDS changes back to the gitlab repository
 git add -A .
