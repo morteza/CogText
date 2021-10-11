@@ -104,7 +104,7 @@ def fit_top2vec(df: pd.DataFrame):
   # doc_ids = df['abstract'].to_list()
   # labels = df[['category', 'label']].astype('category')
 
-  model = Top2Vec(docs, workers=os.cpu_count() - 1, speed='deep-learn', verbose=True)
+  model = Top2Vec(docs, workers=os.cpu_count() - 1, embedding_model='doc2vec', speed='fast-learn', verbose=True)
   scores = model.get_documents_topics(model.document_ids, num_topics=model.get_num_topics())[1].shape
 
   return Top2VecResult(model, df, scores)
