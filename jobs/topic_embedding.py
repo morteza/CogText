@@ -33,7 +33,7 @@ PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=
 
 # init folders if they do not exist yet.
 Path(CACHE_DIR).mkdir(parents=True, exist_ok=True)
-Path('outputs/models').mkdir(parents=True, exist_ok=True)
+Path('models/').mkdir(parents=True, exist_ok=True)
 
 print(f'Fitting {int(DATA_FRACTION*100)}% of the PUBMED dataset...')
 
@@ -127,7 +127,7 @@ def fit_top2vec(df: pd.DataFrame):
   return Top2VecResult(model, df, scores)
 
 
-def save_top2vec(result: Top2VecResult, name='pubmed_top2vec', root=Path('outputs/models/')):
+def save_top2vec(result: Top2VecResult, name='pubmed_top2vec', root=Path('models/')):
 
   version = datetime.now().strftime('%Y%m%d')
   version_iter = 1
@@ -139,7 +139,7 @@ def save_top2vec(result: Top2VecResult, name='pubmed_top2vec', root=Path('output
   np.savez(root / f'{name}_v{version}{version_iter}.scores', result.scores)
 
 
-def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('outputs/models/')):
+def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('models/')):
 
   version = datetime.now().strftime('%Y%m%d')
   version_iter = 1

@@ -1,4 +1,4 @@
 data/ filter=lfs diff=lfs merge=lfs -text
 data/** filter=lfs diff=lfs merge=lfs -text
 outputs/**/*.png filter=lfs diff=lfs merge=lfs
-outputs/models/** filter=lfs diff=lfs merge=lfs
+models/** filter=lfs diff=lfs merge=lfs
