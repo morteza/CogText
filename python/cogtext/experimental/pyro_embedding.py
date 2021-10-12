@@ -24,8 +24,8 @@ VERSION = 'v202109291'
 
 rnd_key = jax.random.PRNGKey(0)
 
-# indices = np.load(f'outputs/models/{MODEL_NAME}_{VERSION}.idx.npz')['arr_0']
-# probs = np.load(f'outputs/models/{MODEL_NAME}_{VERSION}.probs.npz')['arr_0']
+# indices = np.load(f'models/{MODEL_NAME}_{VERSION}.idx.npz')['arr_0']
+# probs = np.load(f'models/{MODEL_NAME}_{VERSION}.probs.npz')['arr_0']
 # PUBMED = pd.read_csv(PUBMED_PATH)
 # PUBMED = PUBMED[PUBMED.index.isin(indices)]
 # PUBMED['label'] = PUBMED['subcategory'].astype('category')
