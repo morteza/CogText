@@ -2,6 +2,23 @@
 
 [TOC]
 
+## Usage
+
+The main entry points of interest are the notebooks in the `notebooks/` directory.
+
+```bash
+cd <project_root>/
+ipython notebooks/<name>.ipynb
+```
+
+In addition to the notebooks, there are scripts for slow tasks that can be run on HPC or locally using Docker.
+
+
+```bash
+docker ...
+```
+
+
 ## Method
 
 
