@@ -14,10 +14,10 @@ dataset = st.selectbox('Dataset', list(Path('data').glob('pubmed_abstracts*.csv.
 
 @st.experimental_singleton
 def load_model(version, dataset) -> Tuple[BERTopic, pd.DataFrame, np.array, np.array]:
-  indices = np.load(f'outputs/models/pubmed1pct_bertopic_{version}.idx.npz')['arr_0']
-  model: BERTopic = BERTopic.load(f'outputs/models/pubmed1pct_bertopic_{version}.model')
-  topics = np.load(f'outputs/models/pubmed1pct_bertopic_{version}.topics.npz')['arr_0']
-  probs = np.load(f'outputs/models/pubmed1pct_bertopic_{version}.probs.npz')['arr_0']
+  indices = np.load(f'models/pubmed1pct_bertopic_{version}.idx.npz')['arr_0']
+  model: BERTopic = BERTopic.load(f'models/pubmed1pct_bertopic_{version}.model')
+  topics = np.load(f'models/pubmed1pct_bertopic_{version}.topics.npz')['arr_0']
+  probs = np.load(f'models/pubmed1pct_bertopic_{version}.probs.npz')['arr_0']
 
   data = pd.read_csv(dataset)
   data = data[data.index.isin(indices)]
