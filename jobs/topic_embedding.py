@@ -33,7 +33,7 @@ CACHE_DIR = 'data/.cache/'
 MODELS_DIR = Path('models/')
 
 # load data
-PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
+PUBMED = pd.read_csv('data/pubmed_abstracts.csv.gz').dropna(subset=['abstract'])
 
 # init folders if they do not exist yet.
 Path(CACHE_DIR).mkdir(parents=True, exist_ok=True)
@@ -95,6 +95,8 @@ def fit_bertopic(
       embeddings = fp['arr_0']
   else:
     embeddings = sentence_model.encode(X, show_progress_bar=True)
+
+  if DATA_FRACTION == 1.0:
     np.savez(embeddings_file, embeddings)
 
   # define the model
