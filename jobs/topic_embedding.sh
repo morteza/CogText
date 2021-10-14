@@ -46,6 +46,9 @@ pip install pip -U
 pip install -r requirements_hpc.txt
 # pip install ipython jupyter
 
+# to avoid memory limit issue in HDBSCAN
+pip install --upgrade git+https://github.com/scikit-learn-contrib/hdbscan
+
 # Fix transformers bug when nprocess > 1
 export TOKENIZERS_PARALLELISM=false
 
