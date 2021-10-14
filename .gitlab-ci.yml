@@ -18,3 +18,19 @@ hpc_topic_embedding:
   script:
     - scp -P 8022 jobs/topic_embedding.sh mansarinia@access-iris.uni.lu:/work/projects/acnets/jobs/
     - ssh -p 8022 mansarinia@access-iris.uni.lu "sbatch /work/projects/acnets/jobs/topic_embedding.sh"
+
+hpc_doc_embedding:
+  stage: deploy
+  when: manual
+  image: ubuntu
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+    - eval $(ssh-agent -s)
+    - echo "$HPC_TEMP_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -p 8022 access-iris.uni.lu >> ~/.ssh/known_hosts
+
+  script:
+    - scp -P 8022 jobs/topic_embedding.sh mansarinia@access-iris.uni.lu:/work/projects/acnets/jobs/
+    - ssh -p 8022 mansarinia@access-iris.uni.lu "sbatch /work/projects/acnets/jobs/doc_embedding.sh"
