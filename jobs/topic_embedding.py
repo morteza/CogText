@@ -43,11 +43,14 @@ if 'label' not in PUBMED.columns:
 
 # select a fraction of data to speed up development
 if DATA_FRACTION < 1.0:
-  PUBMED = PUBMED.groupby('label').sample(frac=DATA_FRACTION)
+  PUBMED = PUBMED.groupby('label').apply(
+      lambda grp: grp.sample(n=max(int(len(grp) * DATA_FRACTION), 1))
+  )
+  # PUBMED = PUBMED.groupby('label').sample(frac=DATA_FRACTION)
 
 # discard low-appeared tasks/constructs
-valid_subcats = PUBMED['label'].value_counts()[lambda cnt: cnt > 3].index.to_list() # noqa
-PUBMED = PUBMED.query('label in @valid_subcats')
+# valid_subcats = PUBMED['label'].value_counts()[lambda cnt: cnt > 1].index.to_list() # noqa
+# PUBMED = PUBMED.query('label in @valid_subcats')
 
 print('# of tasks and constructs:\n', PUBMED.groupby('category')['label'].nunique())
 
@@ -82,7 +85,7 @@ def fit_bertopic(
   embeddings_file = Path(cache_dir) / 'pubmed_abstracts_embeddings.npz'
 
   # cache embeddings to speed things up to the UMAP step
-  if embeddings_file.exists():
+  if (DATA_FRACTION == 1.0) and embeddings_file.exists():
     print('Loading sentence embeddings from cache...')
     with np.load(embeddings_file) as fp:
       embeddings = fp['arr_0']
@@ -98,12 +101,12 @@ def fit_bertopic(
       verbose=True)
 
   # fit the model
-  topics, probs = topic_model.fit_transform(
+  topics, scores = topic_model.fit_transform(
       documents=X,
       y=y['label'].cat.codes,
       embeddings=embeddings)
 
-  return BERTopicResult(topic_model, df, topics, probs)
+  return BERTopicResult(topic_model, df, topics, scores)
 
 
 def fit_top2vec(df: pd.DataFrame):
@@ -117,7 +120,7 @@ def fit_top2vec(df: pd.DataFrame):
       abstracts,
       document_ids=pmids,
       embedding_model='doc2vec',
-      speed='fast-learn',
+      speed='deep-learn',
       workers=os.cpu_count() - 1,
       verbose=True
   )
