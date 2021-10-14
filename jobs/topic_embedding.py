@@ -48,7 +48,7 @@ def fit_bertopic(
     embeddings = fp['arr_0']
     embeddings = embeddings[df.index, :]
 
-  print(f'Fitting {int(fraction*100)}% of the dataset...')
+  print(f'Fitting {int(fraction*100)}% of the dataset ({embeddings.shape[0]} documents)...')
 
   # input and output (X and y)
   X = df['abstract'].values
@@ -56,7 +56,7 @@ def fit_bertopic(
 
   # define the model
   model = BERTopic(
-      calculate_probabilities=True,
+      calculate_probabilities=False,
       n_gram_range=(1, 3),
       embedding_model=embedding_model_name,
       verbose=True)
