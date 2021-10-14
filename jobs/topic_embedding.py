@@ -50,6 +50,7 @@ if DATA_FRACTION < 1.0:
   PUBMED = PUBMED.groupby('label').apply(
       lambda grp: grp.sample(n=max(int(len(grp) * DATA_FRACTION), 1))
   )
+  print(PUBMED.index)
   # PUBMED = PUBMED.groupby('label').sample(frac=DATA_FRACTION)
 
 # discard low-appeared tasks/constructs
