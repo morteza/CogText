@@ -39,3 +39,5 @@ pigeon-jupyter  # annotation
 pigeonXT-jupyter  # improved annotation
 
 sympy  # symbolic math and matrix ranks
+umap-learn
+umap-learn[parametric_umap]

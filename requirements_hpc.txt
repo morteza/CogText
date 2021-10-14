@@ -4,6 +4,8 @@ pandas
 sklearn
 
 bertopic
+umap-learn
+umap-learn[parametric_umap]
 top2vec
 
 matplotlib
