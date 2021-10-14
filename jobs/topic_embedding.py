@@ -54,11 +54,22 @@ def fit_bertopic(
   X = df['abstract'].values
   y = df['label'].astype('category').cat.codes
 
+  from umap.parametric_umap import ParametricUMAP
+
+  # UMAP
+  umap_model = ParametricUMAP(
+      n_neighbors=15,
+      n_components=5,
+      min_dist=0.0,
+      metric='cosine',
+      low_memory=False)
+
   # define the model
   model = BERTopic(
       calculate_probabilities=False,
       n_gram_range=(1, 3),
       embedding_model=embedding_model_name,
+      umap_model=umap_model,
       verbose=True)
 
   # fit the model
