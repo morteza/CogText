@@ -10,41 +10,16 @@ from pathlib import Path
 
 import pandas as pd
 import numpy as np
-from sklearn import feature_extraction
 
 from bertopic import BERTopic
 from top2vec import Top2Vec
-from sentence_transformers import SentenceTransformer
 import hdbscan
 
 
-# CLI ARGUMENTS
-parser = argparse.ArgumentParser()
-parser.add_argument('-f', '--fraction', type=float, default=os.getenv('COGTEXT_DATA_FRACTION', '0.01'))
-parser.add_argument('--top2vec', dest='enable_top2vec', action='store_true')
-parser.add_argument('--bertopic', dest='enable_bertopic', action='store_true')
-args = vars(parser.parse_args())
-DATA_FRACTION = args['fraction']
-ENABLE_TOP2VEC = args['enable_top2vec']
-ENABLE_BERTOPIC = args['enable_bertopic'] # or a faster model: 'paraphrase-MiniLM-L3-v2'
-
 # PARAMETERS
 MODELS_DIR = Path('models/')
+DATASET_NAME = 'pubmed_abstracts_preprocessed'
 EMBEDDING_MODEL = 'all-MiniLM-L6-v2'
-
-# DATA
-PUBMED = pd.read_csv(
-    'data/pubmed_abstracts_preprocessed.csv.gz'
-).dropna(subset=['abstract']).reset_index()
-
-PUBMED.rename(columns={'subcategory': 'label'}, errors='ignore', inplace=True)
-
-# discard low-appeared tasks/constructs
-# valid_subcats = PUBMED['label'].value_counts()[lambda cnt: cnt > 1].index.to_list() # noqa
-# PUBMED = PUBMED.query('label in @valid_subcats')
-
-# DEBUG
-print('# of tasks and constructs:\n', PUBMED.groupby('category')['label'].nunique())
 
 
 BERTopicResult = namedtuple('BERTopicResult', ['model', 'indices', 'topics', 'scores'])
@@ -60,10 +35,10 @@ def fit_bertopic(
     fraction: float = 1.0
 ) -> BERTopicResult:
 
-  embedding_file = MODELS_DIR / f'pubmed_abstracts_{EMBEDDING_MODEL}.embeddings'
+  embedding_file = MODELS_DIR / f'{DATASET_NAME}_{EMBEDDING_MODEL}.embeddings.npz'
 
   # sample dataset
-  if DATA_FRACTION < 1.0:
+  if fraction < 1.0:
     df = df.groupby('label', group_keys=False).apply(
         lambda grp: grp.sample(n=max(int(len(grp) * fraction), 1))
     )
@@ -73,26 +48,26 @@ def fit_bertopic(
     embeddings = fp['arr_0']
     embeddings = embeddings[df.index, :]
 
-  print(f'Fitting {int(fraction*100)}% of the PUBMED dataset...')
+  print(f'Fitting {int(fraction*100)}% of the dataset...')
 
   # input and output (X and y)
   X = df['abstract'].values
   y = df['label'].astype('category').cat.codes
 
   # define the model
-  topic_model = BERTopic(
-      calculate_probabilities=False,
+  model = BERTopic(
+      calculate_probabilities=True,
       n_gram_range=(1, 3),
       embedding_model=embedding_model_name,
       verbose=True)
 
   # fit the model
-  topics, scores = topic_model.fit_transform(
+  topics, scores = model.fit_transform(
       documents=X, y=y,
       embeddings=embeddings
   )
 
-  return BERTopicResult(topic_model, df.index.values, topics, scores)
+  return BERTopicResult(model, df.index.values, topics, scores)
 
 
 def fit_top2vec(df: pd.DataFrame):
@@ -143,22 +118,50 @@ def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('mod
   result.model.save(root / f'{name}_v{version}{version_iter}.model')
   np.savez(root / f'{name}_v{version}{version_iter}.idx', result.indices)
   np.savez(root / f'{name}_v{version}{version_iter}.topics', result.topics)
-  np.savez(root / f'{name}_v{version}{version_iter}.probs', result.probs)
+  np.savez(root / f'{name}_v{version}{version_iter}.probs', result.scores)
 
   return f'{name}_v{version}{version_iter}'
 
 
-# Now run the model fitting, and then store the model, embedding, and probabilities.
-if ENABLE_TOP2VEC:
-  t2v_result = fit_top2vec(PUBMED)
-  save_top2vec(t2v_result, name=f'pubmed{int(100*DATA_FRACTION)}pct_top2vec', root=MODELS_DIR)
+def main():
 
-if ENABLE_BERTOPIC:
-  brt_result = fit_bertopic(PUBMED, EMBEDDING_MODEL, DATA_FRACTION)
-  model_name = save_bertopic(brt_result, f'pubmed{int(100*DATA_FRACTION)}pct_bertopic', root=MODELS_DIR)
+  # CLI ARGUMENTS
+  parser = argparse.ArgumentParser()
+  parser.add_argument('-f', '--fraction', type=float, default='0.01')
+  parser.add_argument('--top2vec', dest='enable_top2vec', action='store_true')
+  parser.add_argument('--bertopic', dest='enable_bertopic', action='store_true')
+  args = vars(parser.parse_args())
+  data_fraction = args['fraction']
+  enable_top2vec = args['enable_top2vec']
+  enable_bertopic = args['enable_bertopic'] # or a faster model: 'paraphrase-MiniLM-L3-v2'
 
-  print('BERTopic modeling completed. Now calculating doc2topic scores...')
-  bertopic_scores = calc_bertopic_scores(brt_result.model)
-  np.savez(MODELS_DIR / f'{model_name}.scores', bertopic_scores)
+  # DATA
+  PUBMED = pd.read_csv(f'data/{DATASET_NAME}.csv.gz')
+  PUBMED = PUBMED.dropna(subset=['abstract']).reset_index()
+  PUBMED = PUBMED.rename(columns={'subcategory': 'label'}, errors='ignore')
 
-print('Finished!')
+  # DEBUG: discard low-appeared tasks/constructs
+  # valid_subcats = PUBMED['label'].value_counts()[lambda cnt: cnt > 1].index.to_list() # noqa
+  # PUBMED = PUBMED.query('label in @valid_subcats')
+
+  # DEBUG
+  print('# of tasks and constructs:\n', PUBMED.groupby('category')['label'].nunique())
+
+  # Now run the model fitting, and then store the model, embedding, and probabilities.
+  if enable_top2vec:
+    t2v_result = fit_top2vec(PUBMED)
+    save_top2vec(t2v_result, name=f'pubmed{int(100*data_fraction)}pct_top2vec', root=MODELS_DIR)
+
+  if enable_bertopic:
+    brt_result = fit_bertopic(PUBMED, EMBEDDING_MODEL, data_fraction)
+    model_name = save_bertopic(brt_result, f'pubmed{int(100*data_fraction)}pct_bertopic', root=MODELS_DIR)
+
+    print('BERTopic modeling completed. Now calculating doc2topic scores...')
+    bertopic_scores = calc_bertopic_scores(brt_result.model)
+    np.savez(MODELS_DIR / f'{model_name}.scores', bertopic_scores)
+
+  print('Finished!')
+
+
+if __name__ == '__main__':
+  main()
