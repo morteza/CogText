@@ -32,5 +32,5 @@ hpc_doc_embedding:
     - ssh-keyscan -p 8022 access-iris.uni.lu >> ~/.ssh/known_hosts
 
   script:
-    - scp -P 8022 jobs/topic_embedding.sh mansarinia@access-iris.uni.lu:/work/projects/acnets/jobs/
+    - scp -P 8022 jobs/doc_embedding.sh mansarinia@access-iris.uni.lu:/work/projects/acnets/jobs/
     - ssh -p 8022 mansarinia@access-iris.uni.lu "sbatch /work/projects/acnets/jobs/doc_embedding.sh"
