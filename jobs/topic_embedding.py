@@ -1,4 +1,7 @@
 # %% 1. Load the data and define the analysis
+
+#!pip install --upgrade git+https://github.com/scikit-learn-contrib/hdbscan
+
 import os, sys
 import argparse
 from datetime import datetime
@@ -12,6 +15,7 @@ from sklearn import feature_extraction
 from bertopic import BERTopic
 from top2vec import Top2Vec
 from sentence_transformers import SentenceTransformer
+import hdbscan
 
 
 # PARAMETERS
@@ -24,9 +28,9 @@ args = vars(parser.parse_args())
 DATA_FRACTION = args['fraction']
 ENABLE_TOP2VEC = args['enable_top2vec']
 ENABLE_BERTOPIC = args['enable_bertopic']
-
 EMBEDDING_MODEL = 'all-MiniLM-L6-v2'  # or a faster model: 'paraphrase-MiniLM-L3-v2'
 CACHE_DIR = 'data/.cache/'
+MODELS_DIR = Path('models/')
 
 # load data
 PUBMED = pd.read_csv('data/pubmed_abstracts_preprocessed.csv.gz').dropna(subset=['abstract'])
@@ -95,7 +99,7 @@ def fit_bertopic(
 
   # define the model
   topic_model = BERTopic(
-      calculate_probabilities=True,
+      calculate_probabilities=False,
       n_gram_range=(1, 3),
       embedding_model=sentence_model,
       verbose=True)
@@ -130,6 +134,11 @@ def fit_top2vec(df: pd.DataFrame):
   return Top2VecResult(model, df, scores)
 
 
+def calc_bertopic_scores(model: BERTopic) -> np.array:
+  scores = hdbscan.all_points_membership_vectors(model.hdbscan_model)
+  return scores
+
+
 def save_top2vec(result: Top2VecResult, name='pubmed_top2vec', root=Path('models/')):
 
   version = datetime.now().strftime('%Y%m%d')
@@ -150,18 +159,24 @@ def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('mod
     version_iter += 1
 
   result.model.save(root / f'{name}_v{version}{version_iter}.model')
+  np.savez(root / f'{name}_v{version}{version_iter}.idx', result.data.index.values)
   np.savez(root / f'{name}_v{version}{version_iter}.topics', result.topics)
   np.savez(root / f'{name}_v{version}{version_iter}.probs', result.probs)
-  np.savez(root / f'{name}_v{version}{version_iter}.idx', result.data.index.values)
+
+  return f'{name}_v{version}{version_iter}'
 
 
 # Now run the model fitting, and then store the model, embedding, and probabilities.
 if ENABLE_TOP2VEC:
   t2v_result = fit_top2vec(PUBMED, )
-  save_top2vec(t2v_result, name=f'pubmed{int(100*DATA_FRACTION)}pct_top2vec')
+  save_top2vec(t2v_result, name=f'pubmed{int(100*DATA_FRACTION)}pct_top2vec', root=MODELS_DIR)
 
 if ENABLE_BERTOPIC:
   brt_result = fit_bertopic(PUBMED)
-  save_bertopic(brt_result, f'pubmed{int(100*DATA_FRACTION)}pct_bertopic')
+  model_name = save_bertopic(brt_result, f'pubmed{int(100*DATA_FRACTION)}pct_bertopic', root=MODELS_DIR)
+
+  print('BERTopic modeling completed. Now calculating doc2topic scores...')
+  bertopic_scores = calc_bertopic_scores(brt_result.model)
+  np.savez(MODELS_DIR / f'{model_name}.scores', bertopic_scores)
 
 print('Finished!')
