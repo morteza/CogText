@@ -3,6 +3,7 @@ pandas
 
 sklearn
 
+git+https://github.com/scikit-learn-contrib/hdbscan
 bertopic
 umap-learn
 umap-learn[parametric_umap]
