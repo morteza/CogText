@@ -13,6 +13,8 @@ import numpy as np
 
 from bertopic import BERTopic
 from top2vec import Top2Vec
+
+from umap.parametric_umap import ParametricUMAP
 import hdbscan
 
 
@@ -53,8 +55,6 @@ def fit_bertopic(
   # input and output (X and y)
   X = df['abstract'].values
   y = df['label'].astype('category').cat.codes
-
-  from umap.parametric_umap import ParametricUMAP
 
   # UMAP
   umap_model = ParametricUMAP(
