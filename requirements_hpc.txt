@@ -4,8 +4,8 @@ pandas
 sklearn
 
 git+https://github.com/morteza/BERTopic
-git+https://github.com/scikit-learn-contrib/hdbscan
 umap-learn[parametric_umap]
+git+https://github.com/scikit-learn-contrib/hdbscan
 top2vec
 
 matplotlib
