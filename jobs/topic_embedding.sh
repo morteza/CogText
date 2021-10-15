@@ -56,6 +56,7 @@ export TOKENIZERS_PARALLELISM=false
 python jobs/topic_embedding.py -f 1.0 --bertopic --top2vec
 
 # push the BIDS changes back to the gitlab repository
+git lfs install
 git add -A .
 git commit -m "CI/HPC/topic_embedding.sh auto-commit (SLURM_JOB_ID: ${SLURM_JOB_ID})"
 git push origin dev
