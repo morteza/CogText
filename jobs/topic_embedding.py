@@ -1,7 +1,5 @@
 # %% 1. Load the data and define the analysis
 
-#!pip install --upgrade git+https://github.com/scikit-learn-contrib/hdbscan
-
 import os, sys
 import argparse
 from datetime import datetime
@@ -134,20 +132,26 @@ def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('mod
   np.savez(root / f'{name}_v{version}{version_iter}_{device}.topics', result.topics)
   np.savez(root / f'{name}_v{version}{version_iter}_{device}.probs', result.scores)
 
-  return f'{name}_v{version}{version_iter}'
+  return f'{name}_v{version}{version_iter}_{device}'
 
 
 def main():
 
   # CLI ARGUMENTS
-  parser = argparse.ArgumentParser()
-  parser.add_argument('-f', '--fraction', type=float, default='0.01')
-  parser.add_argument('--top2vec', dest='enable_top2vec', action='store_true')
-  parser.add_argument('--bertopic', dest='enable_bertopic', action='store_true')
-  args = vars(parser.parse_args())
-  data_fraction = args['fraction']
-  enable_top2vec = args['enable_top2vec']
-  enable_bertopic = args['enable_bertopic'] # or a faster model: 'paraphrase-MiniLM-L3-v2'
+  try:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-f', '--fraction', type=float, default='0.01')
+    parser.add_argument('--top2vec', dest='enable_top2vec', action='store_true')
+    parser.add_argument('--bertopic', dest='enable_bertopic', action='store_true')
+    args = vars(parser.parse_args())
+    data_fraction = args['fraction']
+    enable_top2vec = args['enable_top2vec']
+    enable_bertopic = args['enable_bertopic']  # or a faster model: 'paraphrase-MiniLM-L3-v2'
+  except Exception:
+    print('Cannot parse CLI arguments; using defaults.')
+    data_fraction = 0.01
+    enable_bertopic = True
+    enable_top2vec = False
 
   # DATA
   PUBMED = pd.read_csv(f'data/{DATASET_NAME}.csv.gz')
@@ -168,15 +172,17 @@ def main():
 
   if enable_bertopic:
     brt_result = fit_bertopic(PUBMED, EMBEDDING_MODEL, data_fraction, DEVICE)
-    model_name = save_bertopic(
-      brt_result,
-      f'pubmed{int(100*data_fraction)}pct_bertopic',
-      root=MODELS_DIR,
-      device=DEVICE)
+
+    saved_model_name = save_bertopic(
+        brt_result,
+        f'pubmed{int(100*data_fraction)}pct_bertopic',
+        root=MODELS_DIR,
+        device=DEVICE
+    )
 
     print('BERTopic modeling completed. Now calculating doc2topic scores...')
     bertopic_scores = calc_bertopic_scores(brt_result.model)
-    np.savez(MODELS_DIR / f'{model_name}_{DEVICE}.scores', bertopic_scores)
+    np.savez(MODELS_DIR / f'{saved_model_name}.scores', bertopic_scores)
 
   print('Finished!')
 
