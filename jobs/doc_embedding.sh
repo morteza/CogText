@@ -40,8 +40,8 @@ fi
 conda create -n cogtext python=3.9 --yes
 conda activate cogtext
 conda update conda
-conda install -c conda-forge git git-lfs
-conda install -c conda-forge cudatoolkit
+conda install -c conda-forge git git-lfs -y
+conda install -c conda-forge cudatoolkit -y
 
 # install dependencies and ipython to run the notbooks
 pip install pip -U
