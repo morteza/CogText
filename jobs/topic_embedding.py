@@ -1,6 +1,6 @@
 # %% 1. Load the data and define the analysis
 
-import os, sys
+import os
 import argparse
 from datetime import datetime
 from collections import namedtuple
@@ -18,7 +18,7 @@ import hdbscan
 # PARAMETERS
 MODELS_DIR = Path('models/')
 DATASET_NAME = 'pubmed_abstracts_preprocessed'
-EMBEDDING_MODEL = 'all-MiniLM-L6-v2'
+DOC_EMBEDDING_MODEL = 'all-MiniLM-L6-v2'
 DEVICE = 'cpu'
 
 
@@ -31,12 +31,12 @@ Top2VecResult = namedtuple('Top2VecResult', ['model', 'data', 'scores'])
 
 def fit_bertopic(
     df: pd.DataFrame,
-    embedding_model_name: str,
+    doc_embedding_model: str,
     fraction: float = 1.0,
     device: str = 'cpu'
 ) -> BERTopicResult:
 
-  embedding_file = MODELS_DIR / f'{DATASET_NAME}_{EMBEDDING_MODEL}_{DEVICE}.embeddings.npz'
+  embedding_file = MODELS_DIR / f'{DATASET_NAME}_{doc_embedding_model}_{device}.embeddings.npz'
 
   # sample dataset
   if fraction < 1.0:
@@ -57,19 +57,30 @@ def fit_bertopic(
 
   # UMAP
   umap_model = ParametricUMAP(
-      n_neighbors=15,
+      n_neighbors=100,
       n_components=5,
       min_dist=0.0,
       metric='cosine',
-      low_memory=False)
+      low_memory=False
+  )
+
+  # HDBSCAN
+  hdbscan_model = hdbscan.HDBSCAN(
+      min_cluster_size=100,
+      metric='euclidean',
+      cluster_selection_method='eom',
+      prediction_data=True
+  )
 
   # define the model
   model = BERTopic(
       calculate_probabilities=False,
       n_gram_range=(1, 3),
-      embedding_model=embedding_model_name,
+      embedding_model=doc_embedding_model,
       umap_model=umap_model,
-      verbose=True)
+      hdbscan_model=hdbscan_model,
+      verbose=True
+  )
 
   # fit the model
   topics, scores = model.fit_transform(
@@ -171,7 +182,7 @@ def main():
     save_top2vec(t2v_result, name=f'pubmed{int(100*data_fraction)}pct_top2vec', root=MODELS_DIR)
 
   if enable_bertopic:
-    brt_result = fit_bertopic(PUBMED, EMBEDDING_MODEL, data_fraction, DEVICE)
+    brt_result = fit_bertopic(PUBMED, DOC_EMBEDDING_MODEL, data_fraction, DEVICE)
 
     saved_model_name = save_bertopic(
         brt_result,
