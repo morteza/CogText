@@ -10,9 +10,13 @@ import pandas as pd
 import numpy as np
 
 from bertopic import BERTopic
-
-from umap.parametric_umap import ParametricUMAP
 import hdbscan
+
+try:
+  from umap.parametric_umap import ParametricUMAP as UMAP
+except ImportError:
+  from umap import UMAP
+
 
 
 # PARAMETERS
@@ -56,7 +60,7 @@ def fit_bertopic(
   y = df['label'].astype('category').cat.codes
 
   # UMAP
-  umap_model = ParametricUMAP(
+  umap_model = UMAP(
       n_neighbors=100,
       n_components=5,
       min_dist=0.0,
@@ -76,6 +80,7 @@ def fit_bertopic(
   model = BERTopic(
       calculate_probabilities=False,
       n_gram_range=(1, 3),
+      nr_topics='auto',
       embedding_model=doc_embedding_model,
       umap_model=umap_model,
       hdbscan_model=hdbscan_model,
