@@ -12,7 +12,6 @@ import pandas as pd
 import numpy as np
 
 from bertopic import BERTopic
-from top2vec import Top2Vec
 
 from umap.parametric_umap import ParametricUMAP
 import hdbscan
@@ -22,6 +21,7 @@ import hdbscan
 MODELS_DIR = Path('models/')
 DATASET_NAME = 'pubmed_abstracts_preprocessed'
 EMBEDDING_MODEL = 'all-MiniLM-L6-v2'
+DEVICE = 'cpu'
 
 
 BERTopicResult = namedtuple('BERTopicResult', ['model', 'indices', 'topics', 'scores'])
@@ -34,10 +34,11 @@ Top2VecResult = namedtuple('Top2VecResult', ['model', 'data', 'scores'])
 def fit_bertopic(
     df: pd.DataFrame,
     embedding_model_name: str,
-    fraction: float = 1.0
+    fraction: float = 1.0,
+    device: str = 'cpu'
 ) -> BERTopicResult:
 
-  embedding_file = MODELS_DIR / f'{DATASET_NAME}_{EMBEDDING_MODEL}.embeddings.npz'
+  embedding_file = MODELS_DIR / f'{DATASET_NAME}_{EMBEDDING_MODEL}_{DEVICE}.embeddings.npz'
 
   # sample dataset
   if fraction < 1.0:
@@ -82,6 +83,7 @@ def fit_bertopic(
 
 
 def fit_top2vec(df: pd.DataFrame):
+  from top2vec import Top2Vec
 
   _df = df.drop_duplicates(subset=['pmid']).copy()
   abstracts = _df['abstract'].to_list()
@@ -108,6 +110,7 @@ def calc_bertopic_scores(model: BERTopic) -> np.array:
 
 
 def save_top2vec(result: Top2VecResult, name='pubmed_top2vec', root=Path('models/')):
+  from top2vec import Top2Vec
 
   version = datetime.now().strftime('%Y%m%d')
   version_iter = 1
@@ -119,17 +122,17 @@ def save_top2vec(result: Top2VecResult, name='pubmed_top2vec', root=Path('models
   np.savez(root / f'{name}_v{version}{version_iter}.scores', result.scores)
 
 
-def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('models/')):
+def save_bertopic(result: BERTopicResult, name='pubmed_bertopic', root=Path('models/'), device='cpu'):
 
   version = datetime.now().strftime('%Y%m%d')
   version_iter = 1
   while (root / f'{name}_v{version}{version_iter}.model').exists():
     version_iter += 1
 
-  result.model.save(root / f'{name}_v{version}{version_iter}.model')
-  np.savez(root / f'{name}_v{version}{version_iter}.idx', result.indices)
-  np.savez(root / f'{name}_v{version}{version_iter}.topics', result.topics)
-  np.savez(root / f'{name}_v{version}{version_iter}.probs', result.scores)
+  result.model.save(root / f'{name}_v{version}{version_iter}_{device}.model')
+  np.savez(root / f'{name}_v{version}{version_iter}_{device}.idx', result.indices)
+  np.savez(root / f'{name}_v{version}{version_iter}_{device}.topics', result.topics)
+  np.savez(root / f'{name}_v{version}{version_iter}_{device}.probs', result.scores)
 
   return f'{name}_v{version}{version_iter}'
 
@@ -164,12 +167,16 @@ def main():
     save_top2vec(t2v_result, name=f'pubmed{int(100*data_fraction)}pct_top2vec', root=MODELS_DIR)
 
   if enable_bertopic:
-    brt_result = fit_bertopic(PUBMED, EMBEDDING_MODEL, data_fraction)
-    model_name = save_bertopic(brt_result, f'pubmed{int(100*data_fraction)}pct_bertopic', root=MODELS_DIR)
+    brt_result = fit_bertopic(PUBMED, EMBEDDING_MODEL, data_fraction, DEVICE)
+    model_name = save_bertopic(
+      brt_result,
+      f'pubmed{int(100*data_fraction)}pct_bertopic',
+      root=MODELS_DIR,
+      device=DEVICE)
 
     print('BERTopic modeling completed. Now calculating doc2topic scores...')
     bertopic_scores = calc_bertopic_scores(brt_result.model)
-    np.savez(MODELS_DIR / f'{model_name}.scores', bertopic_scores)
+    np.savez(MODELS_DIR / f'{model_name}_{DEVICE}.scores', bertopic_scores)
 
   print('Finished!')
 
