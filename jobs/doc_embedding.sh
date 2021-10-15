@@ -38,8 +38,10 @@ fi
 
 # create and prepare a new conda environment (also installs git and git-lfs via conda)
 conda create -n cogtext python=3.9 --yes
-source activate cogtext
+conda activate cogtext
+conda update conda
 conda install -c conda-forge git git-lfs
+conda install -c conda-forge cudatoolkit
 
 # install dependencies and ipython to run the notbooks
 pip install pip -U
