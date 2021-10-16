@@ -2,12 +2,12 @@ from pathlib import Path
 from sentence_transformers import SentenceTransformer
 import pandas as pd
 import numpy as np
-
+import torch
 
 # PARAMETERS
-DATASET_NAMES = ['pubmed_abstracts', 'pubmed_abstracts_preprocessed']
+DATASET_NAMES = ['pubmed20pct_abstracts', 'pubmed20pct_abstracts_preprocessed']
 MODEL_NAME = 'all-MiniLM-L6-v2'  # or a faster model: 'paraphrase-MiniLM-L3-v2'
-DEVICE = 'cpu'  # or 'gpu'
+DEVICE = 'gpu' if torch.cuda.is_available() else 'cpu'
 
 
 for dataset_name in DATASET_NAMES:
