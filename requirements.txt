@@ -42,3 +42,5 @@ pigeon-jupyter  # annotation
 pigeonXT-jupyter  # improved annotation
 
 sympy  # symbolic math and matrix ranks
+
+tensorflow_hub  # to access pretrained models of tf-hub
