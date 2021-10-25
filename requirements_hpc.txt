@@ -3,7 +3,10 @@ pandas
 
 sklearn
 
-bertopic
+git+https://github.com/morteza/BERTopic
+# umap-learn[parametric_umap]
+git+https://github.com/scikit-learn-contrib/hdbscan
+
 top2vec
 
 matplotlib

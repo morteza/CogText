@@ -38,13 +38,17 @@ fi
 
 # create and prepare a new conda environment (also installs git and git-lfs via conda)
 conda create -n cogtext python=3.9 --yes
-source activate cogtext
-conda install -c conda-forge git git-lfs
+conda activate cogtext
+conda install -c conda-forge git git-lfs -y
+conda install -c conda-forge cudatoolkit=11.2 -y
 
 # install dependencies and ipython to run the notbooks
 pip install pip -U
 pip install -r requirements_hpc.txt
 # pip install ipython jupyter
+
+# to avoid memory limit issue in HDBSCAN
+pip install --upgrade git+https://github.com/scikit-learn-contrib/hdbscan
 
 # Fix transformers bug when nprocess > 1
 export TOKENIZERS_PARALLELISM=false
@@ -53,6 +57,7 @@ export TOKENIZERS_PARALLELISM=false
 python jobs/topic_embedding.py -f 1.0 --bertopic --top2vec
 
 # push the BIDS changes back to the gitlab repository
+git lfs install
 git add -A .
 git commit -m "CI/HPC/topic_embedding.sh auto-commit (SLURM_JOB_ID: ${SLURM_JOB_ID})"
 git push origin dev
