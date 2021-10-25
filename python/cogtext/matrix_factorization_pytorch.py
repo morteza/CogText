@@ -47,7 +47,7 @@ class MFNet(nn.Module):
 # prep data
 from python.cogtext.utils import select_relevant_journals
 
-INPUT_FILE = 'data/pubmed_abstracts.csv.gz'
+INPUT_FILE = 'data/pubmed/abstracts.csv.gz'
 PUBMED = (pd.read_csv(INPUT_FILE)
             .pipe(select_relevant_journals)
             .dropna(subset=['abstract']))

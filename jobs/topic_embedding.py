@@ -21,7 +21,7 @@ except ImportError:
 
 # PARAMETERS
 MODELS_DIR = Path('models/')
-DATASET_NAME = 'pubmed_abstracts_preprocessed'
+DATASET_NAME = 'pubmed/abstracts_preprocessed'
 DOC_EMBEDDING_MODEL = 'all-MiniLM-L6-v2'
 DEVICE = 'cpu'
 
