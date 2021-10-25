@@ -45,13 +45,6 @@ docker ...
   
   The EFO ontology uses the following IRI to prefix its entities: `http://xcit.org/ontologies/2021/executive-functions-ontology`.
 
-- **<kbd>D1</kbd> [data/pubmed_abstracts.csv.gz](data/pubmed_abstracts.csv.gz)**: PubMed abstracts dataset of cognitive tasks and constructs; compressed in gzip format.
-- **<kbd>D2</kbd> [data/pubmed_journals.csv](data/pubmed_journals.csv)**: TBD
-
-- **<kbd>D3</kbd> [data/pubmed_abstracts_preprocessed.csv.gz](data/pubmed_abstracts_preprocessed.csv.gz)**: TBD
-
-- **<kbd>D4</kbd> [data/pubmed_cooc.csv](data/pubmed_cooc.csv)**: TBD
-
 - **<kbd>D5</kbd> [...]()**: TBD
 
 - **<kbd>D6</kbd> [...]()**: TBD

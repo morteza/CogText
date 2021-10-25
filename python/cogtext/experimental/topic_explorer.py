@@ -14,7 +14,7 @@ st.title('Topic Explorer')
 
 model_name = st.selectbox('Model Name', ['pubmed10pct_bertopic','pubmed10pct_top2vec'])
 version = st.text_input('Model Version', 'v202110111')
-dataset = st.selectbox('Dataset', list(Path('data').glob('pubmed_abstracts*.csv.gz')))
+dataset = st.selectbox('Dataset', list(Path('data').glob('pubmed/abstracts*.csv.gz')))
 
 # @st.experimental_singleton
 # def load_bertopic_model(version, dataset) -> Tuple[BERTopic, pd.DataFrame, np.array, np.array]:
