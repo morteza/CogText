@@ -17,7 +17,7 @@ from pyro.infer.autoguide import AutoDiagonalNormal
 from pyro.optim import Adam
 
 
-PUBMED_PATH = Path('data/pubmed_abstracts_preprocessed.csv.gz')
+PUBMED_PATH = Path('data/pubmed/abstracts_preprocessed.csv.gz')
 MODEL_NAME = 'pubmed1pct_bertopic'
 VERSION = 'v202109291'
 

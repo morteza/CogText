@@ -3,7 +3,7 @@ from pandas._typing import FilePathOrBuffer
 
 
 def load_pubmed_abstacts_dataset(
-    reader: FilePathOrBuffer = 'data/pubmed_abstracts.csv.gz',
+    reader: FilePathOrBuffer = 'data/pubmed/abstracts.csv.gz',
     group_by: str = None,
     frac: int = None,
     min_count: int = None,
