@@ -32,9 +32,12 @@ pyvis
 plotly
 pydot  # keras uses pydot to plot models
 
-
 bertopic  # BERT topic modeling
+git+https://github.com/scikit-learn-contrib/hdbscan
+# umap-learn[parametric_umap]
+
 top2vec   # deep topic modeling
+
 pigeon-jupyter  # annotation
 pigeonXT-jupyter  # improved annotation
 
