@@ -27,7 +27,7 @@ def _encode_and_score(model, sts_data):
   return scores
 
 
-def run_sts_benchmark(model, data_subset='test'):
+def run_sts_benchmark(model, sts_subset='test'):
   """Perform STS benchmark on document embeddings.
 
   Args:
@@ -35,27 +35,21 @@ def run_sts_benchmark(model, data_subset='test'):
       data_subset (str, optional): [description]. Defaults to 'test'.
 
   Returns:
-      (float,float): Pearson's r coefficient and p-value as provided by scipy.stats.pearsonr(...).
+      (float,float): Pearson's r coefficient and p-value as returned by scipy.stats.pearsonr(...).
   """
 
   sts_dataset = tf.keras.utils.get_file(
-      fname='sts.tar.gz',
-      origin='http://alt.qcri.org/semeval2016/task1/data/uploads/sts2016-english-v1.1.tar.gz',
+      fname='Stsbenchmark.tar.gz',
+      origin='http://ixa2.si.ehu.es/stswiki/images/4/48/Stsbenchmark.tar.gz',
       extract=True)
 
-  if 'test' in data_subset:
-    sts_data = pandas.read_table(
-        os.path.join(os.path.dirname(sts_dataset), 'stsbenchmark', 'sts-test.csv'),
-        quoting=csv.QUOTE_NONE,
-        skip_blank_lines=True,
-        usecols=[4, 5, 6], names=['similarity', 'sentence_1', 'sentence_2'])
-  else:
-    sts_data = pandas.read_table(
-        os.path.join(os.path.dirname(sts_dataset), 'stsbenchmark', 'sts-dev.csv'),
-        skip_blank_lines=True,
-        usecols=[4, 5, 6], names=['similarity', 'sentence_1', 'sentence_2'])
-    # cleanup missing sentences
-    sts_data.dropna(subset=['sentence_2'], inplace=True)
+  sts_data = pandas.read_table(
+      os.path.join(os.path.dirname(sts_dataset), 'Stsbenchmark', f'sts-{sts_subset}.csv'),
+      quoting=csv.QUOTE_NONE,
+      skip_blank_lines=True,
+      usecols=[4, 5, 6], names=['similarity', 'sentence_1', 'sentence_2'])
+
+  sts_data.dropna(subset=['sentence_2'], inplace=True)
 
   scores = []
 
@@ -67,28 +61,24 @@ def run_sts_benchmark(model, data_subset='test'):
   return r, p
 
 
-# if __name__ == '__main__':
-#   import sys; sys.path.append('./python/')  # noqa
-#   from cogtext.embeddings.universal_sentence_encoder import UniversalSentenceEncoder # noqa
-#   from sentence_transformers import SentenceTransformer # noqa
+if __name__ == '__main__':
+  import sys; sys.path.append('./python/')  # noqa
+  from cogtext.embeddings.universal_sentence_encoding import UniversalSentenceEncoding # noqa
+  from sentence_transformers import SentenceTransformer # noqa
+  from cogtext.embeddings.average_distilbert import AverageDistilBert
+  from cogtext.embeddings.average_doc2vec import AverageDoc2Vec  # noqa
+  from cogtext.embeddings.average_word2vec import AverageWord2Vec  # noqa
 
-#   models = [
-#       # SentenceTransformer('all-mpnet-base-v2'),
-#       # SentenceTransformer('all-distilroberta-v1'),
-#       UniversalSentenceEncoder('universal-sentence-encoder-large/5', show_progress_bar=False),
-#   ]
+  models = [
+      # SentenceTransformer('all-mpnet-base-v2'),
+      # SentenceTransformer('all-distilroberta-v1'),
+      # UniversalSentenceEncoding('universal-sentence-encoder-large/5', show_progress_bar=False),
+      # AverageWord2Vec(),
+      # AverageDoc2Vec(),
+      # AverageDistilBert(),
+  ]
 
-#   for model in models:
-#     print(f'{model} (coef, p-value):', run_sts_benchmark(model, data_subset='test'))
-#     model = None
-#     del model
-
-sts_dataset = tf.keras.utils.get_file(
-    fname='sts.tar.gz',
-    origin='http://alt.qcri.org/semeval2016/task1/data/uploads/sts2016-english-v1.1.tar.gz',
-    extract=True)
-
-sts_dataset_path = os.path.join(os.path.dirname(sts_dataset), 'stsbenchmark', 'sts-test.csv')
-
-print(sts_dataset)
-print(pandas.read_table(sts_dataset_path, quoting=csv.QUOTE_NONE, skip_blank_lines=True,))
+  for model in models:
+    print(f'{model} (coef, p-value):', run_sts_benchmark(model, 'test'))
+    model = None
+    del model

@@ -5,7 +5,7 @@ import tensorflow_hub as hub
 from tqdm import tqdm
 
 
-class UniversalSentenceEncoder():
+class UniversalSentenceEncoding():
 
   def __init__(
       self,
@@ -28,7 +28,7 @@ class UniversalSentenceEncoder():
 
       Example
       -------
-        >>> print(UniversalSentenceEmbedding.example())
+        >>> print(UniversalSentenceEncoding.example())
     """
 
     module_url = f'https://tfhub.dev/google/{model_name}'
@@ -68,6 +68,9 @@ class UniversalSentenceEncoder():
       embeddings.append(batch_embeddings)
 
     return np.vstack(embeddings)
+
+  def __call__(self, documents: Union[list[str], str, np.array], **kwargs) -> np.ndarray:
+    self.encode(documents, **kwargs)
 
   @staticmethod
   def example():
