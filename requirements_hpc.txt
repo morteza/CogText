@@ -11,3 +11,5 @@ top2vec
 
 matplotlib
 seaborn
+
+tensorflow_hub
