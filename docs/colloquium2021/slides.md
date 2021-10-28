@@ -337,7 +337,7 @@ $$
 
 ## Model fitting
 
-- Non-negative factorization was used to infer latent matrices from a log-transformed probability matrix.
+- Non-negative factorization was used to infer latent matrices from a log-transformed jaccard coefficient matrix.
 $$
 \operatorname*{f}(n) = \alpha \times \min(\mathbf{MSE}_{1 \ldotp\ldotp \min(m,c)}) - \mathbf{MSE}_n(X-M \times C^T) \\
 $$
