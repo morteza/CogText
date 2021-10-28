@@ -4,7 +4,7 @@ from itertools import product
 
 def co_occurrence_matrix(
     pubmed_abstracts: pd.DataFrame,
-    probability=False,
+    jaccard_coefficient=False,
     groupby_category=False
 ):
 
@@ -42,7 +42,7 @@ def co_occurrence_matrix(
   cooc['union_corpus_size'] = cooc.apply(
       lambda t: len(set(pmids.loc[t[0], 'pmid']).union(set(pmids.loc[t[1], 'pmid']))), axis=1)
 
-  if probability:
-    cooc['probability'] = cooc['intersection_corpus_size'] / cooc['union_corpus_size']
+  if jaccard_coefficient:
+    cooc['jaccard_coefficient'] = cooc['intersection_corpus_size'] / cooc['union_corpus_size']
 
   return cooc

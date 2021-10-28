@@ -28,7 +28,7 @@ class MFNet(nn.Module):
 
     # input features and outputs of the network
     X = data[['label_1', 'label_2']]
-    y = data[['probability']]
+    y = data[['jaccard_coefficient']]
 
     for epoch in range(n_epochs):
       X_train = X
