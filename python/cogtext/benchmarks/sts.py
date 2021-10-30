@@ -9,10 +9,22 @@ import os
 from tqdm import tqdm
 import torch
 
+from python.cogtext.embeddings.top2vec_membership import Top2VecMembership
+
 
 def _encode_and_score(model, sts_data):
-  sts_encode1 = model.encode(sts_data['sentence_1'].values)
-  sts_encode2 = model.encode(sts_data['sentence_2'].values)
+  """Encode the sentences in the STS dataset and return the similarity scores.
+  """
+  if isinstance(model, Top2VecMembership):
+    sent1 = sts_data['sentence_1'].tolist()
+    sent2 = sts_data['sentence_2'].tolist()
+    sents = sent1 + sent2
+    embeddings = model.encode(sents)
+    sts_encode1 = embeddings[:len(sent1)]
+    sts_encode2 = embeddings[len(sent2):]
+  else:
+    sts_encode1 = model.encode(sts_data['sentence_1'].values)
+    sts_encode2 = model.encode(sts_data['sentence_2'].values)
 
   if isinstance(model, torch.nn.Module):
     scores = torch.nn.functional.cosine_similarity(torch.tensor(sts_encode1), torch.tensor(sts_encode2), dim=1)
@@ -70,6 +82,7 @@ if __name__ == '__main__':
   from cogtext.embeddings.average_word2vec import AverageWord2Vec  # noqa
 
   models = [
+      Top2VecMembership(),
       # SentenceTransformer('all-mpnet-base-v2'),
       # SentenceTransformer('all-distilroberta-v1'),
       # UniversalSentenceEncoding('universal-sentence-encoder-large/5', show_progress_bar=False),
