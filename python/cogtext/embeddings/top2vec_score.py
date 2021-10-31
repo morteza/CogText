@@ -5,7 +5,7 @@ from typing import Union
 from top2vec import Top2Vec
 
 
-class Top2VecMembership():
+class Top2VecScore():
   def __init__(self,
                embedding_model_name='distiluse-base-multilingual-cased',
                speed='fast-learn') -> None:

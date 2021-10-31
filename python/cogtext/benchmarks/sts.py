@@ -9,13 +9,21 @@ import os
 from tqdm import tqdm
 import torch
 
-from python.cogtext.embeddings.top2vec_membership import Top2VecMembership
+import sys; sys.path.append('./python/')  # noqa
+
+from cogtext.embeddings.universal_sentence_encoding import UniversalSentenceEncoding # noqa
+from sentence_transformers import SentenceTransformer # noqa
+from cogtext.embeddings.average_distilbert import AverageDistilBert  # noqa
+from cogtext.embeddings.average_doc2vec import AverageDoc2Vec  # noqa
+from cogtext.embeddings.average_word2vec import AverageWord2Vec  # noqa
+from python.cogtext.embeddings.bertopic_score import BERTopicScore
+from python.cogtext.embeddings.top2vec_score import Top2VecScore # noqa
 
 
 def _encode_and_score(model, sts_data):
   """Encode the sentences in the STS dataset and return the similarity scores.
   """
-  if isinstance(model, Top2VecMembership):
+  if isinstance(model, BERTopicScore) or isinstance(model, BERTopicScore):
     sent1 = sts_data['sentence_1'].tolist()
     sent2 = sts_data['sentence_2'].tolist()
     sents = sent1 + sent2
@@ -74,15 +82,10 @@ def run_sts_benchmark(model, sts_subset='test'):
 
 
 if __name__ == '__main__':
-  import sys; sys.path.append('./python/')  # noqa
-  from cogtext.embeddings.universal_sentence_encoding import UniversalSentenceEncoding # noqa
-  from sentence_transformers import SentenceTransformer # noqa
-  from cogtext.embeddings.average_distilbert import AverageDistilBert
-  from cogtext.embeddings.average_doc2vec import AverageDoc2Vec  # noqa
-  from cogtext.embeddings.average_word2vec import AverageWord2Vec  # noqa
 
   models = [
-      Top2VecMembership(),
+      BERTopicScore(),
+      # Top2VecScore(),
       # SentenceTransformer('all-mpnet-base-v2'),
       # SentenceTransformer('all-distilroberta-v1'),
       # UniversalSentenceEncoding('universal-sentence-encoder-large/5', show_progress_bar=False),
