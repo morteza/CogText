@@ -2,7 +2,6 @@ import gensim
 from spacy import Language
 from tqdm  import tqdm
 import numpy
-from sklearn import feature_extraction
 
 try:
   from gensim.models.phrases import ENGLISH_CONNECTOR_WORDS
@@ -71,10 +70,3 @@ def concat_common_phrases(abstracts):
   # concat tokens
   docs = [' '.join(doc) for doc in docs]
   return docs
-
-
-def remove_short_abstracts(df):
-  vectorizer = feature_extraction.text.CountVectorizer()
-  counts = vectorizer.fit_transform(df['abstract']).toarray()
-  invalid_indices = (counts.sum(axis=1) < 10).nonzero()[0]
-  return df.drop(invalid_indices)

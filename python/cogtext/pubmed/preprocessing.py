@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn import feature_extraction
 
 
 class PubMedPreprocessor():
@@ -13,7 +14,7 @@ class PubMedPreprocessor():
   def transform(self, pubmed_abstracts_df):
     pass
 
-  @staticmethod
+  @classmethod
   def select_relevant_journals(cls, pubmed_abstracts_df: pd.DataFrame) -> pd.DataFrame:
     """Remove certain irrelevant articles from the corpus.
 
@@ -22,7 +23,7 @@ class PubMedPreprocessor():
 
     """
 
-    journals = pubmed_df[
+    journals = pubmed_abstracts_df[
         ['journal_title', 'journal_iso_abbreviation']
     ].value_counts().reset_index().rename(columns={0: 'n_articles'})
 
@@ -33,11 +34,20 @@ class PubMedPreprocessor():
             'n_articles'
     ].index
 
-    relevant_journals = journals.loc[  # noqa: F841
+    relevant_journals = journals.loc[  # noqa
         relevant_journals_idx.union(pop_journals_idx),
         'journal_iso_abbreviation'
     ]
 
-    relevant_corpus = pubmed_df.query('journal_iso_abbreviation.isin(@relevant_journals)').copy()
+    relevant_corpus = pubmed_abstracts_df.query('journal_iso_abbreviation.isin(@relevant_journals)').copy()
 
     return relevant_corpus
+
+  @classmethod
+  def remove_short_abstracts(cls, pubmed_df):
+    df = pubmed_df.dropna(subset=['abstract'])
+    vectorizer = feature_extraction.text.CountVectorizer()
+    counts = vectorizer.fit_transform(df['abstract']).toarray()
+    short_abstract_indices = (counts.sum(axis=1) < 10).nonzero()[0]
+    df = df.drop(short_abstract_indices)
+    return df
