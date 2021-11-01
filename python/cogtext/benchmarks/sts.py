@@ -1,5 +1,5 @@
 # %%
-import pandas
+import pandas as pd
 import scipy.stats
 import math
 import csv
@@ -8,34 +8,30 @@ import tensorflow as tf
 import os
 from tqdm import tqdm
 import torch
+import sys
 
-import sys; sys.path.append('./python/')  # noqa
-
-from cogtext.embeddings.universal_sentence_encoding import UniversalSentenceEncoding # noqa
-from sentence_transformers import SentenceTransformer # noqa
-from cogtext.embeddings.average_distilbert import AverageDistilBert  # noqa
-from cogtext.embeddings.average_doc2vec import AverageDoc2Vec  # noqa
-from cogtext.embeddings.average_word2vec import AverageWord2Vec  # noqa
-from python.cogtext.embeddings.bertopic_score import BERTopicScore
-from python.cogtext.embeddings.top2vec_score import Top2VecScore # noqa
+sys.path.append('./python/')  # noqa
+from cogtext.embeddings import BERTopicEmbedder  # noqa
 
 
 def _encode_and_score(model, sts_data):
   """Encode the sentences in the STS dataset and return the similarity scores.
   """
-  if isinstance(model, BERTopicScore) or isinstance(model, BERTopicScore):
+  if isinstance(model, BERTopicEmbedder):
     sent1 = sts_data['sentence_1'].tolist()
     sent2 = sts_data['sentence_2'].tolist()
     sents = sent1 + sent2
-    embeddings = model.encode(sents)
+    embeddings = model(sents)
     sts_encode1 = embeddings[:len(sent1)]
     sts_encode2 = embeddings[len(sent2):]
   else:
-    sts_encode1 = model.encode(sts_data['sentence_1'].values)
-    sts_encode2 = model.encode(sts_data['sentence_2'].values)
+    sts_encode1 = model(sts_data['sentence_1'].values)
+    sts_encode2 = model(sts_data['sentence_2'].values)
 
   if isinstance(model, torch.nn.Module):
-    scores = torch.nn.functional.cosine_similarity(torch.tensor(sts_encode1), torch.tensor(sts_encode2), dim=1)
+    scores = torch.nn.functional.cosine_similarity(torch.tensor(sts_encode1),
+                                                   torch.tensor(sts_encode2),
+                                                   dim=1)
   else:
     sts_encode1_norm = tf.nn.l2_normalize(sts_encode1)
     sts_encode2_norm = tf.nn.l2_normalize(sts_encode2)
@@ -47,7 +43,7 @@ def _encode_and_score(model, sts_data):
   return scores
 
 
-def run_sts_benchmark(model, sts_subset='test'):
+def run_sts_benchmark(model, sts_subset='train'):
   """Perform STS benchmark on document embeddings.
 
   Args:
@@ -63,7 +59,7 @@ def run_sts_benchmark(model, sts_subset='test'):
       origin='http://ixa2.si.ehu.es/stswiki/images/4/48/Stsbenchmark.tar.gz',
       extract=True)
 
-  sts_data = pandas.read_table(
+  sts_data = pd.read_table(
       os.path.join(os.path.dirname(sts_dataset), 'Stsbenchmark', f'sts-{sts_subset}.csv'),
       quoting=csv.QUOTE_NONE,
       skip_blank_lines=True,
@@ -84,17 +80,22 @@ def run_sts_benchmark(model, sts_subset='test'):
 if __name__ == '__main__':
 
   models = [
-      BERTopicScore(),
-      # Top2VecScore(),
-      # SentenceTransformer('all-mpnet-base-v2'),
-      # SentenceTransformer('all-distilroberta-v1'),
-      # UniversalSentenceEncoding('universal-sentence-encoder-large/5', show_progress_bar=False),
-      # AverageWord2Vec(),
-      # AverageDoc2Vec(),
+      BERTopicEmbedder('all-mpnet-base-v2'),
+      BERTopicEmbedder('all-distilroberta-v1')
+      # SBertEmbedder('all-mpnet-base-v2'),
+      # SBertEmbedder('all-distilroberta-v1'),
+      # Top2VecEmbedder(),
+      # TensorFlowHubEmbedder('universal-sentence-encoder-large/5', show_progress_bar=False),
+      # Word2VecEmbedder(),
+      # Doc2VecEmbedder(),
       # AverageDistilBert(),
   ]
 
   for model in models:
-    print(f'{model} (coef, p-value):', run_sts_benchmark(model, 'test'))
+    results = run_sts_benchmark(model, 'test')
+    print(f'{model}\n'
+          f'Pearson coef={results[0]} (p-value={results[1]})')
+
+    # clean up CPU/GPU memory
     model = None
     del model
