@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 import sys; sys.path.append('./python/')  # noqa
-from cogtext.embeddings.universal_sentence_encoder import UniversalSentenceEncoder # noqa
+from cogtext.embeddings.tfhub_embedder import TensorFlowHubEmbedder # noqa
 
 # PARAMETERS
 DATASET_NAMES = ['pubmed/abstracts', 'pubmed/abstracts_preprocessed']
@@ -41,7 +41,7 @@ for dataset_name in DATASET_NAMES:
                 show_progress_bar=True)
 
         if 'universal-sentence-encoder' in model_name:
-            model = UniversalSentenceEncoder(batch_size=BATCH_SIZE)
+            model = TensorFlowHubEmbedder(batch_size=BATCH_SIZE)
             embeddings = model.encode(data['abstract'].values)
 
         # STORE RESULTS
