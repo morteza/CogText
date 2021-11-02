@@ -44,10 +44,10 @@ class PubMedPreprocessor():
     return relevant_corpus
 
   @classmethod
-  def remove_short_abstracts(cls, pubmed_df):
+  def remove_short_abstracts(cls, pubmed_df, min_words=10):
     df = pubmed_df.dropna(subset=['abstract'])
     vectorizer = feature_extraction.text.CountVectorizer()
     counts = vectorizer.fit_transform(df['abstract']).toarray()
-    short_abstract_indices = (counts.sum(axis=1) < 10).nonzero()[0]
-    df = df.drop(short_abstract_indices)
+    short_abstract_indices = (counts.sum(axis=1) < min_words).nonzero()[0]
+    df = df.drop(df.index[short_abstract_indices])
     return df
