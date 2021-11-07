@@ -1,15 +1,45 @@
+import pandas as pd
+from pandas._typing import FilePathOrBuffer
+from pathlib import Path
+
 import os
 import requests
-import xmltodict
 from pathlib import Path
 from collections import OrderedDict
 from datetime import date
 from xml.etree import ElementTree
 import re
-
 import pandas as pd
+from sklearn import feature_extraction
 
 NCBI_EUTILS_BASE_URL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils'
+
+
+class PubMedDataLoader():
+  def __init__(self,
+               root_dir: str = 'data/pubmed/',
+               preprocessed=True,
+               drop_low_occurred_labels=True) -> pd.DataFrame:
+
+    self.root_dir = Path(root_dir)
+    self.preprocessed = preprocessed
+    if preprocessed:
+      self.data = pd.read_csv(self.root_dir / 'abstracts_preprocessed.csv.gz')
+    else:
+      self.data = pd.read_csv(self.root_dir / 'abstracts.csv')
+
+    self.data.rename(columns={'subcategory': 'label'}, inplace=True)
+
+    if drop_low_occurred_labels:
+      low_lbls = self.data.groupby('label')['pmid'].count()
+      low_lbls = low_lbls[low_lbls < 2].index
+      low_lbls_idx = self.data.query('label in @low_lbls').index
+      self.data.drop(index=low_lbls_idx, inplace=True)
+
+    self.data = self.data.dropna(subset=['abstract', 'pmid']).reset_index(drop=True)
+
+  def __call__(self) -> pd.DataFrame:
+    return self.data
 
 
 def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ.get('NCBI_API_KEY', '')):
@@ -24,6 +54,8 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ.g
   Returns:
     Does not return anything. Abstracts will be stored in the `output_file`.
   """
+  import xmltodict  # noqa
+
 
   # step 1: create query and search
 
@@ -128,3 +160,90 @@ def parse_publication_year(x):
         year = re.findall('[0-9]+', x)[0]
         return int(year)
     return x if pd.notna(x) else 0.
+
+
+def load_pubmed_abstacts_dataset(
+    reader: FilePathOrBuffer = 'data/pubmed/abstracts.csv.gz',
+    group_by: str = None,
+    frac: int = None,
+    min_count: int = None,
+    max_count: int = None,
+    preprocess_abstracts: bool = False,
+    drop_empty_groups: bool = True,
+    only_relevant_journals: bool = False,
+    drop_invalid_abstracts: bool = False,
+    reset_index: bool = False,
+    return_Xy: bool = False,
+) -> pd.DataFrame:
+  """[summary]
+
+  Inputs:
+  ---
+    pubmed_abstracts_df (pd.DataFrame): [description]
+    groupby (str, optional): [description]. Defaults to 'label'.
+    frac (int, optional): [description]. Defaults to None.
+
+  Outputs:
+  ---
+    pd.DataFrame: [description]
+
+  Examples:
+  ---
+    >>> sample_dataset(PUBMED)
+    >>> PUBMED.pipe(sample_dataset)
+  """
+  pass
+
+class PubMedPreprocessor():
+  def __init__(self, vocabulary_size=20000):
+    """[summary]
+
+    Inputs:
+    ---
+    """
+    pass
+
+  def transform(self, pubmed_abstracts_df):
+    pass
+
+  @classmethod
+  def select_relevant_journals(cls, pubmed_abstracts_df: pd.DataFrame) -> pd.DataFrame:
+    """Remove certain irrelevant articles from the corpus.
+
+    Note:
+      This function uses `journal_iso_abbreviation` and `journal_title` to find relevant articles.
+
+    """
+
+    journals = pubmed_abstracts_df[
+        ['journal_title', 'journal_iso_abbreviation']
+    ].value_counts().reset_index().rename(columns={0: 'n_articles'})
+
+    # identify popular and relevant journals
+    pop_journals_idx = journals[lambda x: x['n_articles'] > 1000]['n_articles'].index
+    relevant_journals_idx = journals.query(
+        'journal_title.str.contains("cognit|psyc|neur|brain|cortex|cog|intell|educ|behav|cereb", case=False)')[
+            'n_articles'
+    ].index
+
+    relevant_journals = journals.loc[  # noqa
+        relevant_journals_idx.union(pop_journals_idx),
+        'journal_iso_abbreviation'
+    ]
+
+    relevant_corpus = pubmed_abstracts_df.query('journal_iso_abbreviation.isin(@relevant_journals)').copy()
+
+    return relevant_corpus
+
+  @classmethod
+  def remove_short_abstracts(cls, pubmed_df, min_words=10):
+    df = pubmed_df.dropna(subset=['abstract'])
+
+    # vectorizer = feature_extraction.text.CountVectorizer()
+    # counts = vectorizer.fit_transform(df['abstract']).toarray()
+    # short_abstract_indices = (counts.sum(axis=1) < min_words).nonzero()[0]
+
+    long_abstract_indices = df.query('abstract.str.count(" ") >= @min_words').index
+    df = df.loc[long_abstract_indices]
+
+    return df
