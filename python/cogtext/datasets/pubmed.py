@@ -26,7 +26,7 @@ class PubMedDataLoader():
     if preprocessed:
       self.data = pd.read_csv(self.root_dir / 'abstracts_preprocessed.csv.gz')
     else:
-      self.data = pd.read_csv(self.root_dir / 'abstracts.csv')
+      self.data = pd.read_csv(self.root_dir / 'abstracts.csv.gz')
 
     self.data.rename(columns={'subcategory': 'label'}, inplace=True)
 
