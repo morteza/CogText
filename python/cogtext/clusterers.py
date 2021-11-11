@@ -7,8 +7,8 @@ def fit_hdbscan(X, y=None):
 
   joblib_cache = joblib.Memory(location='tmp')
 
-  clusterer = HDBSCAN(min_cluster_size=10,
-                      min_samples=1,
+  clusterer = HDBSCAN(min_cluster_size=15,
+                      # min_samples=1,
                       metric='euclidean',
                       core_dist_n_jobs=1,
                       memory=joblib_cache,
