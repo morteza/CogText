@@ -23,7 +23,7 @@ def fit_parametric_umap(X, y=None, name=None, parametric=True):
                    metric='cosine',
                    verbose=True,
                    n_jobs=1,
-                   low_memory=True)
+                   low_memory=False)
 
     embeddings = reducer.fit_transform(X, y)
     embeddings = np.nan_to_num(embeddings)
