@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-def similarity_matrix(H, metric='cosine', pivot_by_category=True):
+def get_similarity_matrix(H, metric='cosine', pivot_by_category=True):
   assert metric in ['cosine'], 'Invalid similarity metric'
 
   H_sim = pd.DataFrame(cosine_similarity(H),
