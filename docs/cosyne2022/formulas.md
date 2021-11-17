@@ -1,7 +1,7 @@
 $$
 \begin{aligned}
 \begin{align*}
-L &\xmapsto{} G(L, \varnothing) \xmapsto{\text{PubMed}} \text{\ documents} \xmapsto{\text{USEv4}}\vec{X} \xmapsto{\text{UMAP}}\vec{U} \xmapsto{\text{HDBSCAN}} \vec{W} \xmapsto{pool} \vec{Z} \xmapsto{\text{cosine similarity}} H(L,e^{(1)}) \xmapsto{\text{metapath2vec}}  G(L,e^{(2)}) \xmapsto{\text{link clustering}} \cnums
+L \xmapsto{} G(L, \varnothing) \xmapsto{\text{PubMed}} \text{\ documents} \xmapsto{\text{USEv4}}\vec{X} \xmapsto{\text{UMAP}}\vec{U} \xmapsto{\text{HDBSCAN}} \vec{W} \xmapsto{pool} \vec{Z} \xmapsto{\text{similarity}} H(L,e^{(1)}) \xmapsto{\text{metapath2vec}}  G(L,e^{(2)}) \xmapsto{\text{link clustering}} \cnums
 
 \\ \\
 \end{align*}
