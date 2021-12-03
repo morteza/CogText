@@ -38,8 +38,11 @@ class PubMedDataLoader():
 
     self.data = self.data.dropna(subset=['abstract', 'pmid']).reset_index(drop=True)
 
-  def __call__(self) -> pd.DataFrame:
+  def load(self) -> pd.DataFrame:
     return self.data
+
+  def __call__(self) -> pd.DataFrame:
+    return self.load()
 
 
 def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ.get('NCBI_API_KEY', '')):
@@ -192,7 +195,8 @@ def load_pubmed_abstacts_dataset(
     >>> sample_dataset(PUBMED)
     >>> PUBMED.pipe(sample_dataset)
   """
-  pass
+  raise NotImplementedError
+
 
 class PubMedPreprocessor():
   def __init__(self, vocabulary_size=20000):
@@ -204,7 +208,7 @@ class PubMedPreprocessor():
     pass
 
   def transform(self, pubmed_abstracts_df):
-    pass
+    raise NotImplementedError
 
   @classmethod
   def select_relevant_journals(cls, pubmed_abstracts_df: pd.DataFrame) -> pd.DataFrame:
@@ -231,9 +235,9 @@ class PubMedPreprocessor():
         'journal_iso_abbreviation'
     ]
 
-    relevant_corpus = pubmed_abstracts_df.query('journal_iso_abbreviation.isin(@relevant_journals)').copy()
+    relevant_articles = pubmed_abstracts_df.query('journal_iso_abbreviation.isin(@relevant_journals)').copy()
 
-    return relevant_corpus
+    return relevant_articles
 
   @classmethod
   def remove_short_abstracts(cls, pubmed_df, min_words=10):
