@@ -17,7 +17,7 @@ class TopicModel():
       from umap import UMAP
 
     # caches
-    self.reducer_cache = None  # Path('models/umap/abstracts_embeddings_USE-v4-5d.npz')
+    self.reducer_cache = Path('models/embeddings/abstracts_UMAP-5d.npz')
     self.clusterer_cache = joblib.Memory(location='tmp')
 
     self.reducer = UMAP(n_neighbors=15,
@@ -25,7 +25,7 @@ class TopicModel():
                         min_dist=0.0,
                         metric='cosine',
                         verbose=True,
-                        n_jobs=1,
+                        n_jobs=-1,
                         low_memory=False)
 
     self.clusterer = HDBSCAN(min_cluster_size=5,
