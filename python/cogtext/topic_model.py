@@ -18,21 +18,18 @@ class TopicModel():
 
     # caches
     self.reducer_cache = Path('models/embeddings/abstracts_UMAP-5d.npz')
-    self.clusterer_cache = joblib.Memory(location='tmp')
 
-    self.reducer = UMAP(n_neighbors=15,
+    self.reducer = UMAP(n_neighbors=30,
                         n_components=5,
                         min_dist=0.0,
-                        metric='cosine',
                         verbose=True,
-                        n_jobs=-1,
-                        low_memory=False)
+                        n_jobs=-1)
 
-    self.clusterer = HDBSCAN(min_cluster_size=5,
+    self.clusterer = HDBSCAN(min_cluster_size=100,
                              # min_samples=1,
                              metric='euclidean',
                              core_dist_n_jobs=-1,
-                             memory=self.clusterer_cache,
+                             memory=joblib.Memory(location='tmp'),
                              prediction_data=True)
 
   def fit_transform(self, X, y=None):
