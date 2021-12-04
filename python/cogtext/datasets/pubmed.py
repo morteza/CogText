@@ -19,10 +19,10 @@ class PubMedDataLoader():
   def __init__(self,
                root_dir: str = 'data/pubmed/',
                preprocessed=True,
-               drop_low_occurred_labels=True) -> pd.DataFrame:
+               drop_low_occurred_labels=False) -> pd.DataFrame:
 
     self.root_dir = Path(root_dir)
-    self.preprocessed = preprocessed
+
     if preprocessed:
       self.data = pd.read_csv(self.root_dir / 'abstracts_preprocessed.csv.gz')
     else:
