@@ -34,7 +34,7 @@ class PubMedDataLoader():
       low_lbls_idx = self.data.query('label in @low_lbls').index
       self.data.drop(index=low_lbls_idx, inplace=True)
 
-    self.data = self.data.dropna(subset=['abstract', 'pmid']).reset_index(drop=True)
+    self.data = self.data.dropna(subset=['abstract', 'pmid'])
 
   def load(self) -> pd.DataFrame:
     return self.data

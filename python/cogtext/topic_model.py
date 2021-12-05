@@ -52,9 +52,11 @@ class TopicModel():
 
     self.verbose and print('[TopicModel] Clustered embeddings. Now computing weights...')
 
-    weights = self.clusterer.probabilities_
+    # weights = self.clusterer.probabilities_
     weights = hdbscan.all_points_membership_vectors(self.clusterer)
-    weights[clusters < 0] = 0.0
+
+    # commented because of soft clustering; we don't need to zero out weights for the noise points
+    # weights[clusters < 0] = 0.0
 
     self.verbose and print('[TopicModel] Done!')
 
