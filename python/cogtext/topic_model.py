@@ -24,7 +24,7 @@ class TopicModel():
                         n_jobs=-1)
 
     self.clusterer = HDBSCAN(min_cluster_size=100,
-                             # min_samples=1,
+                             min_samples=1,
                              metric='euclidean',
                              core_dist_n_jobs=-1,
                              memory=joblib.Memory(location='tmp'),
@@ -39,12 +39,12 @@ class TopicModel():
         `clusters`).
     """
 
-    if umap_embeddings is not None:
-      # load the embedding from cached file
-      reduced = umap_embeddings
-    else:
+    if umap_embeddings is None:
       reduced = self.reducer.fit_transform(X, y)
       reduced = np.nan_to_num(reduced)
+    else:
+      # load the embedding from cached file
+      reduced = umap_embeddings
 
     self.verbose and print('[TopicModel] Reduced embedding dimensions. Now clustering...')
 
@@ -52,7 +52,7 @@ class TopicModel():
 
     self.verbose and print('[TopicModel] Clustered embeddings. Now computing weights...')
 
-    # weights = self.clusterer.probabilities_
+    weights = self.clusterer.probabilities_
     weights = hdbscan.all_points_membership_vectors(self.clusterer)
     weights[clusters < 0] = 0.0
 
