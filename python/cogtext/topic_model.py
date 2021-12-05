@@ -16,11 +16,9 @@ class TopicModel():
     else:
       from umap import UMAP
 
-    # caches
-    self.reducer_cache = Path('models/embeddings/abstracts_UMAP-5d.npz')
-
-    self.reducer = UMAP(n_neighbors=30,
+    self.reducer = UMAP(n_neighbors=15,
                         n_components=5,
+                        metric='euclidean',
                         min_dist=0.0,
                         verbose=True,
                         n_jobs=-1)
@@ -32,21 +30,32 @@ class TopicModel():
                              memory=joblib.Memory(location='tmp'),
                              prediction_data=True)
 
-  def fit_transform(self, X, y=None):
-    """Fit and transform documents with UMAP"""
+  def fit_transform(self, X, y=None, umap_embeddings=None):
+    """First reduce dimensionality of the input and apply soft-clustering.
+    
+    Returns:
+      clusters: array of cluster labels.
+      weights: array of cluster weights (soft clusters where applying argmax equals
+        `clusters`).
+    """
 
-    if isinstance(self.reducer_cache, Path) and self.reducer_cache.exists():
+    if umap_embeddings is not None:
       # load the embedding from cached file
-      reduced = np.load(self.reducer_cache)['arr_0']
+      reduced = umap_embeddings
     else:
       reduced = self.reducer.fit_transform(X, y)
       reduced = np.nan_to_num(reduced)
 
-    self.verbose and print('[TopicModel] reduced embedding dimension.')
+    self.verbose and print('[TopicModel] Reduced embedding dimensions. Now clustering...')
 
-    clusters = self.clusterer.fit_predict(X)
+    clusters = self.clusterer.fit_predict(reduced)
+
+    self.verbose and print('[TopicModel] Clustered embeddings. Now computing weights...')
+
     # weights = self.clusterer.probabilities_
     weights = hdbscan.all_points_membership_vectors(self.clusterer)
     weights[clusters < 0] = 0.0
+
+    self.verbose and print('[TopicModel] Done!')
 
     return clusters, weights

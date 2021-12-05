@@ -1,6 +1,5 @@
 import pandas as pd
 from pandas._typing import FilePathOrBuffer
-from pathlib import Path
 
 import os
 import requests
@@ -9,8 +8,6 @@ from collections import OrderedDict
 from datetime import date
 from xml.etree import ElementTree
 import re
-import pandas as pd
-from sklearn import feature_extraction
 
 NCBI_EUTILS_BASE_URL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils'
 
@@ -18,15 +15,16 @@ NCBI_EUTILS_BASE_URL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils'
 class PubMedDataLoader():
   def __init__(self,
                root_dir: str = 'data/pubmed/',
+               n_articles: int = None,
                preprocessed=True,
                drop_low_occurred_labels=False) -> pd.DataFrame:
 
     self.root_dir = Path(root_dir)
 
     if preprocessed:
-      self.data = pd.read_csv(self.root_dir / 'abstracts_preprocessed.csv.gz')
+      self.data = pd.read_csv(self.root_dir / 'abstracts_preprocessed.csv.gz', nrows=n_articles)
     else:
-      self.data = pd.read_csv(self.root_dir / 'abstracts.csv.gz')
+      self.data = pd.read_csv(self.root_dir / 'abstracts.csv.gz', nrows=n_articles)
 
     self.data.rename(columns={'subcategory': 'label'}, inplace=True)
 
@@ -58,7 +56,6 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ.g
     Does not return anything. Abstracts will be stored in the `output_file`.
   """
   import xmltodict  # noqa
-
 
   # step 1: create query and search
 
@@ -243,6 +240,7 @@ class PubMedPreprocessor():
   def remove_short_abstracts(cls, pubmed_df, min_words=10):
     df = pubmed_df.dropna(subset=['abstract'])
 
+    # from sklearn import feature_extraction
     # vectorizer = feature_extraction.text.CountVectorizer()
     # counts = vectorizer.fit_transform(df['abstract']).toarray()
     # short_abstract_indices = (counts.sum(axis=1) < min_words).nonzero()[0]
