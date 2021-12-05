@@ -10,9 +10,9 @@ def get_similarity_matrix(H, metric='cosine', pivot_by_category=True):
                        columns=H.index.get_level_values('label'))
 
   if pivot_by_category:
-    tasks = H.query('index.get_level_values("category").str.contains("task")'
+    tasks = H.query('index.get_level_values("category").str.contains("Task")'
                     ).index.get_level_values('label').unique()
-    constructs = H.query('index.get_level_values("category").str.contains("construct")'
+    constructs = H.query('index.get_level_values("category").str.contains("Construct")'
                          ).index.get_level_values('label').unique()
     categorized_df = H_sim.drop(index=tasks, columns=constructs)
     return categorized_df
