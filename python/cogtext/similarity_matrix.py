@@ -1,13 +1,43 @@
+import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
+import tensorflow as tf
+import tensorflow_probability as tfp
+tfd = tfp.distributions
+
+
+def multivariate_normal_kl(p, q):
+  P = tfd.MultivariateNormalDiag(p.mean(axis=0), scale_diag=p.std(axis=0))
+  Q = tfd.MultivariateNormalDiag(q.mean(axis=0), scale_diag=q.std(axis=0))
+
+  # alternatively use independent normals for each dimension
+  # P = tfd.Normal(p.mean(axis=0), p.std(axis=0))
+  # Q = tfd.Normal(q.mean(axis=0), q.std(axis=0))
+
+  return tfd.kl_divergence(P, Q)
+
+
+def categorical_kl(p, q):
+  P = tfd.Categorical(probs=p)
+  Q = tfd.Categorical(probs=q)
+  return tfd.kl_divergence(P, Q)
 
 
 def get_similarity_matrix(H, metric='cosine', pivot_by_category=True):
-  assert metric in ['cosine'], 'Invalid similarity metric'
+  assert metric in ['cosine', 'kl'], 'Invalid similarity metric'
 
-  H_sim = pd.DataFrame(cosine_similarity(H),
-                       index=H.index.get_level_values('label'),
-                       columns=H.index.get_level_values('label'))
+  if metric.lower() == 'kl':
+    H_sim = H.T.corr(method=categorical_kl)
+    # reset KL of equal distributions to zero
+    np.fill_diagonal(H_sim.values, 0.)
+    H_sim.index = H_sim.index.droplevel(level=1)
+    H_sim.columns = H_sim.columns.droplevel(level=1)
+
+  elif metric.lower() == 'cosine':
+    H_sim = pd.DataFrame(
+        cosine_similarity(H),
+        index=H.index.get_level_values('label'),
+        columns=H.index.get_level_values('label'))
 
   if pivot_by_category:
     tasks = H.query('index.get_level_values("category").str.contains("Task")'
