@@ -1,20 +1,30 @@
 import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
-import tensorflow as tf
+import tensorflow as tf  # noqa
 import tensorflow_probability as tfp
 tfd = tfp.distributions
 
 
+def multivariate_normal_js(p, q):
+  P = tfd.MultivariateNormalDiag(p.mean(axis=0), scale=np.cov(p))
+  Q = tfd.MultivariateNormalDiag(q.mean(axis=0), scale=np.cov(q))
+  M = 0.5 * (P + Q)
+  return (0.5 * P.kl_divergence(M).numpy() + 0.5 * Q.multivariate_normal_kl(M)).numpy()
+
+
 def multivariate_normal_kl(p, q):
-  P = tfd.MultivariateNormalDiag(p.mean(axis=0), scale_diag=p.std(axis=0))
-  Q = tfd.MultivariateNormalDiag(q.mean(axis=0), scale_diag=q.std(axis=0))
+  P = tfd.MultivariateNormalDiag(p.mean(axis=0), scale=np.cov(p))
+  Q = tfd.MultivariateNormalDiag(q.mean(axis=0), scale=np.cov(q))
 
   # alternatively use independent normals for each dimension
   # P = tfd.Normal(p.mean(axis=0), p.std(axis=0))
   # Q = tfd.Normal(q.mean(axis=0), q.std(axis=0))
+  # return tfd.kl_divergence(P, Q)
 
-  return tfd.kl_divergence(P, Q)
+  return P.kl_divergence(Q).numpy()
+  # return tfp.vi.jensen_shannon(P, Q).numpy()
+
 
 
 def categorical_kl(p, q):
