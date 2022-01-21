@@ -46,11 +46,11 @@ class TopicModel():
       # load the embedding from cached file
       reduced = umap_embeddings
 
-    self.verbose and print('[TopicModel] Reduced embedding dimensions. Now clustering...')
+    self.verbose and print('[TopicModel] Reduced embedding dimension. Now clustering...')
 
     clusters = self.clusterer.fit_predict(reduced)
 
-    self.verbose and print('[TopicModel] Clustered embeddings. Now computing weights...')
+    self.verbose and print('[TopicModel] Clustered embedding. Now computing weights...')
 
     # weights = self.clusterer.probabilities_
     weights = hdbscan.all_points_membership_vectors(self.clusterer)
