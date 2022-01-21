@@ -14,4 +14,3 @@ tmp/
 
 .ipynb_checkpoints/
 runs/
-models/gpt3/
