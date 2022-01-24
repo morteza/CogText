@@ -39,7 +39,7 @@ def get_similarity_matrix(H, metric='cosine', pivot_by_category=True):
   if metric.lower() == 'kl':
     H_sim = H.T.corr(method=categorical_kl)
     # reset KL of equal distributions to zero
-    np.fill_diagonal(H_sim.values, 0.)
+    # np.fill_diagonal(H_sim.values, 0.)
     H_sim.index = H_sim.index.droplevel(level=1)
     H_sim.columns = H_sim.columns.droplevel(level=1)
 
