@@ -15,3 +15,4 @@ tmp/
 
 .ipynb_checkpoints/
 runs/
+models/gpt3/abstracts_gpt3ada.nc
