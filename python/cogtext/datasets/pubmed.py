@@ -1,5 +1,4 @@
 import pandas as pd
-from pandas._typing import FilePathOrBuffer
 
 import os
 import requests
@@ -163,7 +162,7 @@ def parse_publication_year(x):
 
 
 def load_pubmed_abstacts_dataset(
-    reader: FilePathOrBuffer = 'data/pubmed/abstracts.csv.gz',
+    reader: os.PathLike = 'data/pubmed/abstracts.csv.gz',
     group_by: str = None,
     frac: int = None,
     min_count: int = None,
