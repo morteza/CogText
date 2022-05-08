@@ -1,3 +1,4 @@
+from matplotlib import use
 import pandas as pd
 
 import os
@@ -16,14 +17,17 @@ class PubMedDataLoader():
                root_dir: str = 'data/pubmed/',
                n_articles: int = None,
                preprocessed=True,
+               usecols=None,
                drop_low_occurred_labels=False) -> pd.DataFrame:
 
     self.root_dir = Path(root_dir)
 
     if preprocessed:
-      self.data = pd.read_csv(self.root_dir / 'abstracts_preprocessed.csv.gz', nrows=n_articles)
+      self.data = pd.read_csv(self.root_dir / 'abstracts_preprocessed.csv.gz', nrows=n_articles, 
+                              usecols=usecols)
     else:
-      self.data = pd.read_csv(self.root_dir / 'abstracts.csv.gz', nrows=n_articles)
+      self.data = pd.read_csv(self.root_dir / 'abstracts.csv.gz', nrows=n_articles,
+                              usecols=usecols)
 
     self.data.rename(columns={'subcategory': 'label'}, inplace=True)
 
@@ -33,7 +37,10 @@ class PubMedDataLoader():
       low_lbls_idx = self.data.query('label in @low_lbls').index
       self.data.drop(index=low_lbls_idx, inplace=True)
 
-    self.data = self.data.dropna(subset=['abstract', 'pmid'])
+    self.data = self.data.dropna(subset=['pmid'])
+
+    if 'abstract' in self.data.columns:
+      self.data = self.data.dropna(subset=['abstract'])
 
   def load(self) -> pd.DataFrame:
     return self.data
