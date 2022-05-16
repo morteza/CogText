@@ -1,50 +1,62 @@
-# Executive Functions Text Analysis
+# Linking Theories and Methods of Cognitive Control
 
-[TOC]
+We performed automated text analyses on a large body of scientific texts (385705 scientific abstracts) and created a joint representation of cognitive control tasks and constructs.
 
-## Usage
+Abstracts were first mapped into an embedding space using GPT-3 and Top2Vec models. Document embeddings were then used to identify a task-construct graph embedding that grounds constructs on tasks and supports nuanced meaning of the constructs by taking advantage of constrained random walks in the graph.
 
-The main entry points of interest are the notebooks in the `notebooks/` directory.
 
-```bash
-cd <project_root>/
-ipython notebooks/<name>.ipynb
-```
+## Setup
 
-In addition to the notebooks, there are scripts for slow tasks that can be run on HPC or locally using Docker.
-
+We recommend conda/mamba to set up a clean environment for this project. All the required packages are listed in the `environment.yml` file. You can create and activate the `cogtext` environment by running:
 
 ```bash
-docker ...
+mamba create --file environment.yml
+mamba activate cogtext
 ```
 
+## Data
 
-## Method
-
-
-![method pipeline](docs/pipeline.drawio.png)
+The required dataset for the analysis can be downloaded from the [CogText dataset on HuggingFace](https://huggingface.co/datasets/morteza/cogtext). The dataset contains a collection of PubMed abstracts, along with their GPT-3 embeddings and topic embeddings.
 
 
 ## Notebooks
 
-> **Note**: Notebooks are stored in the [notebooks/](notebooks/) folder.
+The main entry point of the project is the `notebooks/` folder.
 
-- **<kbd>NB1</kbd> [Data Collection](notebooks/1%20Data%20Collection.ipynb)**: searches PubMed, aggregates abstracts as a single dataset, and stores the results in a single CSV file.
+Note that Jupyter notebooks contain relative paths and are supposed to be run from the root of the project.
 
-- **<kbd>NB2</kbd> [Preprocessing](notebooks/2%20Preprocessing.ipynb)**: performs tokenizing, stripping, stop words removal, word stemming, lemmatizing, and n-gram phrase detection (e.g., working_memory will be a single token instead of two words).
 
-- **<kbd>NB3</kbd> [Preprocessing](notebooks/2%20Preprocessing.ipynb)**: TODO
+- **<kbd>1</kbd> [Data Collection](notebooks/1%20Data%20Collection.ipynb)**: searches PubMed, aggregates abstracts as a single dataset, and stores the results in a single CSV file. If you already downladed the CogText dataset, you can skip this step.
 
-- **<kbd>NB4</kbd> [Preprocessing](notebooks/2%20Preprocessing.ipynb)**: TODO
+- **<kbd>2</kbd> [Descriptive Statistics](notebooks/2%20Descriptive%20Statistics.ipynb)** computes some basic statistics such as number of tasks per article, co-occurrences, articles per each task or construct, etc. The notebook does not need the texts and relies only on the PMIDs of the articles.
 
-- **<kbd>NB5</kbd> [Preprocessing](notebooks/2%20Preprocessing.ipynb)**: TODO
+- **<kbd>3</kbd> [Document Embedding](notebooks/3%20Document%20Embedding.ipynb)** uses GPT-3 Embedding API (Ada) to embed the raw abstracts.
 
-## Data
+- **<kbd>4</kbd> [Topic Embedding](notebooks/4%20Topic%20Embedding.ipynb)** projects document embeddings into a more interpretable topic space. The topic embedding uses UMAP and HDBSCAN to calculate the topic weights (as in Top2Vec).
 
-- **<kbd>EFO</kbd> [data/ontologies/efo.owl](data/ontologies/efo.owl)**: executive functions ontology, i.e. EFO.
-  
-  The EFO ontology uses the following IRI to prefix its entities: `http://xcit.org/ontologies/2021/executive-functions-ontology`.
+- **<kbd>5</kbd> [Hypernomy](notebooks/5%20Hypernomy.ipynb)** visualizes construct hypernomy, inconsistent definitions of constructs across cognitive  fields.
 
-- **<kbd>D5</kbd> [...]()**: TBD
+- **<kbd>6</kbd> [Hypergraph Visualization](notebooks/6%20Hypergraph%20Visualization.ipynb)** plots the task-construct hypergraph.
 
-- **<kbd>D6</kbd> [...]()**: TBD
+- **<kbd>7</kbd> [Link Prediction](notebooks/7%20Link%20Prediction.ipynb)** predicts the graph edges of the task-constructs and learns Metapath2vec embedding of the graph nodes.
+
+
+# Acknowledgements
+
+This research was supported by the Luxembourg National Research Fund (ATTRACT/2016/ID/11242114/DIGILEARN
+and INTER Mobility/2017-2/ID/11765868/ULALA).
+
+# Citation
+
+To cite the paper use the following entry:
+
+```
+@misc{cogtext2022,
+  author = {Morteza Ansarinia and
+            Paul Schrater and
+            Pedro Cardoso-Leite},
+  title = {Linking Theories and Methods in Cognitive Sciences via Joint Embedding of the Scientific Literature: The Example of Cognitive Control},
+  year = {2022},
+  url = {https://arxiv.org/abs/2203.11016}
+}
+```
