@@ -1,5 +1,7 @@
 # Linking Theories and Methods of Cognitive Control
 
+> This is the official repository for the paper [Linking Theories and Methods in Cognitive Sciences via Joint Embedding of the Scientific Literature: The Example of Cognitive Control](https://arxiv.org/abs/2203.11016).
+
 We performed automated text analyses on a large body of scientific texts (385705 scientific abstracts) and created a joint representation of cognitive control tasks and constructs.
 
 Abstracts were first mapped into an embedding space using GPT-3 and Top2Vec models. Document embeddings were then used to identify a task-construct graph embedding that grounds constructs on tasks and supports nuanced meaning of the constructs by taking advantage of constrained random walks in the graph.
