@@ -9,6 +9,7 @@ dependencies:
   - pip
   - ipykernel
   - flake8
+  - watermark
   - pip:
     - matplotlib
     - seaborn
@@ -16,7 +17,11 @@ dependencies:
     - rdflib
     - owlready2
     - xmltodict
+    - xarray
+    - netCDF4
+    - bottleneck
     # - dask[dataframe]
+    - openai
     - gensim
     # - nltk
     - tqdm
