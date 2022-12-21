@@ -41,6 +41,9 @@ dependencies:
     - pydot  # keras uses pydot to plot models
     # - bertopic  # BERT topic modeling
     - hdbscan
+    - umap-learn
+    - tensorflow
+    - tensorflow-probability
     # - umap-learn[parametric_umap]  # parametric UMAP
     # - top2vec   # deep topic modeling
     # - pigeon-jupyter  # annotation

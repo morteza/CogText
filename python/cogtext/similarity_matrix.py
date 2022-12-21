@@ -1,9 +1,13 @@
 import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
-import tensorflow as tf  # noqa
-import tensorflow_probability as tfp
-tfd = tfp.distributions
+
+try:
+  import tensorflow as tf  # noqa
+  import tensorflow_probability as tfp
+  tfd = tfp.distributions
+except ImportError:
+  print('WARNING: `tensorflow_probability` not installed. Cannot compute multivariate_normal_* metrics')
 
 
 def multivariate_normal_js(p, q):
