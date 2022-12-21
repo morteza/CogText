@@ -10,6 +10,7 @@ dependencies:
   - ipykernel
   - flake8
   - watermark
+  - cairo
   - pip:
     - matplotlib
     - seaborn
