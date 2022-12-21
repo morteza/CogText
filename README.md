@@ -12,14 +12,15 @@ Abstracts were first mapped into an embedding space using GPT-3 and Top2Vec mode
 We recommend conda/mamba to set up a clean environment for this project. All the required packages are listed in the `environment.yml` file. You can create and activate the `cogtext` environment by running:
 
 ```bash
-mamba create --file environment.yml
-mamba activate cogtext
+conda create --file environment.yml  # or use mamba/micromamba
+conda activate cogtext
 ```
 
 ## Data
 
 The required dataset for the analysis can be downloaded from the [CogText dataset on HuggingFace](https://huggingface.co/datasets/morteza/cogtext). The dataset contains a collection of PubMed abstracts, along with their GPT-3 embeddings and topic embeddings.
 
+One convenient place to keep the dataset is the `../cogtext_data/` folder.
 
 ## Notebooks
 

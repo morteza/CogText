@@ -1,5 +1,7 @@
+# This docker file builds and runs the docker image for the topic embedding job
+
 # For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.9-slim-buster
+FROM python:3.10-slim-buster
 
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -16,6 +18,7 @@ RUN apt-get install -y --no-install-recommends \
     gcc python-dev
 
 # Install pip requirements
+# FIXME use mamba/micromamba to manage dependencies
 RUN pip install pip -U
 COPY requirements_hpc.txt .
 RUN pip install --no-cache-dir -r requirements_hpc.txt

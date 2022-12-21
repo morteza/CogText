@@ -1,0 +1,44 @@
+name: cogtext
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pip
+  - ipykernel
+  - flake8
+  - pip:
+    - matplotlib
+    - seaborn
+    - pandas
+    - rdflib
+    - owlready2
+    - xmltodict
+    # - dask[dataframe]
+    - gensim
+    # - nltk
+    - tqdm
+    # - spacy
+    # - pyldavis  # visualize topic models
+    # - spacy-streamlit
+    - scikit-learn  # for LDA and other topic modeling techniques
+    # - wordcloud
+    - python-Levenshtein  # used by gensim
+    - seaborn
+    - networkx
+    - python-igraph
+    - cairocffi  # igraph requires cairo binding; you also need to `brew install cairo` on macOS. or use conda to install cairo.
+    # - pycairo  # igraph requires cairo binding; you also need to `brew install cairo` on macOS. or use conda to install cairo.
+    # - bokeh
+    # - pyvis
+    - pydot  # keras uses pydot to plot models
+    # - bertopic  # BERT topic modeling
+    - hdbscan
+    # - umap-learn[parametric_umap]  # parametric UMAP
+    # - top2vec   # deep topic modeling
+    # - pigeon-jupyter  # annotation
+    # - pigeonXT-jupyter  # improved annotation
+    # - sympy  # symbolic math and matrix ranks
+    # - tensorflow_hub  # to access pretrained models of tf-hub
