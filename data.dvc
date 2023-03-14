@@ -1,0 +1,12 @@
+md5: 760f3de9c165f557587c846f0f4bcf44
+frozen: true
+deps:
+- path: .
+  repo:
+    url: https://huggingface.co/datasets/morteza/cogtext.git
+    rev_lock: 81ef5f20a6ce68d657df7c17b4417d80b947f9aa
+outs:
+- md5: 72b1a9fd51324b3096654b1e1e6a09df.dir
+  size: 1364118
+  nfiles: 11
+  path: data
