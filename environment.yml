@@ -5,47 +5,44 @@ channels:
   - defaults
 
 dependencies:
-  - python=3.10
+  - python
   - pip
   - dvc
   - ipykernel
   - flake8
+  - python-dotenv
   - watermark
   - cairo
-  - pip:
-    - matplotlib
-    - seaborn
-    - pandas
-    - rdflib
-    - owlready2
-    - xmltodict
-    - xarray
-    - netCDF4
-    - bottleneck
+  - tqdm
+  - scikit-learn
+  - xarray
+  - netcdf4
+  - xmltodict
+  - pandas
+  - seaborn
+  - requests
+  - hdbscan
+  - umap-learn
+  - wordcloud
+  - python-igraph
+  - owlready2
+  - rdflib
+  - bottleneck
+  - pydot  # keras uses pydot to plot models
+  - cairocffi  # igraph requires cairo binding
+  # - pip:
     # - dask[dataframe]
-    - openai
-    - gensim
+    # - openai
+    # - gensim
     # - nltk
-    - tqdm
     # - spacy
     # - pyldavis  # visualize topic models
     # - spacy-streamlit
-    - scikit-learn  # for LDA and other topic modeling techniques
-    - wordcloud
-    - python-Levenshtein  # used by gensim
-    - seaborn
-    - networkx
-    - python-igraph
-    - cairocffi  # igraph requires cairo binding; you also need to `brew install cairo` on macOS. or use conda to install cairo.
-    # - pycairo  # igraph requires cairo binding; you also need to `brew install cairo` on macOS. or use conda to install cairo.
+    # - python-Levenshtein  # used by gensim
     # - bokeh
     # - pyvis
-    - pydot  # keras uses pydot to plot models
-    # - bertopic  # BERT topic modeling
-    - hdbscan
-    - umap-learn
-    - tensorflow
-    - tensorflow-probability
+    # - tensorflow
+    # - tensorflow-probability
     # - umap-learn[parametric_umap]  # parametric UMAP
     # - top2vec   # deep topic modeling
     # - pigeon-jupyter  # annotation
