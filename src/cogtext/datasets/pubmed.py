@@ -8,6 +8,9 @@ from datetime import date
 from xml.etree import ElementTree
 import re
 import xmltodict
+from joblib import Parallel, delayed
+import subprocess
+import shlex
 
 
 class PubMedDataLoader():
@@ -50,7 +53,8 @@ class PubMedDataLoader():
     return self.load()
 
 
-def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ.get('NCBI_API_KEY', '')):
+def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ.get('NCBI_API_KEY', ''),
+                     use_edirect=False):
   """Search for a term and store abstracts in a file
 
   Args:
@@ -62,7 +66,9 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ.g
   Returns:
     Does not return anything. Abstracts will be stored in the `output_file`.
   """
-  import xmltodict  # noqa
+
+  if use_edirect:
+    return edirect_search_and_store(query, output_file, db, api_key)
 
   # step 1: create query and search
 
@@ -96,21 +102,19 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ.g
       'WebEnv': search_response['eSearchResult']['WebEnv'],
       'query_key': search_response['eSearchResult']['QueryKey'],
       'rettype': 'abstract',
-      'retmode': 'xml'
+      'retmode': 'xml',
+      'retstart': 0,
+      'retmax': 9000
   }
-
-  retstart = 0
-  retmax = 10000
 
   # step 3: store abstracts
   output_xml = None
 
-  while retstart < results_count:
-    params['retstart'] = retstart
+  while params['retstart'] < results_count:
     response = requests.post(url, params)
-    retstart += retmax
+    params['retstart'] += params['retmax']
 
-    # get rid of invalid line terminator
+    # get rid of invalid separators (\u2029 represents paragraph separator)
     response_text = response.text.replace('\u2029', ' ')
 
     # combine XMLs
@@ -119,14 +123,18 @@ def search_and_store(query, output_file: Path, db='pubmed', api_key=os.environ.g
     if output_xml is None:
       output_xml = response_xml
     else:
-      print('[PubMed] merging multiple responses...')
-      output_xml.extend(response_xml.findall('PubmedArticle'))
+      new_articles = response_xml.findall('PubmedArticle')
+      if len(new_articles) == 0:
+        raise ValueError('[PubMed]', response_text)
+      print(f'[PubMed] Merging {len(new_articles)} new articles...')
+      output_xml.extend(new_articles)
 
   output_file.parent.mkdir(parents=True, exist_ok=True)
-  with open(output_file, 'w') as f:
-    ElementTree.ElementTree(output_xml).write(f, encoding='unicode')
 
-  print(f'[PubMed] stored hits in {output_file}.')
+  with open(output_file, 'w') as f:
+    print('[PubMed] caching search results... ', end='')
+    ElementTree.ElementTree(output_xml).write(f, encoding='unicode')
+    print(f'Saved to {output_file}.')
 
 
 def cleanup_abstract(abstract_text):
@@ -258,78 +266,87 @@ class PubMedPreprocessor():
     return df
 
 
-def search_and_cache_xml(pubmed_queries, overwrite_existing=False, root_dir='data/pubmed/'):
-    for subcategory, pubmed_query in pubmed_queries.items():
-        subcategory = subcategory.replace('/', '')
-        fname = Path('data/pubmed/.cache') / (subcategory + '.xml')
+def convert_xml_to_csv(subcategory, csv_dir, overwrite_existing=False, debug=False):
+    """cleanup and convert abstracts from XML to CSV format."""
 
-        if overwrite_existing or not fname.exists():
-            search_and_store(pubmed_query, fname)
+    subcategory_fname = subcategory.replace('/', '')
 
+    if (subcategory != subcategory_fname):
+      print(subcategory, subcategory_fname)
 
-def convert_xml_to_csv(pubmed_queries, category, overwrite_existing=False, debug=False):
-    """cleanup and convert all abstracts into CSV files"""
+    xml_file = Path('data/pubmed/.cache') / (subcategory_fname + '.xml')
+    csv_file = Path(csv_dir) / (subcategory_fname + '.csv')
 
-    for subcategory in sorted(pubmed_queries.keys()):
+    if subcategory == 'Attention':
+      return
 
-        subcategory_fname = subcategory.replace('/', '')
+    if xml_file.exists() and (overwrite_existing or not csv_file.exists()):
+        with open(xml_file, 'r') as f:
 
-        xml_file = Path('data/pubmed/.cache') / (subcategory_fname + '.xml')
-        csv_file = Path(f'data/pubmed/{category}') / (subcategory_fname + '.csv')
+            if debug:
+                print(f'[XML2CSV] converting "{subcategory}" dataset...')
 
-        if xml_file.exists() and (overwrite_existing or not csv_file.exists()):
-            with open(xml_file, 'r') as f:
+            try:
+              content = f.read().replace('\u2029', ' ')
+              # import html
+              # content = html.unescape(content)
+              xml_content = xmltodict.parse(content)
+            except Exception as e:
+              print(f'[XML2CSV] skipping {xml_file}')
+              # raise e
+              return
+
+            if 'PubmedArticleSet' in xml_content:
+                if debug:
+                  print('[XML2CSV] parsing articles...')
+                df = pd.json_normalize(xml_content['PubmedArticleSet']['PubmedArticle'])
 
                 if debug:
-                    print(f'[XML2CSV] converting "{category}/{subcategory}" dataset...')
+                  print('[XML2CSV] cleaning up articles...')
+                # pmid, doi, title, and abstract
+                df['pmid'] = df['MedlineCitation.PMID.#text']
+                df['doi'] = df['PubmedData.ArticleIdList.ArticleId'].apply(extract_doi)
+                df['title'] = df['MedlineCitation.Article.ArticleTitle']
+                df['abstract'] = df['MedlineCitation.Article.Abstract.AbstractText'].apply(cleanup_abstract)
+                
+                # publication years
+                df['year'] = df['MedlineCitation.Article.Journal.JournalIssue.PubDate.Year']
+                df['journal_title'] = df['MedlineCitation.Article.Journal.Title']
+                df['journal_iso_abbreviation'] = df['MedlineCitation.Article.Journal.ISOAbbreviation']
 
-                xml_content = xmltodict.parse(f.read())
+                # MeSh topics (some datasets do not contain MeshHeading, e.g., Spin The Pots)
+                # if 'MedlineCitation.MeshHeadingList.MeshHeading' in df.columns:
+                #     df['mesh'] = df['MedlineCitation.MeshHeadingList.MeshHeading'].apply(find_mesh)
+                # else:
+                #     df['mesh'] = None
 
-                if 'PubmedArticleSet' in xml_content:
+                if 'MedlineCitation.Article.Journal.JournalIssue.PubDate.MedlineDate' in df.columns:
+                    medline_year = df[
+                        'MedlineCitation.Article.Journal.JournalIssue.PubDate.MedlineDate'
+                    ].apply(parse_publication_year)
+                    df['year'].fillna(medline_year, inplace=True)
 
-                    df = pd.json_normalize(xml_content['PubmedArticleSet']['PubmedArticle'])
+                df['year'] = df['year'].apply(int)
 
-                    # pmid, doi, title, and abstract
-                    df['pmid'] = df['MedlineCitation.PMID.#text']
-                    df['doi'] = df['PubmedData.ArticleIdList.ArticleId'].apply(extract_doi)
-                    df['title'] = df['MedlineCitation.Article.ArticleTitle']
-                    df['abstract'] = df['MedlineCitation.Article.Abstract.AbstractText'].apply(cleanup_abstract)
-                    
-                    # publication years
-                    df['year'] = df['MedlineCitation.Article.Journal.JournalIssue.PubDate.Year']
-                    df['journal_title'] = df['MedlineCitation.Article.Journal.Title']
-                    df['journal_iso_abbreviation'] = df['MedlineCitation.Article.Journal.ISOAbbreviation']
+                # fill missing abstracts with #text value
+                if 'MedlineCitation.Article.Abstract.AbstractText.#text' in df.columns:
+                    df['abstract'].fillna(df['MedlineCitation.Article.Abstract.AbstractText.#text'], inplace=True)
 
-                    # MeSh topics (some datasets do not contain MeshHeading, e.g., Spin The Pots)
-                    # if 'MedlineCitation.MeshHeadingList.MeshHeading' in df.columns:
-                    #     df['mesh'] = df['MedlineCitation.MeshHeadingList.MeshHeading'].apply(find_mesh)
-                    # else:
-                    #     df['mesh'] = None
+                if 'MedlineCitation.Article.ArticleTitle.#text' in df.columns:
+                    df['title'].fillna(df['MedlineCitation.Article.ArticleTitle.#text'], inplace=True)
 
-                    if 'MedlineCitation.Article.Journal.JournalIssue.PubDate.MedlineDate' in df.columns:
-                        medline_year = df[
-                            'MedlineCitation.Article.Journal.JournalIssue.PubDate.MedlineDate'
-                        ].apply(parse_publication_year)
-                        df['year'].fillna(medline_year, inplace=True)
+                # workaround to discard unusual terminators in the text
+                df['abstract'] = df['abstract'].apply(
+                    lambda x: x.replace('\u2029', ' ') if isinstance(x, str) else x)
+                df['title'] = df['title'].apply(lambda x: x.replace('\u2029', ' ') if isinstance(x, str) else x)
 
-                    df['year'] = df['year'].apply(int)
+                if debug:
+                  print('[XML2CSV] saving articles...')
 
-                    # fill missing abstracts with #text value
-                    if 'MedlineCitation.Article.Abstract.AbstractText.#text' in df.columns:
-                        df['abstract'].fillna(df['MedlineCitation.Article.Abstract.AbstractText.#text'], inplace=True)
-
-                    if 'MedlineCitation.Article.ArticleTitle.#text' in df.columns:
-                        df['title'].fillna(df['MedlineCitation.Article.ArticleTitle.#text'], inplace=True)
-
-                    # workaround to discard unusual terminators in the text
-                    df['abstract'] = df['abstract'].apply(
-                        lambda x: x.replace('\u2029', ' ') if isinstance(x, str) else x)
-                    df['title'] = df['title'].apply(lambda x: x.replace('\u2029', ' ') if isinstance(x, str) else x)
-
-                    df[['pmid',
-                        'doi',
-                        'year',
-                        'journal_title',
-                        'journal_iso_abbreviation',
-                        'title',
-                        'abstract']].to_csv(csv_file, index=False)
+                df[['pmid',
+                    'doi',
+                    'year',
+                    'journal_title',
+                    'journal_iso_abbreviation',
+                    'title',
+                    'abstract']].to_csv(csv_file, index=False)
