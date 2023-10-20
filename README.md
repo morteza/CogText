@@ -25,19 +25,19 @@ The main entry point of the project is the `notebooks/` folder.
 Note that Jupyter notebooks contain relative paths and are supposed to be run from the root of the project.
 
 
-- **<kbd>1</kbd> [Data Collection](notebooks/1%20Data%20Collection.ipynb)**: searches PubMed, aggregates abstracts as a single dataset, and stores the results in a single CSV file. If you already downladed the CogText dataset, you can skip this step.
+- **[1 Data Collection (2023)](notebooks/1%20Data%20Collection%20(2023).ipynb)** uses the [EFO ontology](https://huggingface.co/datasets/morteza/cogtext/blob/main/ontologies/efo.owl) to search PubMed, aggregates abstracts as a single dataset, and stores the results in a compressed CSV file. If you already downloaded the [CogText dataset](https://huggingface.co/datasets/morteza/cogtext/blob/main/pubmed/abstracts_2023.csv.gz), you can skip this step. Simply copy your downloaded file to `data/pubmed/abstracts_2023.csv.gz`.
 
-- **<kbd>2</kbd> [Descriptive Statistics](notebooks/2%20Descriptive%20Statistics.ipynb)** computes some basic statistics such as number of tasks per article, co-occurrences, articles per each task or construct, etc. The notebook does not need the texts and relies only on the PMIDs of the articles.
+- **[2 Descriptive Statistics](notebooks/2%20Descriptive%20Statistics.ipynb)** computes some basic statistics such as the number of tasks and constructs, co-occurrences, articles per each task or construct, etc. This notebook requires the `data/pubmed/abstracts_2023.csv.gz` file.
 
-- **<kbd>3</kbd> [Document Embedding](notebooks/3%20Document%20Embedding.ipynb)** uses GPT-3 Embedding API (Ada) to embed the raw abstracts.
+- **[3 Document Embedding](notebooks/3%20Document%20Embedding.ipynb)** uses GPT-3 Embedding API (Ada) to transform the raw abstracts to vectorized embeddings.
 
-- **<kbd>4</kbd> [Topic Embedding](notebooks/4%20Topic%20Embedding.ipynb)** projects document embeddings into a more interpretable topic space. The topic embedding uses UMAP and HDBSCAN to calculate the topic weights (as in Top2Vec).
+- **[4 Topic Embedding](notebooks/4%20Topic%20Embedding.ipynb)** projects embeddings into a more interpretable topic space. The topic embedding uses UMAP and HDBSCAN to calculate the topic weights (as in Top2Vec).
 
-- **<kbd>5</kbd> [Hypernomy](notebooks/5%20Hypernomy.ipynb)** visualizes construct hypernomy, inconsistent definitions of constructs across cognitive  fields.
+- **[5 Hypernomy](notebooks/5%20Hypernomy.ipynb)** visualizes *construct hypernomy*: inconsistent definitions of cognitive constructs across cognitive fields.
 
-- **<kbd>6</kbd> [Hypergraph Visualization](notebooks/6%20Hypergraph%20Visualization.ipynb)** plots the task-construct hypergraph.
+- **[6 Hypergraph Visualization](notebooks/6%20Hypergraph%20Visualization.ipynb)** plots the task-construct hypergraph.
 
-- **<kbd>7</kbd> [Link Prediction](notebooks/7%20Link%20Prediction.ipynb)** predicts the graph edges of the task-constructs and learns Metapath2vec embedding of the graph nodes.
+- **[7 Link Prediction](notebooks/7%20Link%20Prediction.ipynb)** predicts the edges of the task-constructs hypergraph and learns Metapath2vec embedding of the graph nodes.
 
 
 # Acknowledgements
