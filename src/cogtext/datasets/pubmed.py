@@ -19,6 +19,7 @@ class PubMedDataLoader():
 
   def __init__(self,
                root_dir: str = 'data/pubmed/',
+               year=2023,
                n_articles: int = None,
                preprocessed=True,
                usecols=None,
@@ -30,7 +31,7 @@ class PubMedDataLoader():
       self.data = pd.read_csv(self.root_dir / 'abstracts_preprocessed.csv.gz', nrows=n_articles,
                               usecols=usecols)
     else:
-      self.data = pd.read_csv(self.root_dir / 'abstracts.csv.gz', nrows=n_articles,
+      self.data = pd.read_csv(self.root_dir / f'abstracts_{year}.csv.gz', nrows=n_articles,
                               usecols=usecols)
 
     self.data.rename(columns={'subcategory': 'label'}, inplace=True)
@@ -233,14 +234,12 @@ class PubMedPreprocessor():
 
     journals = pubmed_abstracts_df[
         ['journal_title', 'journal_iso_abbreviation']
-    ].value_counts().reset_index().rename(columns={0: 'n_articles'})
+    ].value_counts().reset_index()
 
     # identify popular and relevant journals
-    pop_journals_idx = journals[lambda x: x['n_articles'] > 1000]['n_articles'].index
+    pop_journals_idx = journals[lambda x: x['count'] > 1000]['count'].index
     relevant_journals_idx = journals.query(
-        'journal_title.str.contains("cognit|psyc|neur|brain|cortex|cog|intell|educ|behav|cereb", case=False)')[
-            'n_articles'
-    ].index
+        'journal_title.str.contains("cognit|psyc|neur|brain|cortex|cog|intell|educ|behav|cereb", case=False)')['count'].index
 
     relevant_journals = journals.loc[  # noqa
         relevant_journals_idx.union(pop_journals_idx),
