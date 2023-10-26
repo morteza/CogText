@@ -19,6 +19,8 @@ dependencies:
   - netcdf4
   - xmltodict
   - pandas
+  - polars
+  - pyarrows
   - seaborn
   - requests
   - hdbscan
