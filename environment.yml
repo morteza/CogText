@@ -5,33 +5,49 @@ channels:
   - defaults
 
 dependencies:
+
+  # dev tools
   - python
   - pip
   - dvc
   - ipykernel
+  - ipywidgets
   - flake8
   - python-dotenv
   - watermark
-  - cairo
   - tqdm
-  - scikit-learn
-  - xarray
-  - netcdf4
+
+  # data
   - xmltodict
   - pandas
   - polars
-  - pyarrows
+  - pyarrow
+
+  # visualization
+  - matplotlib
   - seaborn
-  - requests
+  - wordcloud
+
+  # deep learning and NLP
+  - pytorch
+  - sentence-transformers
+  - safetensors
+
+  # ML
+  - scikit-learn
   - hdbscan
   - umap-learn
-  - wordcloud
-  - python-igraph
+
+  # ontologies
   - owlready2
   - rdflib
-  - bottleneck
-  - pydot  # keras uses pydot to plot models
-  - cairocffi  # igraph requires cairo binding
+
+  # the rest
+  # - python-igraph
+  # - pydot  # keras uses pydot to plot models
+  # - cairocffi  # igraph requires cairo binding
+  # - cairo
+
   # - pip:
     # - dask[dataframe]
     # - openai
